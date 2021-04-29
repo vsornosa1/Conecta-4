@@ -139,8 +139,12 @@ public class Menu_principalController {
 
                 solo.initData(cn4, player1);
                 solo.initMusic(mediaPlayer,music_check.isSelected());
+                
+                newStage.setMinWidth(875);
+                newStage.setMinHeight(865);
                 newStage.setScene(scene);
                 newStage.show();
+                
                 final Node sr = (Node) event.getSource();
                 final Stage st = (Stage) sr.getScene().getWindow();
                 st.close();
@@ -183,6 +187,7 @@ public class Menu_principalController {
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
                 newStage.show();
+              
                 final Node sr = (Node) event.getSource();
                 final Stage st = (Stage) sr.getScene().getWindow();
                 loginAmigo.initData(cn4, player1, st);
@@ -198,14 +203,18 @@ public class Menu_principalController {
 
                 // 2. Controller, scene & stage
                 Partida_dobleController menu = loader.getController();
-                menu.initData(cn4, player1, player2);
-                    menu.initMusic(mediaPlayer,music_check.isSelected());
                 Scene scene = new Scene(newRoot);
-                Stage newStage = new Stage();
-                newStage.setScene(scene);
+                Stage newStage2 = new Stage();
+                
+                menu.initData(cn4, player1, player2);
+                menu.initMusic(mediaPlayer,music_check.isSelected());
+
+                newStage2.setMinHeight(865);
+                newStage2.setMinWidth(875);
+                newStage2.setScene(scene);
 
                 // 3. Mostrar la nueva ventana
-                newStage.show();
+                newStage2.show();
 
                 // 4. Cerrar la antigua ventana
                 final Node source = (Node) event.getSource();
