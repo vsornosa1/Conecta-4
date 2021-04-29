@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -78,6 +80,18 @@ public class LoginController implements Initializable {
     private Stage oldStage;
     @FXML
     private Text error;
+    
+    File f_avatar1 = new File("src/images/avatares/avatar3.png"); 
+    private final Image avatar1 = new Image(f_avatar1.toURI().toString());
+    File f_avatar2 = new File("src/images/avatares/avatar6.png"); 
+    private final Image avatar2 = new Image(f_avatar2.toURI().toString());
+    File f_avatar3 = new File("src/images/avatares/avatar5.png"); 
+    private final Image avatar3 = new Image(f_avatar3.toURI().toString());
+    File f_avatar4 = new File("src/images/avatares/avatar2.png"); 
+    private final Image avatar4 = new Image(f_avatar4.toURI().toString());
+    File f_avatard = new File("src/avatars/avatar1.png"); 
+    private final Image avatard = new Image(f_avatard.toURI().toString());
+    
 
     /**
      * Initializes the controller class.
@@ -91,8 +105,16 @@ public class LoginController implements Initializable {
         
         try {
             cn4 = Connect4.getSingletonConnect4();
-            invitado = cn4.getPlayer("invitado");
             
+//                cn4.removeAllData();
+//                cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
+//                cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar2,LocalDate.now().minusYears(18), 0);
+//                cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
+//                cn4.registerPlayer("a", "a", "a",avatar4,LocalDate.now().minusYears(18), 0);
+//                cn4.registerPlayer("invitado", "", "invitado",avatard,LocalDate.MIN, 0);
+                
+                invitado = cn4.getPlayer("invitado");
+                
         } catch (Connect4DAOException e) {
         }
     }

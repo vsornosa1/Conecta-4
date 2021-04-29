@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 
 import model.*;
 
@@ -64,6 +65,7 @@ public class RecuperarController {
                     p1.initData(cn4, player1, stage);
                     newStage.setScene(scene);
                     newStage.setResizable(false);
+                    newStage.initModality(Modality.APPLICATION_MODAL);
                     newStage.show();
                     
                  } catch(IOException e){ System.out.println(e); }

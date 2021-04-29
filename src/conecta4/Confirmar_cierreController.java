@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,17 +25,19 @@ import model.Player;
  * @author Alex & Sento
  */
 public class Confirmar_cierreController {
+
     @FXML
     private ImageView flecha;
     @FXML
     private JFXButton boton_cerrar;
     @FXML
     private Text pregunta;
-    
+
     private Stage stage;
     private Player player;
     private Connect4 cn4;
- 
+    private MediaPlayer mediaPlayer;
+    private boolean b;
 
     public void initData(Connect4 con4, Player p, Stage st) throws IOException {
         cn4 = con4;
@@ -42,13 +45,18 @@ public class Confirmar_cierreController {
         stage = st;
         pregunta.setText("¿Seguro que quieres cerrar sesión, " + player.getNickName() + "?");
     }
-    
+
+    public void initMusic(MediaPlayer mp, boolean b) {
+        mediaPlayer = mp;
+        this.b=b;
+    }
 
     @FXML
     private void cerrar_sesion(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent newRoot = loader.load();
-
+        LoginController lg = loader.getController();
+        lg.initMusic(mediaPlayer, b);
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
 
@@ -59,10 +67,9 @@ public class Confirmar_cierreController {
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         this.stage.close();
-        stage.close(); 
+        stage.close();
     }
-    
-    
+
     @FXML
     private void atras(MouseEvent event) {
         final Node source = (Node) event.getSource();

@@ -64,11 +64,11 @@
          <center>
             <Pane prefHeight="234.0" prefWidth="380.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="#e5e5e5" layoutX="42.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simulacion de código enviado por correo:" textAlignment="CENTER" wrappingWidth="130.51953125">
+                  <Text fill="#e5e5e5" layoutX="42.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simulacion de código enviado por correo:" textAlignment="CENTER" wrappingWidth="130.51953125">
                      <font>
                         <Font name="Trebuchet MS" size="13.0" />
                      </font></Text>
-                  <JFXButton fx:id="ok" buttonType="RAISED" layoutX="227.0" layoutY="177.0" onMouseClicked="#obtener" style="-fx-background-color: #e5e5e5;" text="Obtener contraseña" textFill="#14213d">
+                  <JFXButton fx:id="ok" buttonType="RAISED" layoutX="222.0" layoutY="177.0" onMouseClicked="#obtener" style="-fx-background-color: #e5e5e5;" text="Obtener contraseña" textFill="#14213d">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -96,7 +96,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Text>
-                  <Text fill="#e5e5e5" layoutX="57.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Proporcionar un código nuevo" wrappingWidth="127.0">
+                  <Text fill="#e5e5e5" layoutX="54.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Proporcionar un código nuevo" wrappingWidth="106.0">
                      <font>
                         <Font name="Trebuchet MS" size="13.0" />
                      </font></Text>
@@ -126,9 +126,9 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXTextField>
-                  <Text fx:id="pass_warning" fill="#e82e2e" layoutX="218.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="144.000003721565">
+                  <Text fx:id="pass_warning" fill="#e82e2e" layoutX="217.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="143.000003721565">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
                </children>

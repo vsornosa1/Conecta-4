@@ -246,7 +246,7 @@ public class Menu_principalController {
                 Parent newRoot = loader.load();
 
                 Confirmar_cierreController confirmCierre = loader.getController();
-
+                confirmCierre.initMusic(mediaPlayer, music_check.isSelected());
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
 
