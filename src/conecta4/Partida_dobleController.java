@@ -121,6 +121,7 @@ public class Partida_dobleController implements Initializable {
     private ImageView imagen_rendirse;
 
     private Paint paint_turno1, paint_turno2;
+    private MediaPlayer mediaPlayer;
 
     /**
      * Inicializa los parámetros del controlador
@@ -145,27 +146,8 @@ public class Partida_dobleController implements Initializable {
             ficha2.setImage(yellow);
             ficha.setImage(yellow);
         }
-        
-
-//        if (player1.getAvatar() == player2.getAvatar()) {
-//            randomInt = new Random();
-//            random01 = randomInt.nextInt(1) + 1;
-//            System.out.p  rintln("Random number between 0 and 1: " + random01);
-//            if(random01 == 0) {
-//                ficha1.setImage(player1.getAvatar());
-//                avatar.setImage(player1.getAvatar());
-//                ficha2.setImage(yellow);
-//                avatar2.setImage(player2.getAvatar());
-//            } else {
-//                ficha1.setImage(yellow);
-//                avatar.setImage(player1.getAvatar());
-//                ficha2.setImage(player2.getAvatar());
-//                avatar2.setImage(player2.getAvatar());
-//            }
-//        }
     }
 
-    private MediaPlayer mediaPlayer;
 
     public void initMusic(MediaPlayer mp, boolean b) {
         mediaPlayer = mp;
