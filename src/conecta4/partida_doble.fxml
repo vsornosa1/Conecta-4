@@ -295,12 +295,7 @@
                   <Font name="Trebuchet MS" size="17.0" />
                </font>
             </JFXToggleButton>
-            <ImageView fx:id="ficha" fitHeight="45.0" fitWidth="47.0" layoutX="486.0" layoutY="111.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/yellow.png" />
-               </image>
-            </ImageView>
-            <Text fx:id="user2" fill="#e5e5e5" layoutX="555.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario2" wrappingWidth="197.998046875">
+            <Text fx:id="user2" fill="#e5e5e5" layoutX="562.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PepeGaming" wrappingWidth="299.998046875">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
@@ -308,7 +303,28 @@
                   <Font name="Trebuchet MS" size="51.0" />
                </font>
             </Text>
-            <ImageView fx:id="ficha2" fitHeight="45.0" fitWidth="47.0" layoutX="531.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="ficha" fitHeight="45.0" fitWidth="47.0" layoutX="498.0" layoutY="117.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/yellow.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="user" layoutX="119.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario1" wrappingWidth="345.998046875">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <font>
+                  <Font name="Trebuchet MS" size="51.0" />
+               </font>
+               <fill>
+                  <LinearGradient endX="1.0" endY="0.3142857142857142" startX="1.0" startY="0.9">
+                     <stops>
+                        <Stop color="WHITE" />
+                        <Stop color="WHITE" offset="0.007662835249042145" />
+                        <Stop color="#ff00ee" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Text>
          </children>
          <opaqueInsets>
             <Insets left="50.0" right="50.0" />
@@ -330,23 +346,7 @@
          </font>
       </Text>
       <ImageView fx:id="avatar" fitHeight="76.0" fitWidth="76.0" layoutX="32.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="user" layoutX="167.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario1" wrappingWidth="263.998046875">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-         <font>
-            <Font name="Trebuchet MS" size="51.0" />
-         </font>
-         <fill>
-            <LinearGradient endX="1.0" endY="0.3142857142857142" startX="1.0" startY="0.9">
-               <stops>
-                  <Stop color="WHITE" />
-                  <Stop color="WHITE" offset="0.007662835249042145" />
-                  <Stop color="#ff00ee" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Text>
+      <ImageView fx:id="ficha2" fitHeight="45.0" fitWidth="47.0" layoutX="548.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="ficha1" fitHeight="45.0" fitWidth="45.0" layoutX="108.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="avatar2" fitHeight="76.0" fitWidth="76.0" layoutX="766.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
    </children>

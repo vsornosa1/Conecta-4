@@ -191,10 +191,10 @@ public class Partida_dobleController implements Initializable {
             banner.fitWidthProperty().bind(pane.widthProperty());
             vs.setLayoutX(pane.getWidth() * 0.48);
             ficha1.setLayoutX(pane.getWidth() * 0.1);
-            ficha2.setLayoutX(pane.getWidth() * 0.7);
+            ficha2.setLayoutX(pane.getWidth() * 0.6);
             hbox.scaleShapeProperty().bind(pane.scaleShapeProperty());
             user.setLayoutX(pane.getWidth() * 0.18);
-            user2.setLayoutX(pane.getWidth() * 0.77);
+            user2.setLayoutX(pane.getWidth() * 0.68);
             volver_menu.setLayoutX(pane.getWidth() * 0.42);
         }
     };

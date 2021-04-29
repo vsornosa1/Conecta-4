@@ -91,7 +91,7 @@ public class Login_amigoController {
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
                 newStage.setScene(scene);
-                newStage.setResizable(false);
+               
                 // 3. Mostrar la nueva ventana
                 newStage.show();
                 
