@@ -71,7 +71,7 @@ public class Popup1Controller implements Initializable {
         if(enter.getText().equals(code.getText())) {
             pass_warning.setText("");
             pass.setText("Contraseña: " + player1.getPassword());
-            completado = true; // set editable ok
+            completado = true; // set editable ok prueba
             ok.setText("Ir a iniciar sesión");
         } else {
             pass_warning.setText("Código incorrecto");
