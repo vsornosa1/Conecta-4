@@ -37,6 +37,8 @@ public class Popup1Controller implements Initializable {
     
     private Connect4 cn4;
     private Player player1;
+
+
     private Stage stage;
     
     private boolean completado=false;
