@@ -75,5 +75,10 @@
          <font>
             <Font name="Trebuchet MS" size="13.0" />
          </font></Text>
+      <Text fx:id="texto_invalidUser" fill="#fca311" layoutX="102.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="275.0">
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

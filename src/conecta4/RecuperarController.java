@@ -27,6 +27,8 @@ public class RecuperarController {
     @FXML
     private Text invalid_mail;
     @FXML
+    private Text texto_invalidUser;
+    @FXML
     private JFXButton boton_recu;
     @FXML
     private ImageView flecha;
@@ -42,7 +44,11 @@ public class RecuperarController {
     @FXML
     private void recu(MouseEvent event) {
         try {
-            player1= cn4.getPlayer(text_user.getText());
+            player1 = cn4.getPlayer(text_user.getText());
+            if(player1 == null) {
+                texto_invalidUser.setText("Usuario no encontrado");
+            } else texto_invalidUser.setText("");
+            
             if(text_mail.getText().equals(player1.getEmail())) { 
                 text_mail.setText("");invalid_mail.setText("");
                 try { 
@@ -67,6 +73,7 @@ public class RecuperarController {
                 } else {
                     invalid_mail.setText("Correo incorrecto para @" + text_user.getText());
                 }
+                
             }
         } catch(Exception e) {
             System.out.println("Ningun jugador se corresponde con ese nombre de usuario"); 
