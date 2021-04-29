@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="505.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.RecuperarController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="505.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#001d6b" />
+                  <Stop color="#ffcc99" offset="0.007518796992481203" />
+                  <Stop color="#4b89ab" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fx:id="flecha" fitHeight="35.0" fitWidth="31.0" layoutX="14.0" layoutY="2.0" onMouseClicked="#atras" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/60577.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <JFXButton fx:id="boton_recu" buttonType="RAISED" layoutX="159.0" layoutY="233.0" onMouseClicked="#recu" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: #e5e5e5;" text="Recuperar contraseña" textFill="#14213d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <ripplerFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop color="#ffcc99" />
+                  <Stop color="#4b89ab" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </ripplerFill>
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="text_user" focusColor="#fca311" labelFloat="true" layoutX="102.0" layoutY="82.0" prefHeight="28.0" prefWidth="275.0" promptText="Nombre de usuario en Conecta4:" unFocusColor="#e5e5e5">
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="text_mail" focusColor="#fca311" labelFloat="true" layoutX="102.0" layoutY="149.0" prefHeight="28.0" prefWidth="275.0" promptText="Correo electrónico:" unFocusColor="#e5e5e5">
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXTextField>
+      <Text fx:id="invalid_mail" fill="#fca311" layoutX="102.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="275.0">
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font></Text>
+   </children>
+</AnchorPane>
