@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="367.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Confirmar_cierreController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="367.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#001d6b" />
+                  <Stop color="#ffcc99" offset="0.007518796992481203" />
+                  <Stop color="#4b89ab" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fx:id="flecha" fitHeight="35.0" fitWidth="31.0" layoutX="14.0" layoutY="2.0" onMouseClicked="#atras" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/60577.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <JFXButton fx:id="boton_cerrar" buttonType="RAISED" layoutX="104.0" layoutY="173.0" onMouseClicked="#cerrar_sesion" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: #e5e5e5;" text="Sí, quiero." textFill="#14213d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <ripplerFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop color="#ffcc99" />
+                  <Stop color="#4b89ab" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </ripplerFill>
+      </JFXButton>
+      <Text fx:id="pregunta" fill="#e5e5e5" layoutX="18.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿nombreUsuario, seguro que quieres cerrar sesión?" textAlignment="CENTER" wrappingWidth="335.0">
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font></Text>
+      <Text fill="#e5e5e5" layoutX="41.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="'Esperemos que sea un hasta luego, y no un adios'" textAlignment="CENTER" wrappingWidth="289.0">
+         <font>
+            <Font name="Copperplate Light" size="21.0" />
+         </font>
+      </Text>
+      <Line endX="100.0" layoutX="185.0" layoutY="122.0" startX="-100.0" stroke="#fca311" />
+   </children>
+</AnchorPane>

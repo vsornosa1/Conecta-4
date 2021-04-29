@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="866.0" prefWidth="876.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Partida_cpuController">
+   <children>
+      <ImageView fx:id="banner" fitHeight="183.0" fitWidth="876.0" layoutY="-5.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <image>
+            <Image url="@../images/58350.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="pane2" layoutX="94.0" layoutY="174.0" prefHeight="866.0" prefWidth="876.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox fx:id="hbox" alignment="CENTER" layoutX="89.0" layoutY="182.0" prefHeight="621.0" prefWidth="705.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="165.0">
+               <children>
+                  <AnchorPane fx:id="pane2" maxWidth="926.0" minWidth="10.0" prefHeight="621.0" prefWidth="699.0">
+                     <children>
+                        <GridPane fx:id="grid" alignment="CENTER_RIGHT" layoutX="40.0" layoutY="118.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="INHERIT" prefHeight="503.0" prefWidth="639.0" style="-fx-border-color: #14213c;">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </GridPane>
+                        <Group layoutX="211.0" layoutY="6.0">
+                           <children>
+                              <StackPane layoutX="353.0" layoutY="25.0" prefHeight="55.0" prefWidth="104.0" />
+                              <JFXButton fx:id="boton_rendirse" buttonType="RAISED" layoutX="358.0" layoutY="25.0" onMouseClicked="#rendirse" prefHeight="51.0" prefWidth="91.0" style="-fx-background-color: #e5e5e5;" text=" " textFill="#14213d">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <ripplerFill>
+                                    <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                       <stops>
+                                          <Stop color="#799bf8" />
+                                          <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                          <Stop color="#4b89ab" offset="1.0" />
+                                       </stops>
+                                    </RadialGradient>
+                                 </ripplerFill>
+                              </JFXButton>
+                              <ImageView fx:id="imagen_rendirse" fitHeight="24.0" fitWidth="30.0" layoutX="392.0" layoutY="37.0" nodeOrientation="INHERIT" onMouseClicked="#rendirse" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/flag.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children>
+                        </Group>
+                        <Text fill="#fca311" layoutX="456.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Rendirse?" wrappingWidth="97.8779296875">
+                           <font>
+                              <Font name="Trebuchet MS" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="msj_ganador" fill="#e5e5e5" layoutX="14.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="474.9090576171875">
+                           <font>
+                              <Font name="Trebuchet MS" size="45.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="puntos_obtenidos" fill="#fca311" layoutX="20.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="462.0">
+                           <font>
+                              <Font name="Trebuchet MS" size="17.0" />
+                           </font>
+                        </Text>
+                        <Line endX="100.0" fill="#ed5757" layoutX="566.0" layoutY="188.0" startX="-537.0" stroke="#ffcd9e57" strokeWidth="2.0" />
+                        <Line endX="100.0" fill="#ed5757" layoutX="566.0" layoutY="260.0" startX="-537.0" stroke="#ffcd9e57" strokeWidth="2.0" />
+                        <Line endX="100.0" fill="#ed5757" layoutX="566.0" layoutY="332.0" startX="-537.0" stroke="#ffcd9e57" strokeWidth="2.0" />
+                        <Line endX="100.0" fill="#ed5757" layoutX="566.0" layoutY="404.0" startX="-537.0" stroke="#ffcd9e57" strokeWidth="2.0" />
+                        <Line endX="100.0" fill="#ed5757" layoutX="566.0" layoutY="476.0" startX="-537.0" stroke="#ffcd9e57" strokeWidth="2.0" />
+                        <Line endX="100.0" fill="#ed5757" layoutX="566.0" layoutY="548.0" startX="-537.0" stroke="#ffcd9e57" strokeWidth="2.0" />
+                        <Line endX="100.0" fill="#ed5757" layoutX="178.0" layoutY="369.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0" startY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#ffcd9c" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" fill="#ed5757" layoutX="257.0" layoutY="369.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" fill="#ed5757" layoutX="337.0" layoutY="369.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" fill="#ed5757" layoutX="417.0" layoutY="369.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" fill="#ed5757" layoutX="497.0" layoutY="368.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" fill="#ed5757" layoutX="577.0" layoutY="369.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" fill="#ed5757" layoutX="658.0" layoutY="369.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" fill="#ed5757" layoutX="738.0" layoutY="369.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" fill="#ed5757" layoutX="816.0" layoutY="369.0" rotate="90.0" startX="-401.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#ffcc99" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="105.0" fill="#ed5757" layoutX="246.0" layoutY="620.0" rotate="180.0" startX="-218.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="102.0" fill="#ed5757" layoutX="564.0" layoutY="620.0" startX="-218.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+                                 <stops>
+                                    <Stop color="BLACK" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#4b89ab" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="102.0" fill="#ed5757" layoutX="293.0" layoutY="620.0" startX="9.0" stroke="#ffcd9b" strokeWidth="2.0" />
+                        <Button fx:id="c0" layoutX="27.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#poner" opacity="0.0" prefHeight="499.0" prefWidth="79.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="c1" layoutX="104.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#poner" opacity="0.0" prefHeight="499.0" prefWidth="85.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="c2" layoutX="189.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#poner" opacity="0.0" prefHeight="499.0" prefWidth="79.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="c3" layoutX="268.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#poner" opacity="0.0" prefHeight="499.0" prefWidth="79.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="c4" layoutX="347.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#poner" opacity="0.0" prefHeight="499.0" prefWidth="79.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="c5" layoutX="428.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#poner" opacity="0.0" prefHeight="503.0" prefWidth="79.0" text="Button" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="428.0" AnchorPane.rightAnchor="192.0" AnchorPane.topAnchor="117.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="c6" layoutX="505.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#poner" opacity="0.0" prefHeight="499.0" prefWidth="85.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="c7" layoutX="588.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#poner" opacity="0.0" prefHeight="499.0" prefWidth="79.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="50.0" right="50.0" />
+                     </opaqueInsets>
+                  </AnchorPane>
+               </children>
+            </HBox>
+            <JFXButton fx:id="volver_menu" buttonType="RAISED" layoutX="278.0" layoutY="803.0" onMouseClicked="#volver_menu" opacity="0.0" prefHeight="27.0" prefWidth="277.0" style="-fx-background-color: #e5e5e5;" text=" Volver al menú princpal" textFill="#14213d">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <ripplerFill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop color="#799bf8" />
+                        <Stop color="#ffcc99" offset="0.007518796992481203" />
+                        <Stop color="#4b89ab" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </ripplerFill>
+               <font>
+                  <Font name="Copperplate" size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXToggleButton fx:id="music_check" layoutX="765.0" layoutY="792.0" nodeOrientation="RIGHT_TO_LEFT" text="Music" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font name="Carlito" size="17.0" />
+               </font>
+            </JFXToggleButton>
+            <Text fx:id="vs" fill="#14213d" layoutX="420.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VS">
+               <font>
+                  <Font name="Trebuchet MS Bold" size="39.0" />
+               </font>
+            </Text>
+         </children>
+         <opaqueInsets>
+            <Insets left="50.0" right="50.0" />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </AnchorPane>
+      <Text fx:id="cpu" fill="#e3e3e3" layoutX="666.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CPU">
+         <font>
+            <Font name="Trebuchet MS" size="52.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="avatar" fitHeight="76.0" fitWidth="76.0" layoutX="32.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="user" layoutX="167.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario1" wrappingWidth="263.998046875">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <font>
+            <Font name="Trebuchet MS" size="52.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="0.861904761904762" startX="1.0" startY="0.23809523809523803">
+               <stops>
+                  <Stop color="#ea00ff" />
+                  <Stop color="#ea00ff" offset="0.007662835249042145" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Text>
+      <ImageView fx:id="ficha" fitHeight="45.0" fitWidth="47.0" layoutX="610.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/yellow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ficha1" fitHeight="45.0" fitWidth="45.0" layoutX="100.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="avatar1" fitHeight="76.0" fitWidth="85.0" layoutX="769.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cpuImage.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bubble" fitHeight="112.0" fitWidth="150.0" layoutX="627.0" layoutY="-2.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" rotate="-155.6">
+         <image>
+            <Image url="@../images/bubble3.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="cpu_texto_perdida" fill="#e5e5e5" layoutX="649.0" layoutY="51.0" opacity="0.0" rotate="6.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Debería de haber entrenado más..." textAlignment="CENTER" wrappingWidth="91.0" />
+   </children>
+</AnchorPane>

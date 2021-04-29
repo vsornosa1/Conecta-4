@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="798.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Menu_principalController">
+    <children>
+        <ImageView fitHeight="106.0" fitWidth="798.0" pickOnBounds="true">
+            <image>
+                <Image url="@../images/58350.jpg" />
+            </image>
+        </ImageView>
+        <Text fill="#e5e5e5" layoutX="508.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conecta4!" textAlignment="CENTER" wrappingWidth="308.998046875">
+          
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+            <font>
+                <Font name="Georgia" size="46.0" />
+            </font>
+        </Text>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="112.0" layoutX="-3.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-rotate: -0.5;" visible="false" width="806.0">
+            <fill>
+                <LinearGradient endX="1.0" endY="1.0">
+                    <stops>
+                        <Stop color="#001d6b" />
+                        <Stop color="#ffcc99" offset="0.007662835249042145" />
+                        <Stop color="#4b89ab" offset="1.0" />
+                    </stops>
+                </LinearGradient>
+            </fill>
+        </Rectangle>
+        <Text fx:id="aplauso" fill="#e5e5e5" layoutX="14.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="375.998046875">
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+         <font>
+            <Font name="Trebuchet MS" size="16.0" />
+         </font>
+            
+        </Text>
+        <JFXTabPane layoutX="-3.0" layoutY="113.0" prefHeight="420.0" prefWidth="807.0" rotate="-0.5" styleClass="menu-tabs" stylesheets="@stylesmenu.css" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" styleClass="modos" text="Modos de juego">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="807.0" style="-fx-background-color: #14213d;">
+                            <children>
+                                <JFXButton buttonType="RAISED" layoutX="89.0" layoutY="146.0" onMouseClicked="#partida_solo" prefHeight="137.0" prefWidth="207.0" style="-fx-background-color: #e5e5e5;" text=" " textFill="#14213d">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                    <ripplerFill>
+                                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                            <stops>
+                                                <Stop color="#799bf8" />
+                                                <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                                <Stop color="#4b89ab" offset="1.0" />
+                                            </stops>
+                                        </RadialGradient>
+                                    </ripplerFill>
+                                </JFXButton>
+                                <JFXButton buttonType="RAISED" layoutX="498.0" layoutY="151.0" onMouseClicked="#partida_doble" prefHeight="138.0" prefWidth="207.0" style="-fx-background-color: #e5e5e5;" text=" " textFill="#14213d">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                    <ripplerFill>
+                                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                            <stops>
+                                                <Stop color="#799bf8" />
+                                                <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                                <Stop color="#4b89ab" offset="1.0" />
+                                            </stops>
+                                        </RadialGradient>
+                                    </ripplerFill>
+                                </JFXButton>
+                                <Text fill="#e5e5e5" layoutX="85.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 Jugador">
+                                    <font>
+                                        <Font name="Trebuchet MS" size="46.0" />
+                                    </font>
+                                </Text>
+                                <Text fill="#e5e5e5" layoutX="442.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Jugadores" textAlignment="CENTER" wrappingWidth="321.35455322265625">
+                                    <font>
+                                         <Font name="Trebuchet MS" size="46.0" />
+                                    </font>
+                                </Text>
+                                <Line endX="-26.40087890625" endY="44.357391357421875" layoutX="412.0" layoutY="299.0" startX="-23.71234130859375" startY="-263.7177734375" stroke="#e5e5e5" strokeWidth="2.0" />
+                                <ImageView fx:id="avatar11" fitHeight="86.0" fitWidth="86.0" layoutX="101.0" layoutY="155.0" onMouseClicked="#partida_solo" pickOnBounds="true" preserveRatio="true" />
+                                <ImageView fx:id="avatar111" fitHeight="76.0" fitWidth="76.0" layoutX="498.0" layoutY="158.0" onMouseClicked="#partida_doble" pickOnBounds="true" preserveRatio="true" />
+                                <ImageView fitHeight="83.0" fitWidth="76.0" layoutX="630.0" layoutY="159.0" onMouseClicked="#partida_doble" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/avatares/avatar9.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="86.0" fitWidth="174.0" layoutX="515.0" layoutY="197.0" onMouseClicked="#partida_doble" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/multiplayer.png" />
+                                    </image>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </ImageView>
+                                <ImageView fitHeight="106.0" fitWidth="105.0" layoutX="167.0" layoutY="181.0" onMouseClicked="#partida_solo" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/1player.png" />
+                                    </image>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </ImageView>
+                                <JFXToggleButton fx:id="music_check" layoutX="677.0" layoutY="302.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font></JFXToggleButton>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" text="Puntuaciones">
+                    <content>
+                        <AnchorPane fx:id="music" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" text="Historial de partidas">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab style="-fx-pref-width: 190; -fx-pref-height: 50; -fx-background-color: #380444;" text="Perfil">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Text fx:id="puntos_player1" fill="#fca311" layoutX="54.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font size="29.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="puntos_player2" fill="#fca311" layoutX="493.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font size="29.0" />
+                                    </font>
+                                </Text>
+                                <Line endX="-26.40087890625" endY="44.357391357421875" startX="-23.71234130859375" startY="-263.7177734375" stroke="#e5e5e5" strokeWidth="2.0" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXTabPane>
+        <ImageView fx:id="avatar_player1" fitHeight="76.0" fitWidth="76.0" layoutX="14.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+        <Hyperlink fx:id="link_cerrar_sesion" layoutX="679.0" layoutY="4.0" onMouseClicked="#cerrar_sesion" text="Cerrar sesión" textFill="#fca311">
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font></Hyperlink>
+        <ImageView fx:id="avatar_player2" fitHeight="76.0" fitWidth="76.0" layoutX="114.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</AnchorPane>
