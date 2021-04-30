@@ -140,8 +140,8 @@ public class Menu_principalController {
                 solo.initData(cn4, player1);
                 solo.initMusic(mediaPlayer,music_check.isSelected());
                 
-                newStage.setMinWidth(875);
-                newStage.setMinHeight(865);
+                newStage.setMinWidth(876);
+                newStage.setMinHeight(866);
                 newStage.setScene(scene);
                 newStage.show();
                 
@@ -209,8 +209,8 @@ public class Menu_principalController {
                 menu.initData(cn4, player1, player2);
                 menu.initMusic(mediaPlayer,music_check.isSelected());
 
-                newStage2.setMinHeight(865);
-                newStage2.setMinWidth(875);
+                newStage2.setMinHeight(866);
+                newStage2.setMinWidth(876);
                 newStage2.setScene(scene);
 
                 // 3. Mostrar la nueva ventana

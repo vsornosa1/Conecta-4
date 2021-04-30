@@ -90,6 +90,8 @@ public class Login_amigoController {
                 menu.initMusic(mediaPlayer,music_check.isSelected());
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
+                newStage.setMinWidth(876); 
+                newStage.setMinHeight(866); 
                 newStage.setScene(scene);
                
                 // 3. Mostrar la nueva ventana
