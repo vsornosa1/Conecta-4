@@ -295,7 +295,7 @@
                   <Font name="Trebuchet MS" size="17.0" />
                </font>
             </JFXToggleButton>
-            <Text fx:id="user2" fill="#e5e5e5" layoutX="562.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PepeGaming" wrappingWidth="299.998046875">
+            <Text fx:id="user2" fill="#e5e5e5" layoutX="570.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PepeGaming" wrappingWidth="461.998046875">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>

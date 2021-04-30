@@ -128,7 +128,7 @@ public class Login_amigoController {
             rc.initData(cn4);
 
             newStage.initModality(Modality.APPLICATION_MODAL);
-            newStage.setResizable(false);
+            
             newStage.show();
 
         } catch (IOException e) {
@@ -153,6 +153,8 @@ public class Login_amigoController {
         doble.initMusic(mediaPlayer,music_check.isSelected());
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
+        newStage.setMinWidth(876); 
+        newStage.setMinHeight(866);
 
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);
