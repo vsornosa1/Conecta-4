@@ -690,7 +690,7 @@ public class Partida_cpuController implements Initializable {
                 Stage newStage = new Stage();
 
                 menu.initData(cn4, player);
-
+                menu.initMusic(mediaPlayer, music_check.isSelected());
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
@@ -710,10 +710,10 @@ public class Partida_cpuController implements Initializable {
                 Stage newStage = new Stage();
 
                 menu.initData(cn4, player, player2);
-
+                menu.initMusic(mediaPlayer, music_check.isSelected());
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
-                
+
                 newStage.setResizable(false);
                 newStage.show();
                 final Node sr = (Node) event.getSource();
