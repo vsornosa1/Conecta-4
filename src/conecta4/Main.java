@@ -33,8 +33,8 @@ public class Main extends Application {
         
         stage.setResizable(false);
         LoginController lg=loader.getController();
-        initMusic();
-        lg.initMusic(mediaPlayer,false);
+        // initMusic();
+        lg.initMusic(mediaPlayer, false);
         stage.show();
     }
     

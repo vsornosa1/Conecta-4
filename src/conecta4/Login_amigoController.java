@@ -1,7 +1,6 @@
 package conecta4;
 
 import com.jfoenix.controls.JFXToggleButton;
-import java.io.File;
 import java.io.IOException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -90,8 +88,8 @@ public class Login_amigoController {
                 menu.initMusic(mediaPlayer,music_check.isSelected());
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
-                newStage.setMinWidth(876); 
-                newStage.setMinHeight(866); 
+                newStage.setMinWidth(875); 
+                newStage.setMinHeight(865); 
                 newStage.setScene(scene);
                
                 // 3. Mostrar la nueva ventana
@@ -153,8 +151,8 @@ public class Login_amigoController {
         doble.initMusic(mediaPlayer,music_check.isSelected());
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
-        newStage.setMinWidth(876); 
-        newStage.setMinHeight(866);
+        newStage.setMinWidth(875); 
+        newStage.setMinHeight(865);
 
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);

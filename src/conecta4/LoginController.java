@@ -101,17 +101,15 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
         try {
             cn4 = Connect4.getSingletonConnect4();
             
-//                cn4.removeAllData();
-//                cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
-//                cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar2,LocalDate.now().minusYears(18), 0);
-//                cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
-//                cn4.registerPlayer("a", "a", "a",avatar4,LocalDate.now().minusYears(18), 0);
-//                cn4.registerPlayer("invitado", "", "invitado",avatard,LocalDate.MIN, 0);
+//            cn4.removeAllData();
+//            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
+//            cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar2,LocalDate.now().minusYears(18), 0);
+//            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
+//            cn4.registerPlayer("a", "a", "a",avatar4,LocalDate.now().minusYears(18), 0);
+//            cn4.registerPlayer("invitado", "", "invitado",avatard,LocalDate.MIN, 0);
                 
                 invitado = cn4.getPlayer("invitado");
                 
@@ -214,6 +212,7 @@ public class LoginController implements Initializable {
             menu_p.initMusic(mediaPlayer,music.isSelected());
             Scene scene = new Scene(newRoot);
             Stage newStage = new Stage();
+            
             newStage.setScene(scene);
             newStage.setResizable(false);
             if (log_guest) {
