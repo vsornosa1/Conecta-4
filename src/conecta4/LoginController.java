@@ -80,19 +80,19 @@ public class LoginController implements Initializable {
     private Stage oldStage;
     @FXML
     private Text error;
-    
-    File f_avatar1 = new File("src/images/avatares/avatar3.png"); 
-    private final Image avatar1 = new Image(f_avatar1.toURI().toString());
-    File f_avatar2 = new File("src/images/avatares/avatar6.png"); 
-    private final Image avatar2 = new Image(f_avatar2.toURI().toString());
-    File f_avatar3 = new File("src/images/avatares/avatar5.png"); 
-    private final Image avatar3 = new Image(f_avatar3.toURI().toString());
-    File f_avatar4 = new File("src/images/avatares/avatar2.png"); 
-    private final Image avatar4 = new Image(f_avatar4.toURI().toString());
-    File f_avatard = new File("src/avatars/avatar1.png"); 
-    private final Image avatard = new Image(f_avatard.toURI().toString());
-    
 
+    private Menu_principalController menu;
+
+    /*File f_avatar1 = new File("src/images/avatares/avatar3.png");
+    private final Image avatar1 = new Image(f_avatar1.toURI().toString());
+    File f_avatar2 = new File("src/images/avatares/avatar6.png");
+    private final Image avatar2 = new Image(f_avatar2.toURI().toString());
+    File f_avatar3 = new File("src/images/avatares/avatar5.png");
+    private final Image avatar3 = new Image(f_avatar3.toURI().toString());
+    File f_avatar4 = new File("src/images/avatares/avatar2.png");
+    private final Image avatar4 = new Image(f_avatar4.toURI().toString());
+    File f_avatard = new File("src/avatars/avatar1.png");
+    private final Image avatard = new Image(f_avatard.toURI().toString());*/
     /**
      * Initializes the controller class.
      *
@@ -103,26 +103,26 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             cn4 = Connect4.getSingletonConnect4();
-            
+
 //            cn4.removeAllData();
 //            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
 //            cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar2,LocalDate.now().minusYears(18), 0);
 //            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
 //            cn4.registerPlayer("a", "a", "a",avatar4,LocalDate.now().minusYears(18), 0);
 //            cn4.registerPlayer("invitado", "", "invitado",avatard,LocalDate.MIN, 0);
-                
-                invitado = cn4.getPlayer("invitado");
-                
+            invitado = cn4.getPlayer("invitado");
+
         } catch (Connect4DAOException e) {
         }
     }
 
-    public void initData(Stage st) {
+    public void initData(Stage st, Menu_principalController m) {
         log_guest = true;
+        menu = m;
         oldStage = st;
     }
 
-    public void initMusic(MediaPlayer mp,boolean b) {
+    public void initMusic(MediaPlayer mp, boolean b) {
         mediaPlayer = mp;
         music.setSelected(b);
         music.selectedProperty().addListener(changeListener);
@@ -143,37 +143,10 @@ public class LoginController implements Initializable {
     private void log(MouseEvent event) throws Exception {
         player1 = cn4.loginPlayer(text_user.getText(), text_pass.getText());
         if (player1 != null && !player1.equals(invitado)) {
-            try {
-                // 1. Loader
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
-                Parent newRoot = loader.load();
-
-                // 2. Controller, scene & stage
-                Menu_principalController menu_p = loader.getController();
-
-                menu_p.initData(cn4, player1);
-                menu_p.initMusic(mediaPlayer,music.isSelected());
-                Scene scene = new Scene(newRoot);
-                Stage newStage = new Stage();
-                newStage.setScene(scene);
-                newStage.setResizable(false);
-
-                if (log_guest) {
-                    oldStage.close();
-                }
-
-                // 3. Mostrar nueva ventana
-                newStage.show();
-
-                // 4. Cierre de la ventana
-                final Node source = (Node) event.getSource();
-                final Stage stage = (Stage) source.getScene().getWindow();
-                stage.close();
-
-            } catch (IOException e) {
-                System.out.println(e);
-            }
-        } else error.setVisible(true);
+            menu_load(event, player1);
+        } else {
+            error.setVisible(true);
+        }
     }
 
     @FXML
@@ -201,34 +174,43 @@ public class LoginController implements Initializable {
 
     @FXML
     private void invitado(MouseEvent event) {
+        menu_load(event, invitado);
+    }
+
+    private void menu_load(MouseEvent event, Player pl) {
         try {
             // 1. Loader
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
             Parent newRoot = loader.load();
 
-            // 2. Controller, scene & stage
-            Menu_principalController menu_p = loader.getController();
-            menu_p.initData(cn4, invitado);
-            menu_p.initMusic(mediaPlayer,music.isSelected());
-            Scene scene = new Scene(newRoot);
-            Stage newStage = new Stage();
-            
-            newStage.setScene(scene);
-            newStage.setResizable(false);
-            if (log_guest) {
-                oldStage.close();
-            }
-            // 3. Mostrar nueva ventana
-            newStage.show();
-
-            // 4. Cierre de la ventana
             final Node source = (Node) event.getSource();
             final Stage stage = (Stage) source.getScene().getWindow();
-            stage.close();
+
+            // 2. Controller, scene & stage
+            if (log_guest) {
+                menu.initMusic(mediaPlayer, music.isSelected());
+                menu.initData(cn4, player1);
+                stage.close();
+            } else {
+                Menu_principalController menu_p = loader.getController();
+                menu_p.initController(menu_p);
+                menu_p.initData(cn4, pl);
+                menu_p.initMusic(mediaPlayer, music.isSelected());
+
+                Scene scene = new Scene(newRoot);
+                Stage newStage = new Stage();
+                newStage.setScene(scene);
+                newStage.setResizable(false);
+
+                // 3. Mostrar nueva ventana
+                newStage.show();
+
+                // 4. Cierre de la ventana
+                stage.close();
+            }
 
         } catch (IOException e) {
             System.out.println(e);
         }
     }
-
 }
