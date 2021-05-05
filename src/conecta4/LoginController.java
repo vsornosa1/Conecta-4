@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
     @FXML
     private ImageView img;
 
- /* DATOS invitado:
+    /* DATOS invitado:
     String name = "invitado";
     String pass = "invitado";
     String email = "invitado@domain.es";
@@ -163,20 +163,19 @@ public class LoginController implements Initializable {
     }
 
     private void menu_load(MouseEvent event, Player pl) {
-        try {
-            // 1. Loader
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
-            Parent newRoot = loader.load();
+        final Node source = (Node) event.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        if (log_guest) {
+            menu.initMusic(mediaPlayer, music.isSelected());
+            menu.initData(cn4, pl);
+            stage.close();
+        } else {
+            try {
+                // 1. Loader
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
+                Parent newRoot = loader.load();
 
-            final Node source = (Node) event.getSource();
-            final Stage stage = (Stage) source.getScene().getWindow();
-
-            // 2. Controller, scene & stage
-            if (log_guest) {
-                menu.initMusic(mediaPlayer, music.isSelected());
-                menu.initData(cn4, player1);
-                stage.close();
-            } else {
+                // 2. Controller, scene & stage
                 Menu_principalController menu_p = loader.getController();
                 menu_p.initController(menu_p);
                 menu_p.initData(cn4, pl);
@@ -192,10 +191,30 @@ public class LoginController implements Initializable {
 
                 // 4. Cierre de la ventana
                 stage.close();
+            } catch (IOException e) {
+                System.out.println(e);
             }
-
-        } catch (IOException e) {
-            System.out.println(e);
         }
+    }
+
+    @FXML
+    private void registrarse(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("registro.fxml"));
+        Parent newRoot = loader.load();
+
+        RegistroController registro = loader.getController();
+        registro.initController(registro);
+        registro.initData(cn4);
+        registro.initMusic(mediaPlayer, music.isSelected());
+        Scene scene = new Scene(newRoot);
+        Stage newStage = new Stage();
+
+        newStage.setScene(scene);
+        newStage.setResizable(false);
+        newStage.show();
+
+        final Node source = (Node) event.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }

@@ -53,6 +53,10 @@ public class RegistroController {
     private Image avatarImg;
     @FXML
     private Text msj_alerta;
+    
+    private RegistroController registro;
+    
+    public void initController(RegistroController registro){this.registro=registro;}
 
     
     public void initData(Connect4 con4) {
@@ -94,7 +98,7 @@ public class RegistroController {
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
         selec_avatar.initStage(newStage);
-        
+        selec_avatar.initController(registro);
         newStage.setScene(scene);
         newStage.setResizable(false);
 
