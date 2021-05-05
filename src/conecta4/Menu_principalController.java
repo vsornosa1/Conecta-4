@@ -55,11 +55,18 @@ public class Menu_principalController {
     private Hyperlink link_cerrar_sesion;
     @FXML
     private AnchorPane music;
-    
+
     @FXML
     private JFXToggleButton music_check;
-     
+
     private MediaPlayer mediaPlayer;
+
+    private Menu_principalController thisController;
+
+    public void initController(Menu_principalController controller) {
+        thisController = controller;
+    }
+
     public void initMusic(MediaPlayer mp, boolean b) {
         mediaPlayer = mp;
         music_check.setSelected(b);
@@ -75,29 +82,30 @@ public class Menu_principalController {
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
         invitado = cn4.getPlayer("invitado");
-        
+
         if (player1.equals(invitado)) {
             puntos_player1.setText("¡Inicia sesión para ver tus puntos!");
             link_cerrar_sesion.setText("Iniciar sesión");
         } else {
-            if(player2 == null) {
+            link_cerrar_sesion.setText("Cerrar sesión");
+            if (player2 == null) {
                 puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
                 puntos_player2.setText("");
             } else {
                 puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
                 puntos_player2.setText("Puntos de " + player2.getNickName() + ": " + player2.getPoints());
             }
-        } 
+        }
     }
-    
+
     private ChangeListener changeListener = new ChangeListener() {
         @Override
         public void changed(ObservableValue observable, Object oldVal, Object newVal) {
-           if (music_check.isSelected()) {
-               mediaPlayer.pause();
-           } else {
-               mediaPlayer.play();
-           }
+            if (music_check.isSelected()) {
+                mediaPlayer.pause();
+            } else {
+                mediaPlayer.play();
+            }
         }
     };
 
@@ -111,23 +119,24 @@ public class Menu_principalController {
         avatar_player2.setImage(player2.getAvatar());
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
-        
+
         if (player1.equals(invitado)) {
             puntos_player1.setText("¡Inicia sesión para ver tus puntos!");
         } else {
-            if(player2 == null) {
+            if (player2 == null) {
                 puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
                 puntos_player2.setText("");
             } else {
                 puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
                 puntos_player2.setText("Puntos de " + player2.getNickName() + ": " + player2.getPoints());
             }
-        }   
+        }
     }
-
 
     @FXML
     private void partida_solo(MouseEvent event) {
+        final Node sr = (Node) event.getSource();
+        final Stage st = (Stage) sr.getScene().getWindow();
         if (player2 == null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("partida_cpu.fxml"));
@@ -138,15 +147,13 @@ public class Menu_principalController {
                 Stage newStage = new Stage();
 
                 solo.initData(cn4, player1);
-                solo.initMusic(mediaPlayer,music_check.isSelected());
-                
+                solo.initMusic(mediaPlayer, music_check.isSelected());
+
                 newStage.setMinWidth(875);
                 newStage.setMinHeight(865);
                 newStage.setScene(scene);
                 newStage.show();
-                
-                final Node sr = (Node) event.getSource();
-                final Stage st = (Stage) sr.getScene().getWindow();
+
                 st.close();
             } catch (IOException e) {
                 System.out.println(e);
@@ -159,13 +166,14 @@ public class Menu_principalController {
 
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
-                
+
                 selec.initData(cn4, player1, player2);
-                
+
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
                 newStage.show();
+                st.close();
             } catch (IOException e) {
                 System.out.println(e);
             }
@@ -174,6 +182,8 @@ public class Menu_principalController {
 
     @FXML
     private void partida_doble(MouseEvent event) {
+        final Node source = (Node) event.getSource();
+        final Stage st = (Stage) source.getScene().getWindow();
         if (player2 == null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("login_amigo.fxml"));
@@ -187,11 +197,9 @@ public class Menu_principalController {
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
                 newStage.show();
-              
-                final Node sr = (Node) event.getSource();
-                final Stage st = (Stage) sr.getScene().getWindow();
+
                 loginAmigo.initData(cn4, player1, st);
-                loginAmigo.initMusic(mediaPlayer,music_check.isSelected());
+                loginAmigo.initMusic(mediaPlayer, music_check.isSelected());
             } catch (IOException e) {
                 System.out.println(e);
             }
@@ -205,9 +213,9 @@ public class Menu_principalController {
                 Partida_dobleController menu = loader.getController();
                 Scene scene = new Scene(newRoot);
                 Stage newStage2 = new Stage();
-                
+
                 menu.initData(cn4, player1, player2);
-                menu.initMusic(mediaPlayer,music_check.isSelected());
+                menu.initMusic(mediaPlayer, music_check.isSelected());
 
                 newStage2.setMinWidth(876);
                 newStage2.setMinHeight(866);
@@ -217,28 +225,31 @@ public class Menu_principalController {
                 newStage2.show();
 
                 // 4. Cerrar la antigua ventana
-                final Node source = (Node) event.getSource();
-                final Stage stage = (Stage) source.getScene().getWindow();
-                stage.close();
+                st.close();
             } catch (IOException e) {
                 System.out.println(e);
             }
         }
     }
-    
-    
+
     @FXML
     private void cerrar_sesion(MouseEvent event) throws IOException {
         if (player2 == null) {
             if (player1.equals(cn4.getPlayer("invitado"))) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
                 Parent newRoot = loader.load();
-                
+
                 final Node sr = (Node) event.getSource();
                 final Stage st = (Stage) sr.getScene().getWindow();
-                LoginController ld=loader.getController();
-                ld.initData(st);
-                ld.initMusic(mediaPlayer,music_check.isSelected());
+
+//                FXMLLoader this_load = (FXMLLoader) st.getScene().getUserData();
+//                Menu_principalController menu = this_load.getController();
+                LoginController ld = loader.getController();
+                if (thisController == null) {
+                    System.out.println("asdfasfd");
+                }
+                ld.initData(st, thisController);
+                ld.initMusic(mediaPlayer, music_check.isSelected());
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
 
@@ -246,11 +257,9 @@ public class Menu_principalController {
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
                 newStage.show();
-                
-                
+
                 //st.close(); 
-            }
-            else {
+            } else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("confirmar_cierre.fxml"));
                 Parent newRoot = loader.load();
 
@@ -266,7 +275,7 @@ public class Menu_principalController {
                 final Node sr = (Node) event.getSource();
                 final Stage st = (Stage) sr.getScene().getWindow();
                 confirmCierre.initData(cn4, player1, st);
-            } 
+            }
         } else {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("cerrar_sesion.fxml"));
             Parent newRoot = loader.load();
@@ -283,6 +292,6 @@ public class Menu_principalController {
             final Node sr = (Node) event.getSource();
             final Stage st = (Stage) sr.getScene().getWindow();
             cr.initData(cn4, player1, player2, st);
-        } 
+        }
     }
 }
