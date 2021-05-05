@@ -31,10 +31,11 @@ import javafx.stage.Stage;
  * @author Alex & Sento
  */
 public class RegistroController {
+
     private MediaPlayer mediaPlayer;
     private Connect4 cn4;
     private Player newPlayer;
-    
+
     @FXML
     private JFXToggleButton music_check;
     @FXML
@@ -53,40 +54,46 @@ public class RegistroController {
     private Image avatarImg;
     @FXML
     private Text msj_alerta;
-    
-    private RegistroController registro;
-    
-    public void initController(RegistroController registro){this.registro=registro;}
 
-    
+    private RegistroController registro;
+    @FXML
+    private Text error_name;
+    @FXML
+    private Text error_mail;
+    @FXML
+    private Text error_pass;
+    @FXML
+    private Text error_fecha;
+
+    public void initController(RegistroController registro) {
+        this.registro = registro;
+    }
+
     public void initData(Connect4 con4) {
         cn4 = con4;
     }
-    
+
     void initAvatar(Image avatarImg) {
         suAvatar.setImage(avatarImg);
         this.avatarImg = avatarImg;
     }
-    
-    
+
     public void initMusic(MediaPlayer mp, boolean check) {
         mediaPlayer = mp;
         music_check.setSelected(check);
         music_check.selectedProperty().addListener(changeListener);
     }
-    
-    
+
     private ChangeListener changeListener = new ChangeListener() {
         @Override
         public void changed(ObservableValue observable, Object oldVal, Object newVal) {
-           if (music_check.isSelected()) {
-               mediaPlayer.pause();
-           } else {
-               mediaPlayer.play();
-           }
+            if (music_check.isSelected()) {
+                mediaPlayer.pause();
+            } else {
+                mediaPlayer.play();
+            }
         }
     };
-
 
     @FXML
     private void seleccionarAvatar(MouseEvent event) throws IOException {
@@ -94,7 +101,7 @@ public class RegistroController {
         Parent newRoot = loader.load();
 
         Seleccionar_avatarController selec_avatar = loader.getController();
-        
+
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
         selec_avatar.initStage(newStage);
@@ -103,62 +110,105 @@ public class RegistroController {
         newStage.setResizable(false);
 
         newStage.show();
-        
+
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         selec_avatar.initStage(stage);
     }
 
-    File f_avatard = new File("src/avatars/avatar1.png"); 
+    File f_avatard = new File("src/avatars/avatar1.png");
     private final Image avatard = new Image(f_avatard.toURI().toString());
-    
+
     @FXML
     private void comprobarRegistro(MouseEvent event) throws IOException, Connect4DAOException {
-        //newPlayer = new Player(text_user.getText(), text_pass.getText(), text_mail.getText(), avatarImg, fecha_nacimiento.getValue(), 0);
 
-        if(!cn4.exitsNickName(text_user.getText())) {
-            if(newPlayer.checkNickName(text_user.getText())) {
-                
-            } else {
-                msj_alerta.setText("¡Formato de usuario no valido!");
+        if (!cn4.exitsNickName(text_user.getText())) {
+            if (!Player.checkNickName(text_user.getText())) {
+                error_name.setVisible(true);
             }
+            if (!Player.checkPassword(text_pass.getText())) {
+                error_pass.setVisible(true);
+            }
+            if (!Player.checkEmail(text_mail.getText())) {
+                error_mail.setVisible(true);
+            }
+            if (fecha_nacimiento.getValue()==null) {
+                error_fecha.setText("Campo obligatorio");
+                error_fecha.setVisible(true);
+            } else 
+            if (fecha_nacimiento.getValue().getYear()>2009) {
+                error_fecha.setText("Debes ser mayor de 12 años");
+                error_fecha.setVisible(true);
+            }
+            if (Player.checkNickName(text_user.getText())
+                    //&& Player.checkPassword(text_pass.getText())
+                    && Player.checkEmail(text_mail.getText())
+                    && fecha_nacimiento != null) {
+                
+                if (avatarImg != null) {
+                    cn4.registerPlayer(text_user.getText(), text_pass.getText(), text_mail.getText(), avatarImg, fecha_nacimiento.getValue(), 0);
+                } else {
+                    cn4.registerPlayer(text_user.getText(), text_pass.getText(), text_mail.getText(), fecha_nacimiento.getValue(), 0);
+                }
+
+                newPlayer = cn4.getPlayer(text_user.getText());
+                if(newPlayer==null)System.out.println("asfasdffdsa");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
+                Parent newRoot = loader.load();
+
+                Menu_principalController menu_p = loader.getController();
+
+                menu_p.initData(cn4, newPlayer);
+                menu_p.initMusic(mediaPlayer, music_check.isSelected());
+                Scene scene = new Scene(newRoot);
+                Stage newStage = new Stage();
+                newStage.setScene(scene);
+                newStage.setResizable(false);
+
+                newStage.show();
+
+                final Node source = (Node) event.getSource();
+                final Stage stage = (Stage) source.getScene().getWindow();
+                stage.close();
+            }
+
         } else {
             msj_alerta.setText("¡Usuario ya existente!");
         }
-        
-        if(newPlayer.checkEmail(text_mail.getText())) {
-                    if (newPlayer.checkPassword(text_pass.getText())) {
-//                        if () {
-//                        
-//                        } else {
-//                            msj_alerta.setText("¡Formato de contraseña no valido!");
-//                        }
-                        msj_alerta.setText("");
-                        //cn4.registerPlayer(text_user.getText(), text_pass.getText(), text_mail.getText(), avatarImg, fecha_nacimiento.getValue(), 0);
-                        System.out.println("guvubvu");
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
-                        Parent newRoot = loader.load();
 
-                        Menu_principalController menu_p = loader.getController();
-
-                        menu_p.initData(cn4, newPlayer);
-                        menu_p.initMusic(mediaPlayer, music_check.isSelected());
-                        Scene scene = new Scene(newRoot);
-                        Stage newStage = new Stage();
-                        newStage.setScene(scene);
-                        newStage.setResizable(false);
-
-                        newStage.show();
-
-                        final Node source = (Node) event.getSource();
-                        final Stage stage = (Stage) source.getScene().getWindow();
-                        stage.close();
-                    } else {
-                        msj_alerta.setText("¡Formato de contraseña no valido!");
-                    }
-                } else {
-                    msj_alerta.setText("¡Formato de correo no valido!");
-                }
+//        if(newPlayer.checkEmail(text_mail.getText())) {
+//                    if (newPlayer.checkPassword(text_pass.getText())) {
+////                        if () {
+////                        
+////                        } else {
+////                            msj_alerta.setText("¡Formato de contraseña no valido!");
+////                        }
+//                        msj_alerta.setText("");
+//                        //cn4.registerPlayer(text_user.getText(), text_pass.getText(), text_mail.getText(), avatarImg, fecha_nacimiento.getValue(), 0);
+//                        System.out.println("guvubvu");
+//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
+//                        Parent newRoot = loader.load();
+//
+//                        Menu_principalController menu_p = loader.getController();
+//
+//                        menu_p.initData(cn4, newPlayer);
+//                        menu_p.initMusic(mediaPlayer, music_check.isSelected());
+//                        Scene scene = new Scene(newRoot);
+//                        Stage newStage = new Stage();
+//                        newStage.setScene(scene);
+//                        newStage.setResizable(false);
+//
+//                        newStage.show();
+//
+//                        final Node source = (Node) event.getSource();
+//                        final Stage stage = (Stage) source.getScene().getWindow();
+//                        stage.close();
+//                    } else {
+//                        msj_alerta.setText("¡Formato de contraseña no valido!");
+//                    }
+//                } else {
+//                    msj_alerta.setText("¡Formato de correo no valido!");
+//                }
     }
 
     @FXML
@@ -178,5 +228,5 @@ public class RegistroController {
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
-    
+
 }

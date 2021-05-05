@@ -116,5 +116,9 @@
             <Font name="Trebuchet MS" size="13.0" />
          </font>
       </Text>
+      <Text fx:id="error_name" fill="#fa5b11" layoutX="66.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formato de nombre de usuario incorrecto" visible="false" wrappingWidth="222.99999489620586" />
+      <Text fx:id="error_mail" fill="#fa5b11" layoutX="67.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formato de correo electrónico incorrecto" visible="false" wrappingWidth="222.99999489620586" />
+      <Text fx:id="error_pass" fill="#fa5b11" layoutX="66.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formato de contraseña incorrecto" visible="false" wrappingWidth="222.99999489620586" />
+      <Text fx:id="error_fecha" fill="#fa5b11" layoutX="66.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" wrappingWidth="222.99999489620586" />
    </children>
 </AnchorPane>
