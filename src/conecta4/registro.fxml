@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="376.0" style="-fx-background-color: #14213c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.RegistroController">
+   <children>
+      <JFXToggleButton fx:id="music_check" layoutX="14.0" layoutY="532.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+         <font>
+            <Font name="Trebuchet MS" size="14.0" />
+         </font>
+      </JFXToggleButton>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="111.0" layoutX="-3.0" layoutY="-5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-rotate: -1.5;" width="383.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#001d6b" />
+                  <Stop color="#ffcc99" offset="0.007518796992481203" />
+                  <Stop color="#ecefff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Text fill="#323232" layoutX="66.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro" textAlignment="CENTER" wrappingWidth="245.998046875">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <font>
+            <Font name="Georgia" size="40.0" />
+         </font>
+      </Text>
+      <Text fill="#323232" layoutX="55.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estás un paso más cerca de disfrutar de tu juego favorito..." textAlignment="CENTER" wrappingWidth="266.998046875">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <font>
+            <Font name="Georgia Italic" size="14.0" />
+         </font>
+      </Text>
+      <JFXTextField fx:id="text_user" focusColor="#fca311" labelFloat="true" layoutX="67.0" layoutY="152.0" prefHeight="28.0" prefWidth="223.0" promptText="Nick de Conecta4!" unFocusColor="#e5e5e5">
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="text_pass" focusColor="#fca311" labelFloat="true" layoutX="67.0" layoutY="295.0" prefHeight="28.0" prefWidth="223.0" promptText="Contraseña" unFocusColor="#e5e5e5">
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXTextField fx:id="text_mail" focusColor="#fca311" labelFloat="true" layoutX="67.0" layoutY="222.0" prefHeight="28.0" prefWidth="223.0" promptText="Correo electrónico" unFocusColor="#e5e5e5">
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXDatePicker fx:id="fecha_nacimiento" defaultColor="#ffbd53" layoutX="67.0" layoutY="371.0" prefHeight="27.0" prefWidth="223.0" promptText="Fecha de nacimiento" styleClass="stylesmenu.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+      </JFXDatePicker>
+      <JFXButton buttonType="RAISED" layoutX="179.0" layoutY="532.0" onMouseClicked="#comprobarRegistro" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: #e5e5e5;" text="Registarse" textFill="#14213d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <ripplerFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop color="#799bf8" />
+                  <Stop color="#ffcc99" offset="0.007518796992481203" />
+                  <Stop color="#b4b8cd" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </ripplerFill>
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font>
+      </JFXButton>
+      <Hyperlink layoutX="66.0" layoutY="443.0" onMouseClicked="#seleccionarAvatar" prefHeight="25.0" prefWidth="168.0" text="Seleccionar avatar (opcional)" textFill="#fca311" />
+      <ImageView fx:id="flecha" fitHeight="35.0" fitWidth="31.0" layoutX="24.0" layoutY="16.0" onMouseClicked="#atras" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/60577.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="suAvatar" fitHeight="67.0" fitWidth="76.0" layoutX="269.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="msj_alerta" fill="#ff2525" layoutX="234.0" layoutY="125.0" rotate="-1.5" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

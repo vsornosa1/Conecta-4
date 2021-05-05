@@ -23,7 +23,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -47,20 +46,6 @@ public class LoginController implements Initializable {
     @FXML
     private ImageView img;
 
-    /* DATOS PEPE:
-    String name = "Pepe";
-    String pass = "1234";
-    String email = "email@domain.es";
-    LocalDate birthdate = LocalDate.now().minusYears(18);
-    int points = 10; 
-     */
- /* DATOS jose:
-    String name = "jose";
-    String pass = "123";
-    String email = "email2@domain.es";
-    LocalDate birthdate = LocalDate.now().minusYears(19);
-    int points = 10; 
-     */
  /* DATOS invitado:
     String name = "invitado";
     String pass = "invitado";
@@ -104,12 +89,12 @@ public class LoginController implements Initializable {
         try {
             cn4 = Connect4.getSingletonConnect4();
             
-//            cn4.removeAllData();
-//            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar2,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("a", "a", "a",avatar4,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("invitado", "", "invitado",avatard,LocalDate.MIN, 0);
+            cn4.removeAllData();
+            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789", avatar1, LocalDate.now().minusYears(18), 0);
+            cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789", avatar2, LocalDate.now().minusYears(18), 0);
+            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789", avatar3, LocalDate.now().minusYears(18), 0);
+            cn4.registerPlayer("a", "a", "a", avatar4, LocalDate.now().minusYears(18), 0);
+            cn4.registerPlayer("invitado", "", "invitado", avatard, LocalDate.MIN, 0);
                 
                 invitado = cn4.getPlayer("invitado");
                 
@@ -122,7 +107,7 @@ public class LoginController implements Initializable {
         oldStage = st;
     }
 
-    public void initMusic(MediaPlayer mp,boolean b) {
+    public void initMusic(MediaPlayer mp, boolean b) {
         mediaPlayer = mp;
         music.setSelected(b);
         music.selectedProperty().addListener(changeListener);
@@ -209,7 +194,7 @@ public class LoginController implements Initializable {
             // 2. Controller, scene & stage
             Menu_principalController menu_p = loader.getController();
             menu_p.initData(cn4, invitado);
-            menu_p.initMusic(mediaPlayer,music.isSelected());
+            menu_p.initMusic(mediaPlayer, music.isSelected());
             Scene scene = new Scene(newRoot);
             Stage newStage = new Stage();
             
@@ -231,4 +216,27 @@ public class LoginController implements Initializable {
         }
     }
 
+    
+    @FXML
+    private void registrarse(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("registro.fxml"));
+        Parent newRoot = loader.load();
+
+        RegistroController registro = loader.getController();
+        registro.initData(cn4);
+        registro.initMusic(mediaPlayer, music.isSelected());
+        Scene scene = new Scene(newRoot);
+        Stage newStage = new Stage();
+
+        newStage.setScene(scene);
+        newStage.setResizable(false);
+        newStage.show();
+
+        final Node source = (Node) event.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+    }
+
+    
+    
 }

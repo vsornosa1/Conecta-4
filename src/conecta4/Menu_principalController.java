@@ -60,7 +60,7 @@ public class Menu_principalController {
     private JFXToggleButton music_check;
      
     private MediaPlayer mediaPlayer;
-    public void initMusic(MediaPlayer mp,boolean b) {
+    public void initMusic(MediaPlayer mp, boolean b) {
         mediaPlayer = mp;
         music_check.setSelected(b);
         music_check.selectedProperty().addListener(changeListener);

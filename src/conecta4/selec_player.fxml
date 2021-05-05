@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="234.0" prefWidth="367.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Selec_playerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="234.0" prefWidth="367.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Selec_playerController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="367.0">
          <fill>
@@ -25,7 +18,7 @@
                <stops>
                   <Stop color="#001d6b" />
                   <Stop color="#ffcc99" offset="0.007518796992481203" />
-                  <Stop color="#4b89ab" offset="1.0" />
+                  <Stop color="#d9e0fc" offset="1.0" />
                </stops>
             </LinearGradient>
          </fill>
@@ -38,10 +31,18 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Text fx:id="invalid_mail" fill="#e5e5e5" layoutX="46.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona con quien quieres jugar:" textAlignment="CENTER" wrappingWidth="274.9999917149544">
+      <Text fx:id="invalid_mail" layoutX="46.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona con quien quieres jugar:" textAlignment="CENTER" wrappingWidth="274.9999917149544">
          <font>
-            <Font name="Trebuchet MS" size="16.0" />
-         </font></Text>
+            <Font name="Trebuchet MS" size="17.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#ffcc99" />
+                  <Stop color="#ecefff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill></Text>
       <ImageView fx:id="avatar_player1" fitHeight="91.0" fitWidth="107.0" layoutX="58.0" layoutY="87.0" onMouseClicked="#selec" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -50,15 +51,31 @@
             <Image url="@../images/avatares/avatar2.png" />
          </image>
       </ImageView>
-      <Text fx:id="nombre1" fill="#fca311" layoutX="31.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario1" textAlignment="CENTER" wrappingWidth="144.42040732502937">
+      <Text fx:id="nombre1" layoutX="31.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario1" textAlignment="CENTER" wrappingWidth="144.42040732502937">
          <font>
             <Font name="Trebuchet MS" size="16.0" />
          </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#ffcc99" />
+                  <Stop color="#ecefff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
       </Text>
-      <Text fx:id="nombre2" fill="#fca311" layoutX="188.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario2" textAlignment="CENTER" wrappingWidth="144.42040836252272">
+      <Text fx:id="nombre2" layoutX="188.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usuario2" textAlignment="CENTER" wrappingWidth="144.42040836252272">
          <font>
             <Font name="Trebuchet MS" size="16.0" />
          </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#ffcc99" />
+                  <Stop color="#ecefff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
       </Text>
       <ImageView fx:id="avatar_player2" fitHeight="91.0" fitWidth="107.0" layoutX="215.0" layoutY="87.0" onMouseClicked="#selecc" pickOnBounds="true" preserveRatio="true">
          <cursor>

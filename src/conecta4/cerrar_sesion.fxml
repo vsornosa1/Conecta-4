@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.scene.Cursor?>
@@ -21,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="367.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Cerrar_sesionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="367.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Cerrar_sesionController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="367.0">
          <fill>
@@ -29,7 +21,7 @@
                <stops>
                   <Stop color="#001d6b" />
                   <Stop color="#ffcc99" offset="0.007518796992481203" />
-                  <Stop color="#4b89ab" offset="1.0" />
+                  <Stop color="#ecefff" offset="1.0" />
                </stops>
             </LinearGradient>
          </fill>
@@ -42,10 +34,19 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Text fx:id="invalid_mail" fill="#fca311" layoutX="4.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona la/s cuenta/s que deseas cerrar:" textAlignment="CENTER" wrappingWidth="359.9999969601631">
+      <Text fx:id="invalid_mail" layoutX="4.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecciona la/s cuenta/s que deseas cerrar:" textAlignment="CENTER" wrappingWidth="359.9999969601631">
          <font>
             <Font name="Trebuchet MS" size="17.0" />
-         </font></Text>
+         </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#001d6b" />
+                  <Stop color="#ffcc99" offset="0.007518796992481203" />
+                  <Stop color="#ecefff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill></Text>
       <ImageView fx:id="avatar_player1" fitHeight="87.0" fitWidth="91.0" layoutX="61.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
@@ -62,20 +63,36 @@
             <Image url="@../images/avatares/avatar2.png" />
          </image>
       </ImageView>
-      <JFXCheckBox fx:id="check1" layoutX="52.0" layoutY="206.0" prefHeight="18.0" prefWidth="119.0" text="usuario1" textAlignment="CENTER" textFill="WHITE">
+      <JFXCheckBox fx:id="check1" layoutX="52.0" layoutY="206.0" prefHeight="18.0" prefWidth="119.0" text="usuario1" textAlignment="CENTER">
          <font>
             <Font name="Trebuchet MS" size="17.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></JFXCheckBox>
-      <JFXCheckBox fx:id="check2" layoutX="214.0" layoutY="206.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="101.0" text="usuario2" textAlignment="CENTER" textFill="WHITE">
+         </cursor>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#ffcc99" />
+                  <Stop color="#ecefff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill></JFXCheckBox>
+      <JFXCheckBox fx:id="check2" layoutX="214.0" layoutY="206.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="101.0" text="usuario2" textAlignment="CENTER">
          <font>
             <Font name="Trebuchet MS" size="17.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></JFXCheckBox>
+         </cursor>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#ffcc99" />
+                  <Stop color="#ecefff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill></JFXCheckBox>
       <JFXButton fx:id="cerrar" buttonType="RAISED" layoutX="38.0" layoutY="251.0" onMouseClicked="#cerrar" prefHeight="31.0" prefWidth="291.0" style="-fx-background-color: #e5e5e5;" text="Cerrar sesión/es" textFill="#14213d">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -84,7 +101,7 @@
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
                   <Stop color="#ffcc99" />
-                  <Stop color="#4b89ab" offset="1.0" />
+                  <Stop color="#b4b8cd" offset="1.0" />
                </stops>
             </RadialGradient>
          </ripplerFill>

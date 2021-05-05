@@ -67,7 +67,7 @@
                                        <stops>
                                           <Stop color="#799bf8" />
                                           <Stop color="#ffcc99" offset="0.007518796992481203" />
-                                          <Stop color="#4b89ab" offset="1.0" />
+                                          <Stop color="#b4b8cd" offset="1.0" />
                                        </stops>
                                     </RadialGradient>
                                  </ripplerFill>
@@ -282,7 +282,7 @@
                      <stops>
                         <Stop color="#799bf8" />
                         <Stop color="#ffcc99" offset="0.007518796992481203" />
-                        <Stop color="#4b89ab" offset="1.0" />
+                        <Stop color="#b4b8cd" offset="1.0" />
                      </stops>
                   </RadialGradient>
                </ripplerFill>

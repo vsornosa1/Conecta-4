@@ -100,15 +100,13 @@ public class Login_amigoController {
                 final Stage stage = (Stage) source.getScene().getWindow();
                 oldStage.close();
                 stage.close();
-            } catch (IOException e) {
+            } catch (IOException e) { 
                 System.out.println(e);
             }
             }
         } else {
             warning_player1.setText("Usuario y/o contraseña no coinciden");
         }
-        
-        
     }
     
     

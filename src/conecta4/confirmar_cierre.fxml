@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.paint.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="367.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Confirmar_cierreController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="367.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Confirmar_cierreController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="43.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="367.0">
          <fill>
@@ -26,7 +21,7 @@
                <stops>
                   <Stop color="#001d6b" />
                   <Stop color="#ffcc99" offset="0.007518796992481203" />
-                  <Stop color="#4b89ab" offset="1.0" />
+                  <Stop color="#ecefff" offset="1.0" />
                </stops>
             </LinearGradient>
          </fill>
@@ -47,7 +42,7 @@
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
                   <Stop color="#ffcc99" />
-                  <Stop color="#4b89ab" offset="1.0" />
+                  <Stop color="#dfe5ff" offset="1.0" />
                </stops>
             </RadialGradient>
          </ripplerFill>
@@ -58,9 +53,17 @@
          </font></Text>
       <Text fill="#e5e5e5" layoutX="41.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="'Esperemos que sea un hasta luego, y no un adios'" textAlignment="CENTER" wrappingWidth="289.0">
          <font>
-            <Font name="Copperplate Light" size="21.0" />
+            <Font name="Trebuchet MS Bold Italic" size="20.0" />
          </font>
       </Text>
-      <Line endX="100.0" layoutX="185.0" layoutY="122.0" startX="-100.0" stroke="#fca311" />
+      <Line endX="100.0" layoutX="185.0" layoutY="122.0" startX="-100.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#fca311" />
+                  <Stop color="#dfe5ff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </stroke></Line>
    </children>
 </AnchorPane>

@@ -37,7 +37,7 @@ public class Confirmar_cierreController {
     private Player player;
     private Connect4 cn4;
     private MediaPlayer mediaPlayer;
-    private boolean b;
+    private boolean check;
 
     public void initData(Connect4 con4, Player p, Stage st) throws IOException {
         cn4 = con4;
@@ -46,9 +46,9 @@ public class Confirmar_cierreController {
         pregunta.setText("¿Seguro que quieres cerrar sesión, " + player.getNickName() + "?");
     }
 
-    public void initMusic(MediaPlayer mp, boolean b) {
+    public void initMusic(MediaPlayer mp, boolean check) {
         mediaPlayer = mp;
-        this.b=b;
+        this.check = check;
     }
 
     @FXML
@@ -56,7 +56,7 @@ public class Confirmar_cierreController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent newRoot = loader.load();
         LoginController lg = loader.getController();
-        lg.initMusic(mediaPlayer, b);
+        lg.initMusic(mediaPlayer, check);
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
 
