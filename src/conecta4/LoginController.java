@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -46,15 +45,6 @@ public class LoginController implements Initializable {
     @FXML
     private ImageView img;
 
-    /* DATOS invitado:
-    String name = "invitado";
-    String pass = "invitado";
-    String email = "invitado@domain.es";
-    LocalDate birthdate = LocalDate.now().minusYears(19);
-    int points = 10; 
-    File f_avatar1 = new File("src/avatars/avatar1.png"); 
-    private final Image avatarInvitado = new Image(f_avatar1.toURI().toString());
-     */
     private Player player1, invitado;
     private Connect4 cn4;
     private MediaPlayer mediaPlayer;
@@ -67,17 +57,20 @@ public class LoginController implements Initializable {
     private Text error;
 
     private Menu_principalController menu;
-
-    /*File f_avatar1 = new File("src/images/avatares/avatar3.png");
+    
+    File f_avatar1 = new File("src/images/avatares/avatar1.png"); 
     private final Image avatar1 = new Image(f_avatar1.toURI().toString());
-    File f_avatar2 = new File("src/images/avatares/avatar6.png");
-    private final Image avatar2 = new Image(f_avatar2.toURI().toString());
-    File f_avatar3 = new File("src/images/avatares/avatar5.png");
+    File f_avatar5 = new File("src/images/avatares/avatar5.png"); 
+    private final Image avatar5 = new Image(f_avatar5.toURI().toString());
+    File f_avatar3 = new File("src/images/avatares/avatar3.png"); 
     private final Image avatar3 = new Image(f_avatar3.toURI().toString());
-    File f_avatar4 = new File("src/images/avatares/avatar2.png");
-    private final Image avatar4 = new Image(f_avatar4.toURI().toString());
-    File f_avatard = new File("src/avatars/avatar1.png");
-    private final Image avatard = new Image(f_avatard.toURI().toString());*/
+    File f_avatar6 = new File("src/images/avatares/avatar6.png"); 
+    private final Image avatar6 = new Image(f_avatar6.toURI().toString());
+    
+    File f_avatarDef = new File("src/images/avatares/avatar10.png"); 
+    private final Image avatarDef = new Image(f_avatarDef.toURI().toString());
+    
+
     /**
      * Initializes the controller class.
      *
@@ -90,21 +83,22 @@ public class LoginController implements Initializable {
             cn4 = Connect4.getSingletonConnect4();
 
 //            cn4.removeAllData();
-//            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar2,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("a", "a", "a",avatar4,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("invitado", "", "invitado",avatard,LocalDate.MIN, 0);
-            invitado = cn4.getPlayer("invitado");
+//            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
+//            cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
+//            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar5,LocalDate.now().minusYears(18), 0);
+//            cn4.registerPlayer("a", "a", "a", avatar6,LocalDate.now().minusYears(18), 0);
+//            cn4.registerPlayer("invitado", "invitado@domain.es", "invitado", avatarDef, LocalDate.MIN, 0);
+//            invitado = cn4.getPlayer("invitado");
 
         } catch (Connect4DAOException e) {
         }
     }
 
-    public void initData(Stage st, Menu_principalController m) {
+    public void initData(Connect4 cn4, Stage st, Menu_principalController m) {
         log_guest = true;
         menu = m;
         oldStage = st;
+        this.cn4 = cn4;
     }
 
     public void initMusic(MediaPlayer mp, boolean b) {

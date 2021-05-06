@@ -241,14 +241,12 @@ public class Menu_principalController {
 
                 final Node sr = (Node) event.getSource();
                 final Stage st = (Stage) sr.getScene().getWindow();
-
-//                FXMLLoader this_load = (FXMLLoader) st.getScene().getUserData();
-//                Menu_principalController menu = this_load.getController();
+                
                 LoginController ld = loader.getController();
                 if (thisController == null) {
                     System.out.println("asdfasfd");
                 }
-                ld.initData(st, thisController);
+                ld.initData(cn4, st, thisController);
                 ld.initMusic(mediaPlayer, music_check.isSelected());
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
