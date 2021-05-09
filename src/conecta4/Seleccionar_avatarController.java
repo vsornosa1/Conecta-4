@@ -11,8 +11,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * ¡
- *
  * @author Alex & Sento
  */
 public class Seleccionar_avatarController {
@@ -244,10 +242,11 @@ public class Seleccionar_avatarController {
         cerrarVentana(event);
     }
 
+    
     private void cerrarVentana(MouseEvent event) throws IOException {
         avatarImg = new Image(avatarFile.toURI().toString());
-
         registro.initAvatar(avatarImg);
+        
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

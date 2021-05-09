@@ -167,13 +167,13 @@ public class Menu_principalController {
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
 
-                selec.initData(cn4, player1, player2);
+                selec.initData(cn4, player1, player2, st);
 
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
                 newStage.show();
-                st.close();
+                
             } catch (IOException e) {
                 System.out.println(e);
             }

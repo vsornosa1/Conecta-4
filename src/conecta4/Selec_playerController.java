@@ -33,12 +33,14 @@ public class Selec_playerController {
     
     private Connect4 cn4;
     private Player player1, player2;
+    private Stage stage;
 
     
-    public void initData(Connect4 cn4, Player p1, Player p2){
+    public void initData(Connect4 cn4, Player p1, Player p2, Stage st){
         this.cn4 = cn4;
         player1 = p1;
         player2 = p2;
+        stage = st;
         avatar_player1.setImage(player1.getAvatar());
         avatar_player2.setImage(player2.getAvatar());
         nombre1.setText(player1.getNickName());
@@ -64,6 +66,7 @@ public class Selec_playerController {
             final Node sr = (Node) event.getSource();
             final Stage st = (Stage) sr.getScene().getWindow();
             st.close();
+            stage.close();
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -87,6 +90,7 @@ public class Selec_playerController {
             final Node sr = (Node) event.getSource();
             final Stage st = (Stage) sr.getScene().getWindow();
             st.close();
+            stage.close();
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -96,7 +100,7 @@ public class Selec_playerController {
     @FXML
     private void atras(MouseEvent event) {
         final Node source = (Node) event.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        final Stage stg = (Stage) source.getScene().getWindow();
+        stg.close();
     }
 }
