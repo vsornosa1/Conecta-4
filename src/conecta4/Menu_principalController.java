@@ -226,7 +226,7 @@ public class Menu_principalController {
                 Stage newStage = new Stage();
 
                 selec.initData(cn4, player1, player2, st);
-
+                selec.initMusic(mediaPlayer, music_check.isSelected());
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);

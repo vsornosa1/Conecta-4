@@ -57,19 +57,18 @@ public class LoginController implements Initializable {
     private Text error;
 
     private Menu_principalController menu;
-    
-    File f_avatar1 = new File("src/images/avatares/avatar1.png"); 
+
+    File f_avatar1 = new File("src/images/avatares/avatar1.png");
     private final Image avatar1 = new Image(f_avatar1.toURI().toString());
-    File f_avatar5 = new File("src/images/avatares/avatar5.png"); 
+    File f_avatar5 = new File("src/images/avatares/avatar5.png");
     private final Image avatar5 = new Image(f_avatar5.toURI().toString());
-    File f_avatar3 = new File("src/images/avatares/avatar3.png"); 
+    File f_avatar3 = new File("src/images/avatares/avatar3.png");
     private final Image avatar3 = new Image(f_avatar3.toURI().toString());
-    File f_avatar6 = new File("src/images/avatares/avatar6.png"); 
+    File f_avatar6 = new File("src/images/avatares/avatar6.png");
     private final Image avatar6 = new Image(f_avatar6.toURI().toString());
-    
-    File f_avatarDef = new File("src/images/avatares/avatar10.png"); 
+
+    File f_avatarDef = new File("src/images/avatares/avatar10.png");
     private final Image avatarDef = new Image(f_avatarDef.toURI().toString());
-    
 
     /**
      * Initializes the controller class.
@@ -81,14 +80,13 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             cn4 = Connect4.getSingletonConnect4();
-
+            invitado = cn4.getPlayer("invitado");
 //            cn4.removeAllData();
 //            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
 //            cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
 //            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar5,LocalDate.now().minusYears(18), 0);
 //            cn4.registerPlayer("a", "a", "a", avatar6,LocalDate.now().minusYears(18), 0);
 //            cn4.registerPlayer("invitado", "invitado@domain.es", "invitado", avatarDef, LocalDate.MIN, 0);
-//            invitado = cn4.getPlayer("invitado");
 
         } catch (Connect4DAOException e) {
         }
