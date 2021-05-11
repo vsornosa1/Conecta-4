@@ -756,6 +756,7 @@ public class Partida_cpuController implements Initializable {
                 Node source = (Node) event.getSource();
                 Stage stage = (Stage) source.getScene().getWindow();
                 rendicion.initData(cn4, player, player2, stage);
+                rendicion.initMusic(mediaPlayer, music_check.isSelected());
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
                 newStage.setScene(scene);

@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,6 +36,8 @@ public class Selec_playerController {
     private Player player1, player2;
     private Stage stage;
 
+    private MediaPlayer mediaPlayer;
+    private boolean mus;
     
     public void initData(Connect4 cn4, Player p1, Player p2, Stage st){
         this.cn4 = cn4;
@@ -47,6 +50,10 @@ public class Selec_playerController {
         nombre2.setText(player2.getNickName());
     }
     
+    public void initMusic(MediaPlayer mp, boolean b) {
+        mediaPlayer = mp;
+        mus=b;
+    }
 
     @FXML
     private void selec(MouseEvent event) {
@@ -59,7 +66,8 @@ public class Selec_playerController {
             Stage newStage = new Stage();
 
             solo.initData(cn4, player1, player2);
-
+            solo.initMusic(mediaPlayer, mus);
+            
             newStage.setScene(scene);
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.show();
@@ -83,7 +91,8 @@ public class Selec_playerController {
             Stage newStage = new Stage();
 
             solo.initData(cn4, player2, player1);
-
+            solo.initMusic(mediaPlayer, mus);
+            
             newStage.setScene(scene);
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.show();
