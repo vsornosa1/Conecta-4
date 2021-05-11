@@ -1,5 +1,6 @@
 package conecta4;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
 import java.io.IOException;
@@ -80,6 +81,13 @@ public class Menu_principalController {
     @FXML
     private Line lineaJ2_perfil;
     private Player playerAux;
+    private boolean perf;
+    @FXML
+    private JFXButton ed_bot;
+    @FXML
+    private JFXButton change_bot;
+    @FXML
+    private JFXToggleButton music_check1;
 
     public void initController(Menu_principalController controller) {
         thisController = controller;
@@ -89,25 +97,26 @@ public class Menu_principalController {
         mediaPlayer = mp;
         music_check.setSelected(b);
         music_check.selectedProperty().addListener(changeListener);
+        music_check1.selectedProperty().bindBidirectional(music_check.selectedProperty());
     }
 
     // Login/1 Jugador -> Menu principal
     public void initData(Connect4 con4, Player p1) {
         cn4 = con4;
         player1 = p1;
+        perf = true;
         aplauso.setText("Bienvenido/a " + player1.getNickName());
         avatar_player1.setImage(player1.getAvatar());
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
         invitado = cn4.getPlayer("invitado");
-        
 
         if (player1.equals(invitado)) {
-            initPerfil(invitado);
+            initPerfil(true);
             puntos_player1.setText("¡Inicia sesión para ver tus puntos!");
             link_cerrar_sesion.setText("Iniciar sesión");
         } else {
-            initPerfil(player1);
+            initPerfil(true);
             link_cerrar_sesion.setText("Cerrar sesión");
             if (player2 == null) {
                 puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
@@ -119,19 +128,18 @@ public class Menu_principalController {
         }
     }
 
-
-
     // 2 Jugadores -> Menu principal
     public void initData(Connect4 con4, Player p1, Player p2) {
         cn4 = con4;
         player1 = p1;
         player2 = p2;
+        perf = true;
         aplauso.setText("Bienvenidos/as " + player1.getNickName() + ", " + player2.getNickName());
         avatar_player1.setImage(player1.getAvatar());
         avatar_player2.setImage(player2.getAvatar());
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
-        initPerfil(player1);
+        initPerfil(true);
 
         if (player1.equals(invitado)) {
             puntos_player1.setText("¡Inicia sesión para ver tus puntos!");
@@ -145,41 +153,97 @@ public class Menu_principalController {
             }
         }
     }
-    
-    
-    private void initPerfil(Player playerSelected) {
-        avatar_perfil.setImage(playerSelected.getAvatar());
-        if (playerSelected == invitado) {
-            user_perfil.setText(playerSelected.getNickName());
+
+    private void initPerfil(boolean p) {
+
+        if (player1 == invitado) {
+            ed_bot.setDisable(true);
+            avatar_perfil.setImage(player1.getAvatar());
+            user_perfil.setText(player1.getNickName());
             contraseña_perfil.setText("¡Inicia sesión para ver tu perfil!");
             mail_perfil.setText("");
             cumpleaños_perfil.setText("");
-        } 
-        else {
-            user_perfil.setText("@" + playerSelected.getNickName());
-            contraseña_perfil.setText("Contraseña: " + playerSelected.getPassword());
-            mail_perfil.setText("Correo electrónico: " + playerSelected.getEmail());
-            cumpleaños_perfil.setText("Fecha de Nacimiento: " + playerSelected.getBirthdate());
+            change_bot.setOpacity(1);
+        } else if (player2 == null) {
+            change_bot.setOpacity(1);
+            ed_bot.setDisable(false);
+            avatar_perfil.setImage(player1.getAvatar());
+            user_perfil.setText("@" + player1.getNickName());
+            contraseña_perfil.setText("Contraseña: " + player1.getPassword());
+            mail_perfil.setText("Correo electrónico: " + player1.getEmail());
+            cumpleaños_perfil.setText("Fecha de Nacimiento: " + player1.getBirthdate());
+        } else {
+            ed_bot.setDisable(false);
+            change_bot.setOpacity(0);
+            if (p) {
+                avatar_perfil.setImage(player1.getAvatar());
+                user_perfil.setText("@" + player1.getNickName());
+                contraseña_perfil.setText("Contraseña: " + player1.getPassword());
+                mail_perfil.setText("Correo electrónico: " + player1.getEmail());
+                cumpleaños_perfil.setText("Fecha de Nacimiento: " + player1.getBirthdate());
+                lineaJ2_perfil.setOpacity(1);
+                cambiarAvatar2_perfil.setImage(player2.getAvatar());
+                cambiarJ2_perfil.setText("Ver perfil de " + player2.getNickName());
+            } else {
+                avatar_perfil.setImage(player2.getAvatar());
+                user_perfil.setText("@" + player2.getNickName());
+                contraseña_perfil.setText("Contraseña: " + player2.getPassword());
+                mail_perfil.setText("Correo electrónico: " + player2.getEmail());
+                cumpleaños_perfil.setText("Fecha de Nacimiento: " + player2.getBirthdate());
+                lineaJ2_perfil.setOpacity(1);
+                cambiarAvatar2_perfil.setImage(player1.getAvatar());
+                cambiarJ2_perfil.setText("Ver perfil de " + player1.getNickName());
+            }
+
         }
-        
-        if (player2 != null) {
-            lineaJ2_perfil.setOpacity(1);
-            cambiarAvatar2_perfil.setImage(player2.getAvatar());
-            cambiarJ2_perfil.setText("Ver perfil de " + player2.getNickName());
+
+    }
+
+    @FXML
+    private void cambiar_perfil(MouseEvent event) throws IOException {
+        final Node source = (Node) event.getSource();
+        final Stage st = (Stage) source.getScene().getWindow();
+        if (player1 == invitado) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent newRoot = loader.load();
+
+            LoginController ld = loader.getController();
+            ld.initData(cn4, st, thisController);
+            ld.initMusic(mediaPlayer, music_check.isSelected());
+            Scene scene = new Scene(newRoot);
+            Stage newStage = new Stage();
+
+            newStage.setScene(scene);
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.setResizable(false);
+            newStage.show();
+        }
+        if (player2 == null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login_amigo.fxml"));
+            Parent newRoot = loader.load();
+            Login_amigoController loginAmigo = loader.getController();
+
+            Scene scene = new Scene(newRoot);
+            Stage newStage = new Stage();
+
+            newStage.setScene(scene);
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.setResizable(false);
+            newStage.show();
+
+            loginAmigo.initData(cn4, player1, thisController);
+            loginAmigo.initMusic(mediaPlayer, music_check.isSelected());
+        } else {
+            perf = !perf;
+            initPerfil(perf);
         }
     }
-    
+
     @FXML
     private void editar_perfil(MouseEvent event) {
-        if (player2 != null) {
-            playerAux = player1;
-            player1 = player2;
-            player2 = playerAux;
-            initPerfil(player1);
-        }
+        //que aparezca el nuevo controller tipo register para actualizar los datos
     }
-    
-    
+
     private ChangeListener changeListener = new ChangeListener() {
         @Override
         public void changed(ObservableValue observable, Object oldVal, Object newVal) {
@@ -231,7 +295,7 @@ public class Menu_principalController {
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
                 newStage.show();
-                
+
             } catch (IOException e) {
                 System.out.println(e);
             }
@@ -299,11 +363,8 @@ public class Menu_principalController {
 
                 final Node sr = (Node) event.getSource();
                 final Stage st = (Stage) sr.getScene().getWindow();
-                
+
                 LoginController ld = loader.getController();
-                if (thisController == null) {
-                    System.out.println("asdfasfd");
-                }
                 ld.initData(cn4, st, thisController);
                 ld.initMusic(mediaPlayer, music_check.isSelected());
                 Scene scene = new Scene(newRoot);
@@ -350,9 +411,5 @@ public class Menu_principalController {
             cr.initData(cn4, player1, player2, st);
         }
     }
-
-
-
-
 
 }

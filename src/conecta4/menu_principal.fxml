@@ -174,13 +174,13 @@
                               <Image url="@../images/avatares/avatar1.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="cambiarAvatar2_perfil" fitHeight="52.0" fitWidth="54.0" layoutX="557.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
-                        <Text fx:id="cambiarJ2_perfil" fill="#e5e5e5" layoutX="628.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="167.2041015625">
+                        <ImageView fx:id="cambiarAvatar2_perfil" fitHeight="52.0" fitWidth="54.0" layoutX="555.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="cambiarJ2_perfil" fill="#e5e5e5" layoutX="626.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="167.2041015625">
                            <font>
                               <Font name="Trebuchet MS Italic" size="22.0" />
                            </font>
                         </Text>
-                        <JFXButton buttonType="RAISED" layoutX="566.0" layoutY="39.0" onMouseClicked="#editar_perfil" prefHeight="43.0" prefWidth="208.0" style="-fx-background-color: #e5e5e5;" text="Editar mi perfil" textFill="#14213d">
+                        <JFXButton fx:id="ed_bot" buttonType="RAISED" layoutX="566.0" layoutY="39.0" onMouseClicked="#editar_perfil" prefHeight="43.0" prefWidth="208.0" style="-fx-background-color: #e5e5e5;" text="Editar mi perfil" textFill="#14213d">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -197,7 +197,7 @@
                               <Font name="Georgia" size="15.0" />
                            </font>
                         </JFXButton>
-                        <Line fx:id="lineaJ2_perfil" endX="-102.71517944335938" endY="311.1282653808594" layoutX="620.0" layoutY="42.0" opacity="0.0" startX="-77.072509765625" startY="241.72848510742188" strokeWidth="2.0">
+                        <Line fx:id="lineaJ2_perfil" endX="-102.71517944335938" endY="311.1282653808594" layoutX="618.0" layoutY="14.0" opacity="0.0" startX="-77.072509765625" startY="241.72848510742188" strokeWidth="2.0">
                            <stroke>
                               <LinearGradient endX="1.0" endY="1.0">
                                  <stops>
@@ -222,6 +222,28 @@
                               <Font name="Trebuchet MS Italic" size="22.0" />
                            </font>
                         </Text>
+                        <JFXButton fx:id="change_bot" buttonType="RAISED" layoutX="541.0" layoutY="271.0" onMouseClicked="#cambiar_perfil" opacity="0.0" prefHeight="52.0" prefWidth="237.0" style="-fx-background-color: #e5e5e5;" text="Inicia sesión!" textFill="#14213d">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <ripplerFill>
+                              <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                 <stops>
+                                    <Stop color="#799bf8" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#b4b8cd" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </ripplerFill>
+                           <font>
+                              <Font name="Georgia" size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXToggleButton fx:id="music_check1" layoutX="687.0" layoutY="312.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </JFXToggleButton>
                      </children></AnchorPane>
                     </content>
                 </Tab>
