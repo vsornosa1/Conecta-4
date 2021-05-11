@@ -97,7 +97,6 @@
                                          <Font name="Trebuchet MS" size="46.0" />
                                     </font>
                                 </Text>
-                                <Line endX="-26.40087890625" endY="44.357391357421875" layoutX="412.0" layoutY="299.0" startX="-23.71234130859375" startY="-263.7177734375" stroke="#e5e5e5" strokeWidth="2.0" />
                                 <ImageView fx:id="avatar11" fitHeight="86.0" fitWidth="86.0" layoutX="101.0" layoutY="155.0" onMouseClicked="#partida_solo" pickOnBounds="true" preserveRatio="true" />
                                 <ImageView fx:id="avatar111" fitHeight="76.0" fitWidth="76.0" layoutX="498.0" layoutY="158.0" onMouseClicked="#partida_doble" pickOnBounds="true" preserveRatio="true" />
                                 <ImageView fitHeight="83.0" fitWidth="76.0" layoutX="630.0" layoutY="159.0" onMouseClicked="#partida_doble" pickOnBounds="true" preserveRatio="true">
@@ -125,13 +124,35 @@
                            <font>
                               <Font name="Trebuchet MS" size="13.0" />
                            </font></JFXToggleButton>
+                        <Line endX="-102.71517944335938" endY="311.1282653808594" layoutX="498.0" layoutY="34.0" rotate="180.0" startX="-100.0" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#fca311" />
+                                    <Stop color="#dfe5ff" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" text="Puntuaciones">
                     <content>
-                        <AnchorPane fx:id="music" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane fx:id="music" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                                <Text fx:id="puntos_player1" fill="#fca311" layoutX="82.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntos player1: ">
+                                    <font>
+                                        <Font size="29.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="puntos_player2" fill="#fca311" layoutX="501.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntos player2: ">
+                                    <font>
+                                        <Font size="29.0" />
+                                    </font>
+                                </Text>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" text="Historial de partidas">
@@ -142,20 +163,66 @@
                 <Tab style="-fx-pref-width: 190; -fx-pref-height: 50; -fx-background-color: #380444;" text="Perfil">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <Text fx:id="puntos_player1" fill="#fca311" layoutX="54.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0">
-                                    <font>
-                                        <Font size="29.0" />
-                                    </font>
-                                </Text>
-                                <Text fx:id="puntos_player2" fill="#fca311" layoutX="493.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0">
-                                    <font>
-                                        <Font size="29.0" />
-                                    </font>
-                                </Text>
-                                <Line endX="-26.40087890625" endY="44.357391357421875" startX="-23.71234130859375" startY="-263.7177734375" stroke="#e5e5e5" strokeWidth="2.0" />
-                            </children>
-                        </AnchorPane>
+                     <children>
+                        <Text fx:id="user_perfil" fill="#e5e5e5" layoutX="125.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\@Player1" wrappingWidth="406.48291015625">
+                           <font>
+                              <Font name="Georgia" size="46.0" />
+                           </font>
+                        </Text>
+                        <ImageView fx:id="avatar_perfil" fitHeight="76.0" fitWidth="76.0" layoutX="30.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/avatares/avatar1.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="cambiarAvatar2_perfil" fitHeight="52.0" fitWidth="54.0" layoutX="557.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="cambiarJ2_perfil" fill="#e5e5e5" layoutX="628.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="167.2041015625">
+                           <font>
+                              <Font name="Trebuchet MS Italic" size="22.0" />
+                           </font>
+                        </Text>
+                        <JFXButton buttonType="RAISED" layoutX="566.0" layoutY="39.0" onMouseClicked="#editar_perfil" prefHeight="43.0" prefWidth="208.0" style="-fx-background-color: #e5e5e5;" text="Editar mi perfil" textFill="#14213d">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <ripplerFill>
+                              <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                 <stops>
+                                    <Stop color="#799bf8" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#b4b8cd" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </ripplerFill>
+                           <font>
+                              <Font name="Georgia" size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <Line fx:id="lineaJ2_perfil" endX="-102.71517944335938" endY="311.1282653808594" layoutX="620.0" layoutY="42.0" opacity="0.0" startX="-77.072509765625" startY="241.72848510742188" strokeWidth="2.0">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop color="#fca311" />
+                                    <Stop color="#dfe5ff" offset="1.0" />
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Text fx:id="contraseña_perfil" fill="#e5e5e5" layoutX="26.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña: Aa_123456789" wrappingWidth="481.279296875">
+                           <font>
+                              <Font name="Trebuchet MS Italic" size="22.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="mail_perfil" fill="#e5e5e5" layoutX="26.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico: ejemplo@domain.es" wrappingWidth="600.301025390625">
+                           <font>
+                              <Font name="Trebuchet MS Italic" size="22.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="cumpleaños_perfil" fill="#e5e5e5" layoutX="28.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de Nacimiento: 12/12/2012" wrappingWidth="364.275146484375">
+                           <font>
+                              <Font name="Trebuchet MS Italic" size="22.0" />
+                           </font>
+                        </Text>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
             </tabs>

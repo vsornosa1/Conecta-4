@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Line;
 
 import model.*;
 
@@ -62,6 +63,23 @@ public class Menu_principalController {
     private MediaPlayer mediaPlayer;
 
     private Menu_principalController thisController;
+    @FXML
+    private Text user_perfil;
+    @FXML
+    private ImageView avatar_perfil;
+    @FXML
+    private ImageView cambiarAvatar2_perfil;
+    @FXML
+    private Text cambiarJ2_perfil;
+    @FXML
+    private Text contraseña_perfil;
+    @FXML
+    private Text mail_perfil;
+    @FXML
+    private Text cumpleaños_perfil;
+    @FXML
+    private Line lineaJ2_perfil;
+    private Player playerAux;
 
     public void initController(Menu_principalController controller) {
         thisController = controller;
@@ -82,11 +100,14 @@ public class Menu_principalController {
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
         invitado = cn4.getPlayer("invitado");
+        
 
         if (player1.equals(invitado)) {
+            initPerfil(invitado);
             puntos_player1.setText("¡Inicia sesión para ver tus puntos!");
             link_cerrar_sesion.setText("Iniciar sesión");
         } else {
+            initPerfil(player1);
             link_cerrar_sesion.setText("Cerrar sesión");
             if (player2 == null) {
                 puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
@@ -98,16 +119,7 @@ public class Menu_principalController {
         }
     }
 
-    private ChangeListener changeListener = new ChangeListener() {
-        @Override
-        public void changed(ObservableValue observable, Object oldVal, Object newVal) {
-            if (music_check.isSelected()) {
-                mediaPlayer.pause();
-            } else {
-                mediaPlayer.play();
-            }
-        }
-    };
+
 
     // 2 Jugadores -> Menu principal
     public void initData(Connect4 con4, Player p1, Player p2) {
@@ -119,6 +131,7 @@ public class Menu_principalController {
         avatar_player2.setImage(player2.getAvatar());
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
+        initPerfil(player1);
 
         if (player1.equals(invitado)) {
             puntos_player1.setText("¡Inicia sesión para ver tus puntos!");
@@ -132,6 +145,51 @@ public class Menu_principalController {
             }
         }
     }
+    
+    
+    private void initPerfil(Player playerSelected) {
+        avatar_perfil.setImage(playerSelected.getAvatar());
+        if (playerSelected == invitado) {
+            user_perfil.setText(playerSelected.getNickName());
+            contraseña_perfil.setText("¡Inicia sesión para ver tu perfil!");
+            mail_perfil.setText("");
+            cumpleaños_perfil.setText("");
+        } 
+        else {
+            user_perfil.setText("@" + playerSelected.getNickName());
+            contraseña_perfil.setText("Contraseña: " + playerSelected.getPassword());
+            mail_perfil.setText("Correo electrónico: " + playerSelected.getEmail());
+            cumpleaños_perfil.setText("Fecha de Nacimiento: " + playerSelected.getBirthdate());
+        }
+        
+        if (player2 != null) {
+            lineaJ2_perfil.setOpacity(1);
+            cambiarAvatar2_perfil.setImage(player2.getAvatar());
+            cambiarJ2_perfil.setText("Ver perfil de " + player2.getNickName());
+        }
+    }
+    
+    @FXML
+    private void editar_perfil(MouseEvent event) {
+        if (player2 != null) {
+            playerAux = player1;
+            player1 = player2;
+            player2 = playerAux;
+            initPerfil(player1);
+        }
+    }
+    
+    
+    private ChangeListener changeListener = new ChangeListener() {
+        @Override
+        public void changed(ObservableValue observable, Object oldVal, Object newVal) {
+            if (music_check.isSelected()) {
+                mediaPlayer.pause();
+            } else {
+                mediaPlayer.play();
+            }
+        }
+    };
 
     @FXML
     private void partida_solo(MouseEvent event) {
@@ -292,4 +350,9 @@ public class Menu_principalController {
             cr.initData(cn4, player1, player2, st);
         }
     }
+
+
+
+
+
 }
