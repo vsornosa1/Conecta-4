@@ -6,6 +6,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -142,16 +144,12 @@
                     <content>
                         <AnchorPane fx:id="music" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                                <Text fx:id="puntos_player1" fill="#fca311" layoutX="82.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntos player1: ">
-                                    <font>
-                                        <Font size="29.0" />
-                                    </font>
-                                </Text>
-                                <Text fx:id="puntos_player2" fill="#fca311" layoutX="501.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Puntos player2: ">
-                                    <font>
-                                        <Font size="29.0" />
-                                    </font>
-                                </Text>
+                        <TableView fx:id="table" layoutX="47.0" layoutY="25.0" prefHeight="313.0" prefWidth="705.0">
+                          <columns>
+                            <TableColumn fx:id="name" prefWidth="455.1513671875" text="NickName" />
+                            <TableColumn fx:id="punt" prefWidth="249.26751708984375" text="Puntuación" />
+                          </columns>
+                        </TableView>
                      </children></AnchorPane>
                     </content>
                 </Tab>

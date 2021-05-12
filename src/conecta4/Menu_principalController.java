@@ -2,12 +2,20 @@ package conecta4;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.JFXTreeTableColumn;
+import com.jfoenix.controls.JFXTreeTableView;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 
 import javafx.stage.Stage;
 import javafx.stage.Modality;
@@ -15,6 +23,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,7 +39,7 @@ import model.*;
 /**
  * @author Alex & Sento
  */
-public class Menu_principalController {
+public class Menu_principalController implements Initializable {
 
     private Connect4 cn4;
     private Player player1, player2, invitado;
@@ -49,10 +61,6 @@ public class Menu_principalController {
     private ImageView avatar_player1;
     @FXML
     private ImageView avatar_player2;
-    @FXML
-    private Text puntos_player2;
-    @FXML
-    private Text puntos_player1;
     @FXML
     private Hyperlink link_cerrar_sesion;
     @FXML
@@ -88,6 +96,19 @@ public class Menu_principalController {
     private JFXButton change_bot;
     @FXML
     private JFXToggleButton music_check1;
+    @FXML
+    private TableView<Player> table;
+    @FXML
+    private TableColumn<Player, String> name;
+    @FXML
+    private TableColumn<Player, Integer> punt;
+
+    ObservableList<Player> observablePlayers;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+    }
 
     public void initController(Menu_principalController controller) {
         thisController = controller;
@@ -113,19 +134,19 @@ public class Menu_principalController {
 
         if (player1.equals(invitado)) {
             initPerfil(true);
-            puntos_player1.setText("¡Inicia sesión para ver tus puntos!");
+
             link_cerrar_sesion.setText("Iniciar sesión");
         } else {
             initPerfil(true);
             link_cerrar_sesion.setText("Cerrar sesión");
-            if (player2 == null) {
-                puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
-                puntos_player2.setText("");
-            } else {
-                puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
-                puntos_player2.setText("Puntos de " + player2.getNickName() + ": " + player2.getPoints());
-            }
         }
+        ArrayList<Player> jugadores = cn4.getConnect4Ranking();        
+        observablePlayers = FXCollections.observableList(cn4.getConnect4Ranking());
+        name.setCellValueFactory(new PropertyValueFactory<Player,String>("nickName"));
+        punt.setCellValueFactory(new PropertyValueFactory<Player,Integer>("points"));
+        observablePlayers.remove(cn4.getPlayer("invitado"));
+        table.setItems(observablePlayers);
+
     }
 
     // 2 Jugadores -> Menu principal
@@ -141,17 +162,6 @@ public class Menu_principalController {
         avatar111.setImage(player1.getAvatar());
         initPerfil(true);
 
-        if (player1.equals(invitado)) {
-            puntos_player1.setText("¡Inicia sesión para ver tus puntos!");
-        } else {
-            if (player2 == null) {
-                puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
-                puntos_player2.setText("");
-            } else {
-                puntos_player1.setText("Puntos de " + player1.getNickName() + ": " + player1.getPoints());
-                puntos_player2.setText("Puntos de " + player2.getNickName() + ": " + player2.getPoints());
-            }
-        }
     }
 
     private void initPerfil(boolean p) {
@@ -217,8 +227,7 @@ public class Menu_principalController {
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.setResizable(false);
             newStage.show();
-        }
-        if (player2 == null) {
+        } else if (player2 == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("login_amigo.fxml"));
             Parent newRoot = loader.load();
             Login_amigoController loginAmigo = loader.getController();
