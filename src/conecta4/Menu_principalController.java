@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,7 +30,9 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -107,7 +112,7 @@ public class Menu_principalController implements Initializable {
     @FXML
     private TableColumn<Player, Integer> punt;
 
-    ObservableList<Player> observablePlayers;
+    private ObservableList<Player> observablePlayers;
     @FXML
     private JFXToggleButton music_check2;
     @FXML
@@ -117,15 +122,15 @@ public class Menu_principalController implements Initializable {
     @FXML
     private JFXDatePicker date_fin;
     @FXML
-    private TableView<Player> historial;
+    private TableView<Round> historial;
     @FXML
     private Hyperlink avanzado;
     @FXML
     private Hyperlink basicas;
     @FXML
-    private TableColumn<Player, String> name_2;
+    private TableColumn<Round, String> name_2;
     @FXML
-    private TableColumn<Player, Integer> punt_2;
+    private TableColumn<Round, String> punt_2;
     @FXML
     private JFXRadioButton ambas;
     @FXML
@@ -143,10 +148,16 @@ public class Menu_principalController implements Initializable {
     @FXML
     private Text text_a;
 
+    private TreeMap<LocalDate, List<Round>> hist;
+
+    private ObservableList<Round> observableRounds;
+    private LocalDate[] listaTimeRondas;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         date_ini.setPromptText(LocalDate.now().toString());
         date_fin.setPromptText(LocalDate.now().toString());
+
     }
 
     public void initController(Menu_principalController controller) {
@@ -188,6 +199,17 @@ public class Menu_principalController implements Initializable {
         punt.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
         observablePlayers.remove(cn4.getPlayer("invitado"));
         table.setItems(observablePlayers);
+
+        hist = cn4.getRoundsPerDay();
+        TreeMap<LocalDate, List<Round>> roundsPerDay = cn4.getRoundsPerDay();
+        roundsPerDay.forEach((LocalDate date, List<Round> rounds) -> {
+            observableRounds = FXCollections.observableList(rounds);
+//            for(int i=0;i<rounds.size();i++)
+//            observableRounds.add(rounds.get(i));
+        });
+        name_2.setCellValueFactory(new PropertyValueFactory<Round, String>("timeStamp"));
+        punt_2.setCellValueFactory(new PropertyValueFactory<Round, String>("winner"));
+        historial.setItems(observableRounds);
 
     }
 
