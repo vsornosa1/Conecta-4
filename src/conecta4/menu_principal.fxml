@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.Cursor?>
@@ -8,6 +10,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -122,7 +125,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </ImageView>
-                                <JFXToggleButton fx:id="music_check" layoutX="677.0" layoutY="302.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                                <JFXToggleButton fx:id="music_check" layoutX="689.0" layoutY="312.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
                            <font>
                               <Font name="Trebuchet MS" size="13.0" />
                            </font></JFXToggleButton>
@@ -144,18 +147,72 @@
                     <content>
                         <AnchorPane fx:id="music" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="table" layoutX="47.0" layoutY="25.0" prefHeight="313.0" prefWidth="705.0">
+                        <TableView fx:id="table" layoutX="47.0" layoutY="25.0" prefHeight="278.0" prefWidth="705.0">
                           <columns>
                             <TableColumn fx:id="name" prefWidth="455.1513671875" text="NickName" />
                             <TableColumn fx:id="punt" prefWidth="249.26751708984375" text="Puntuación" />
                           </columns>
                         </TableView>
+                        <JFXToggleButton fx:id="music_check2" layoutX="682.0" layoutY="309.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </JFXToggleButton>
                      </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" text="Historial de partidas">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <JFXToggleButton fx:id="music_check3" layoutX="682.0" layoutY="312.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </JFXToggleButton>
+                        <JFXDatePicker fx:id="date_ini" layoutX="600.0" layoutY="50.0" />
+                        <JFXDatePicker fx:id="date_fin" layoutX="599.0" layoutY="95.0" />
+                        <TableView fx:id="historial" layoutX="49.0" layoutY="48.0" prefHeight="258.0" prefWidth="490.0">
+                          <columns>
+                            <TableColumn fx:id="name_2" prefWidth="75.0" text="C1" />
+                            <TableColumn fx:id="punt_2" prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                        <Hyperlink fx:id="avanzado" layoutX="594.0" layoutY="187.0" onMouseClicked="#avanzado" text="Opciones de filtro avanzadas" textFill="#fca311">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </Hyperlink>
+                        <Text fx:id="text_v" fill="WHITE" layoutX="663.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Victoria" visible="false" />
+                        <Text fx:id="text_d" fill="WHITE" layoutX="720.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Derrota" visible="false" />
+                        <Text fx:id="text_a" fill="WHITE" layoutX="607.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ambas" visible="false" />
+                        <TextField fx:id="filtro_nombre" layoutX="598.0" layoutY="213.0" prefHeight="25.0" prefWidth="166.0" promptText="Introduzca el NickName " visible="false" />
+                        <Hyperlink fx:id="basicas" layoutX="593.0" layoutY="287.0" onMouseClicked="#basicas" text="Opciones de filtro básicas" textFill="#fca311" visible="false">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </Hyperlink>
+                        <JFXRadioButton fx:id="ambas" layoutX="615.0" layoutY="169.0" onMouseClicked="#ambas" selected="true" text=" " visible="false" />
+                        <JFXRadioButton fx:id="vic" layoutX="675.0" layoutY="170.0" onMouseClicked="#vic" style="-jfx-selected-color: #0094ff;" text=" " textFill="#0094ff" visible="false" />
+                        <JFXRadioButton fx:id="lose" layoutX="734.0" layoutY="169.0" onMouseClicked="#lose" style="-jfx-selected-color: #FF1312;" text=" " visible="false" />
+                        <JFXButton fx:id="ed_bot1" buttonType="RAISED" layoutX="600.0" layoutY="150.0" onMouseClicked="#aplicar_filtro" prefHeight="24.0" prefWidth="164.0" style="-fx-background-color: #e5e5e5;" text="Aplicar filtro" textFill="#14213d">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <ripplerFill>
+                              <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                 <stops>
+                                    <Stop color="#799bf8" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#b4b8cd" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </ripplerFill>
+                           <font>
+                              <Font name="Georgia" size="11.0" />
+                           </font>
+                        </JFXButton>
+                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab style="-fx-pref-width: 190; -fx-pref-height: 50; -fx-background-color: #380444;" text="Perfil">

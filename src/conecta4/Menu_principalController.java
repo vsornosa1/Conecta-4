@@ -1,12 +1,15 @@
 package conecta4;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXToggleButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -26,6 +29,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
@@ -104,10 +108,45 @@ public class Menu_principalController implements Initializable {
     private TableColumn<Player, Integer> punt;
 
     ObservableList<Player> observablePlayers;
+    @FXML
+    private JFXToggleButton music_check2;
+    @FXML
+    private JFXToggleButton music_check3;
+    @FXML
+    private JFXDatePicker date_ini;
+    @FXML
+    private JFXDatePicker date_fin;
+    @FXML
+    private TableView<Player> historial;
+    @FXML
+    private Hyperlink avanzado;
+    @FXML
+    private Hyperlink basicas;
+    @FXML
+    private TableColumn<Player, String> name_2;
+    @FXML
+    private TableColumn<Player, Integer> punt_2;
+    @FXML
+    private JFXRadioButton ambas;
+    @FXML
+    private JFXRadioButton vic;
+    @FXML
+    private JFXRadioButton lose;
+    @FXML
+    private TextField filtro_nombre;
+    @FXML
+    private JFXButton ed_bot1;
+    @FXML
+    private Text text_v;
+    @FXML
+    private Text text_d;
+    @FXML
+    private Text text_a;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        date_ini.setPromptText(LocalDate.now().toString());
+        date_fin.setPromptText(LocalDate.now().toString());
     }
 
     public void initController(Menu_principalController controller) {
@@ -119,6 +158,9 @@ public class Menu_principalController implements Initializable {
         music_check.setSelected(b);
         music_check.selectedProperty().addListener(changeListener);
         music_check1.selectedProperty().bindBidirectional(music_check.selectedProperty());
+        music_check2.selectedProperty().bindBidirectional(music_check.selectedProperty());
+        music_check3.selectedProperty().bindBidirectional(music_check.selectedProperty());
+
     }
 
     // Login/1 Jugador -> Menu principal
@@ -140,10 +182,10 @@ public class Menu_principalController implements Initializable {
             initPerfil(true);
             link_cerrar_sesion.setText("Cerrar sesión");
         }
-        ArrayList<Player> jugadores = cn4.getConnect4Ranking();        
+        ArrayList<Player> jugadores = cn4.getConnect4Ranking();
         observablePlayers = FXCollections.observableList(cn4.getConnect4Ranking());
-        name.setCellValueFactory(new PropertyValueFactory<Player,String>("nickName"));
-        punt.setCellValueFactory(new PropertyValueFactory<Player,Integer>("points"));
+        name.setCellValueFactory(new PropertyValueFactory<Player, String>("nickName"));
+        punt.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
         observablePlayers.remove(cn4.getPlayer("invitado"));
         table.setItems(observablePlayers);
 
@@ -265,7 +307,8 @@ public class Menu_principalController implements Initializable {
     };
 
     @FXML
-    private void partida_solo(MouseEvent event) {
+    private void partida_solo(MouseEvent event
+    ) {
         final Node sr = (Node) event.getSource();
         final Stage st = (Stage) sr.getScene().getWindow();
         if (player2 == null) {
@@ -312,7 +355,8 @@ public class Menu_principalController implements Initializable {
     }
 
     @FXML
-    private void partida_doble(MouseEvent event) {
+    private void partida_doble(MouseEvent event
+    ) {
         final Node source = (Node) event.getSource();
         final Stage st = (Stage) source.getScene().getWindow();
         if (player2 == null) {
@@ -419,6 +463,65 @@ public class Menu_principalController implements Initializable {
             final Stage st = (Stage) sr.getScene().getWindow();
             cr.initData(cn4, player1, player2, st);
         }
+    }
+
+    @FXML
+    private void avanzado(MouseEvent event) {
+        ambas.setSelected(true);
+        vic.setSelected(false);
+        lose.setSelected(false);
+        text_a.setVisible(true);
+        text_d.setVisible(true);
+        text_v.setVisible(true);
+        ambas.setVisible(true);
+        vic.setVisible(true);
+        lose.setVisible(true);
+        ed_bot1.setLayoutY(260);
+        avanzado.setVisible(false);
+        basicas.setVisible(true);
+        filtro_nombre.setVisible(true);
+    }
+
+    @FXML
+    private void basicas(MouseEvent event) {
+        ambas.setSelected(true);
+        vic.setSelected(false);
+        lose.setSelected(false);
+        text_a.setVisible(false);
+        text_d.setVisible(false);
+        text_v.setVisible(false);
+        ambas.setVisible(false);
+        vic.setVisible(false);
+        lose.setVisible(false);
+        ed_bot1.setLayoutY(150);
+        avanzado.setVisible(true);
+        basicas.setVisible(false);
+        filtro_nombre.setVisible(false);
+    }
+
+    @FXML
+    private void ambas(MouseEvent event) {
+        ambas.setSelected(true);
+        vic.setSelected(false);
+        lose.setSelected(false);
+    }
+
+    @FXML
+    private void vic(MouseEvent event) {
+        vic.setSelected(true);
+        ambas.setSelected(false);
+        lose.setSelected(false);
+    }
+
+    @FXML
+    private void lose(MouseEvent event) {
+        lose.setSelected(true);
+        ambas.setSelected(false);
+        vic.setSelected(false);
+    }
+
+    @FXML
+    private void aplicar_filtro(MouseEvent event) {
     }
 
 }
