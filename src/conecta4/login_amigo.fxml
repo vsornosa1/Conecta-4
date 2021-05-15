@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -28,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="335.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Login_amigoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="335.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Login_amigoController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="110.0" layoutX="-4.0" layoutY="-12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-rotate: -1.5;" width="343.0">
          <fill>
@@ -96,7 +86,7 @@
             <Image url="@../images/60577.png" />
          </image>
       </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="57.0" layoutY="402.0" onMouseClicked="#invitado" prefHeight="39.0" prefWidth="223.0" style="-fx-background-color: #e5e5e5;" text="Jugar como invitado" textFill="#14213d">
+      <JFXButton fx:id="inv_bot" buttonType="RAISED" layoutX="57.0" layoutY="402.0" onMouseClicked="#invitado" prefHeight="39.0" prefWidth="223.0" style="-fx-background-color: #e5e5e5;" text="Jugar como invitado" textFill="#14213d">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

@@ -688,7 +688,7 @@ public class Partida_cpuController implements Initializable {
 
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
-
+                menu.initController(menu);
                 menu.initData(cn4, player);
                 menu.initMusic(mediaPlayer, music_check.isSelected());
                 newStage.setScene(scene);
@@ -711,6 +711,7 @@ public class Partida_cpuController implements Initializable {
 
                 menu.initData(cn4, player, player2);
                 menu.initMusic(mediaPlayer, music_check.isSelected());
+                menu.initController(menu);
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
 

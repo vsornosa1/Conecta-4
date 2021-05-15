@@ -164,6 +164,7 @@ public class RegistroController {
             System.out.println(newPlayer);
             menu_p.initData(cn4, newPlayer);
             menu_p.initMusic(mediaPlayer, music_check.isSelected());
+            menu_p.initController(menu_p);
             Scene scene = new Scene(newRoot);
             Stage newStage = new Stage();
             newStage.setScene(scene);

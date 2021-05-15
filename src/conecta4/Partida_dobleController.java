@@ -140,14 +140,13 @@ public class Partida_dobleController implements Initializable {
         avatar.setImage(player1.getAvatar());
         avatar2.setImage(player2.getAvatar());
         ficha1.setImage(player1.getAvatar());
-        if(!player2.equals(invitado)) {
+        if (!player2.equals(invitado)) {
             ficha2.setImage(player2.getAvatar());
         } else {
             ficha2.setImage(yellow);
             ficha.setImage(yellow);
         }
     }
-
 
     public void initMusic(MediaPlayer mp, boolean b) {
         mediaPlayer = mp;
@@ -401,8 +400,9 @@ public class Partida_dobleController implements Initializable {
                 } else {
                     puntos_obtenidos.setText("-> Puntos obtenidos: 50p");
                     player1.plusPoints(cn4.getPointsRound());
-                    cn4.regiterRound(LocalDate.now().atTime(LocalTime.MIN), player1, player2);
+
                 }
+                cn4.regiterRound(LocalDate.now().atTime(LocalTime.MIN), player1, player2);
 
                 volver_menu.setOpacity(1);
                 volver_menu.setDisable(false);
@@ -419,8 +419,7 @@ public class Partida_dobleController implements Initializable {
             }
             user.setFill(paint_turno2);
             user2.setFill(paint_turno1);
-            
-            
+
             // Comprobaciones Jugador2
         } else {
             for (int h = 0; h < 8; h++) {
@@ -520,18 +519,20 @@ public class Partida_dobleController implements Initializable {
                 msj_ganador.setText("¡" + player2.getNickName() + " gana!");
                 if (player2.equals(invitado)) {
                     puntos_obtenidos.setText("-> Inicia sesión para obtener puntos!");
+
                 } else {
-                    if(!player1.equals(invitado)) {
+                    if (!player1.equals(invitado)) {
                         puntos_obtenidos.setText("-> Puntos obtenidos: 50p");
                         player2.plusPoints(cn4.getPointsRound());
-                        cn4.regiterRound(LocalDate.now().atTime(LocalTime.MIN), player2, player1);
-                    } 
+
+                    }
+                    cn4.regiterRound(LocalDate.now().atTime(LocalTime.MIN), player2, player1);
                 }
                 volver_menu.setOpacity(1);
                 volver_menu.setDisable(false);
                 boton_rendirse.setDisable(true);
                 imagen_rendirse.setDisable(true);
-                
+
                 c0.setDisable(true);
                 c1.setDisable(true);
                 c2.setDisable(true);
@@ -561,7 +562,6 @@ public class Partida_dobleController implements Initializable {
             c7.setDisable(true);
         }
     }
-    
 
     @FXML
     private void volver_menu(MouseEvent event) throws IOException {
@@ -572,7 +572,22 @@ public class Partida_dobleController implements Initializable {
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
 
+        if (player1 == invitado) {
+            if (player2 != invitado) {
+                menu.initData(cn4, player2);
+            } else {
+                menu.initData(cn4, invitado);
+            }
+
+        } else {
+            if (player2 == invitado) {
+                menu.initData(cn4, player1);
+            } else {
+                menu.initData(cn4, player1, player2);
+            }
+        }
         menu.initMusic(mediaPlayer, music_check.isSelected());
+        menu.initController(menu);
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);
         newStage.setResizable(false);
@@ -580,14 +595,7 @@ public class Partida_dobleController implements Initializable {
         final Node sr = (Node) event.getSource();
         final Stage st = (Stage) sr.getScene().getWindow();
         st.close();
-        if (player1 == invitado) {
-            if (player2 != invitado) menu.initData(cn4, player2);
-            else menu.initData(cn4, invitado); 
-   
-        } else {
-            if(player2 == invitado) menu.initData(cn4, player1);
-            else menu.initData(cn4, player1, player2);
-        }
+
     }
 
     @FXML

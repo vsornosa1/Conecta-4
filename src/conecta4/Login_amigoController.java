@@ -1,5 +1,6 @@
 package conecta4;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import javafx.beans.value.ChangeListener;
@@ -42,6 +43,8 @@ public class Login_amigoController {
     private JFXToggleButton music_check;
     private boolean perfil;
     private Menu_principalController controller;
+    @FXML
+    private JFXButton inv_bot;
 
     public void initData(Connect4 con4, Player mainPlayer, Stage st) {
         cn4 = con4;
@@ -59,6 +62,7 @@ public class Login_amigoController {
         invitado = cn4.getPlayer("invitado");
         invitado2 = cn4.getPlayer("invitado2");
         perfil = true;
+        inv_bot.setDisable(true);
     }
 
     private MediaPlayer mediaPlayer;
@@ -87,7 +91,7 @@ public class Login_amigoController {
         final Stage stage = (Stage) source.getScene().getWindow();
         if (!perfil) {
             if (player2 != null) {
-                if (player2.equals(player1)) {
+                if (player1.equals(player2)) {
                     warning_player1.setText(player1.getNickName() + " ya ha iniciado sesión.");
                 }
                 if (!player2.equals(player1) && !player2.equals(invitado) && !player2.equals(invitado2)) {
@@ -120,11 +124,14 @@ public class Login_amigoController {
                 warning_player1.setText("Usuario y/o contraseña no coinciden");
             }
         } else {
-            controller.initData(cn4, player1, player2);
-            controller.initMusic(mediaPlayer, music_check.isSelected());
-            stage.close();
+            if (player1.equals(player2)) {
+                warning_player1.setText(player1.getNickName() + " ya ha iniciado sesión.");
+            } else {
+                controller.initData(cn4, player1, player2);
+                controller.initMusic(mediaPlayer, music_check.isSelected());
+                stage.close();
+            }
         }
-
     }
 
     @FXML

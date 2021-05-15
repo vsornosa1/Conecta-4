@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -128,10 +129,6 @@ public class Menu_principalController implements Initializable {
     @FXML
     private Hyperlink basicas;
     @FXML
-    private TableColumn<Round, String> name_2;
-    @FXML
-    private TableColumn<Round, String> punt_2;
-    @FXML
     private JFXRadioButton ambas;
     @FXML
     private JFXRadioButton vic;
@@ -152,6 +149,12 @@ public class Menu_principalController implements Initializable {
 
     private ObservableList<Round> observableRounds;
     private LocalDate[] listaTimeRondas;
+    @FXML
+    private TableColumn<Round, String> fechaCol;
+    @FXML
+    private TableColumn<Round, String> winnerCol;
+    @FXML
+    private TableColumn<Round, String> loserCol;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -204,13 +207,15 @@ public class Menu_principalController implements Initializable {
         TreeMap<LocalDate, List<Round>> roundsPerDay = cn4.getRoundsPerDay();
         roundsPerDay.forEach((LocalDate date, List<Round> rounds) -> {
             observableRounds = FXCollections.observableList(rounds);
+             historial.setItems(observableRounds);
 //            for(int i=0;i<rounds.size();i++)
 //            observableRounds.add(rounds.get(i));
         });
-        name_2.setCellValueFactory(new PropertyValueFactory<Round, String>("timeStamp"));
-        punt_2.setCellValueFactory(new PropertyValueFactory<Round, String>("winner"));
+        fechaCol.setCellValueFactory(new PropertyValueFactory<Round, String>("timeStamp"));
+        winnerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWinner().getNickName()));
+        loserCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLoser().getNickName()));
+        observableRounds.remove(cn4.getRoundsPlayer(cn4.getPlayer("invitado")));
         historial.setItems(observableRounds);
-
     }
 
     // 2 Jugadores -> Menu principal
@@ -225,7 +230,20 @@ public class Menu_principalController implements Initializable {
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
         initPerfil(true);
-
+        
+        hist = cn4.getRoundsPerDay();
+        TreeMap<LocalDate, List<Round>> roundsPerDay = cn4.getRoundsPerDay();
+        roundsPerDay.forEach((LocalDate date, List<Round> rounds) -> {
+            observableRounds = FXCollections.observableList(rounds);
+             historial.setItems(observableRounds);
+//            for(int i=0;i<rounds.size();i++)
+//            observableRounds.add(rounds.get(i));
+        });
+        fechaCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTimeStamp().getDayOfMonth() + "/" +
+                cellData.getValue().getTimeStamp().getMonth() + "/" + cellData.getValue().getTimeStamp().getYear() + " - " + 
+                cellData.getValue().getTimeStamp().getHour() + ":" + cellData.getValue().getTimeStamp().getMinute()));
+        winnerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWinner().getNickName()));
+        loserCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLoser().getNickName()));
     }
 
     private void initPerfil(boolean p) {
@@ -544,6 +562,9 @@ public class Menu_principalController implements Initializable {
 
     @FXML
     private void aplicar_filtro(MouseEvent event) {
+//        if(avanzado.isVisible()){
+//                for()
+//        }
     }
 
 }

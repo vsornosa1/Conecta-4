@@ -158,8 +158,8 @@ public class LoginController implements Initializable {
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         if (log_guest) {
-            menu.initMusic(mediaPlayer, music.isSelected());
             menu.initData(cn4, pl);
+            menu.initMusic(mediaPlayer, music.isSelected());
             stage.close();
         } else {
             try {

@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -62,6 +63,14 @@ public class Cerrar_sesionController implements Initializable, ActionListener {
         cerrar.setText("Selecciona al menos un jugador");
         check1.selectedProperty().addListener(changeListener);
         check2.selectedProperty().addListener(changeListener);
+    }
+    
+    
+    private boolean b;
+    private MediaPlayer mediaPlayer;
+    public void initMusic(MediaPlayer mp,boolean b) {
+        mediaPlayer = mp;
+        this.b=b;
     }
     
     public void initData(Connect4 cn4, Player pl1, Player pl2, Stage stage){
@@ -110,11 +119,11 @@ public class Cerrar_sesionController implements Initializable, ActionListener {
            try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
             Parent newRoot = loader.load();
-
+            LoginController lg = loader.getController();
            
             Scene scene = new Scene(newRoot);
             Stage newStage = new Stage();
-
+            lg.initMusic(mediaPlayer, b);
             newStage.setScene(scene);
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.setResizable(false);
@@ -136,6 +145,8 @@ public class Cerrar_sesionController implements Initializable, ActionListener {
                 // 2. Controller, scene & stage
                 Menu_principalController menu_p = loader.getController();
                 menu_p.initData(cn4, player2);
+                menu_p.initMusic(mediaPlayer, b);
+                menu_p.initController(menu_p);
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
                 newStage.setScene(scene);
@@ -162,6 +173,8 @@ public class Cerrar_sesionController implements Initializable, ActionListener {
                 // 2. Controller, scene & stage
                 Menu_principalController menu_p = loader.getController();
                 menu_p.initData(cn4, player1);
+                menu_p.initMusic(mediaPlayer, b);
+                menu_p.initController(menu_p);
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
                 newStage.setScene(scene);

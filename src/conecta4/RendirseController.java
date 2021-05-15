@@ -118,6 +118,7 @@ public class RendirseController {
             }
         }
         menu.initMusic(mediaPlayer,b);
+        menu.initController(menu);
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);
         newStage.setResizable(false);

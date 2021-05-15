@@ -5,7 +5,6 @@
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXToggleButton?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Tab?>
@@ -175,8 +174,9 @@
                         <JFXDatePicker fx:id="date_fin" layoutX="599.0" layoutY="95.0" />
                         <TableView fx:id="historial" layoutX="49.0" layoutY="48.0" prefHeight="258.0" prefWidth="490.0">
                           <columns>
-                            <TableColumn fx:id="name_2" prefWidth="75.0" text="C1" />
-                            <TableColumn fx:id="punt_2" prefWidth="75.0" text="C2" />
+                            <TableColumn fx:id="fechaCol" prefWidth="131.416748046875" text="Fecha" />
+                            <TableColumn fx:id="winnerCol" prefWidth="181.418212890625" text="Ganador" />
+                              <TableColumn fx:id="loserCol" prefWidth="181.000732421875" text="Perdedor" />
                           </columns>
                         </TableView>
                         <Hyperlink fx:id="avanzado" layoutX="594.0" layoutY="187.0" onMouseClicked="#avanzado" text="Opciones de filtro avanzadas" textFill="#fca311">
