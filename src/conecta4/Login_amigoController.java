@@ -86,52 +86,58 @@ public class Login_amigoController {
 
     @FXML
     private void log(MouseEvent event) {
-        player2 = cn4.loginPlayer(text_user.getText(), text_pass.getText());
-        final Node source = (Node) event.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        if (!perfil) {
-            if (player2 != null) {
+        try {
+            player2 = cn4.loginPlayer(text_user.getText(), text_pass.getText());
+            final Node source = (Node) event.getSource();
+            final Stage stage = (Stage) source.getScene().getWindow();
+            if (!perfil) {
+                if (player2 != null) {
+                    if (player1.equals(player2)) {
+                        warning_player1.setText(player1.getNickName() + " ya ha iniciado sesión.");
+                    }
+                    if (!player2.equals(player1) && !player2.equals(invitado) && !player2.equals(invitado2)) {
+                        try {
+                            // 1. Loader
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("partida_doble.fxml"));
+                            Parent newRoot = loader.load();
+
+                            // 2. Controller, scene & stage
+                            Partida_dobleController menu = loader.getController();
+                            menu.initData(cn4, player1, player2);
+                            menu.initMusic(mediaPlayer, music_check.isSelected());
+                            Scene scene = new Scene(newRoot);
+                            Stage newStage = new Stage();
+                            newStage.setMinWidth(875);
+                            newStage.setMinHeight(865);
+                            newStage.setScene(scene);
+
+                            // 3. Mostrar la nueva ventana
+                            newStage.show();
+
+                            // 4. Cerrar la antigua ventana
+                            oldStage.close();
+                            stage.close();
+                        } catch (IOException e) {
+                            System.out.println(e);
+                        }
+                    }
+                } else {
+                    warning_player1.setText("Usuario y/o contraseña no coinciden");
+                }
+            } else {
                 if (player1.equals(player2)) {
                     warning_player1.setText(player1.getNickName() + " ya ha iniciado sesión.");
+                } else {
+                    controller.initData(cn4, player1, player2);
+                    controller.initMusic(mediaPlayer, music_check.isSelected());
+                    controller.initPerfil(true);
+                    stage.close();
                 }
-                if (!player2.equals(player1) && !player2.equals(invitado) && !player2.equals(invitado2)) {
-                    try {
-                        // 1. Loader
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("partida_doble.fxml"));
-                        Parent newRoot = loader.load();
-
-                        // 2. Controller, scene & stage
-                        Partida_dobleController menu = loader.getController();
-                        menu.initData(cn4, player1, player2);
-                        menu.initMusic(mediaPlayer, music_check.isSelected());
-                        Scene scene = new Scene(newRoot);
-                        Stage newStage = new Stage();
-                        newStage.setMinWidth(875);
-                        newStage.setMinHeight(865);
-                        newStage.setScene(scene);
-
-                        // 3. Mostrar la nueva ventana
-                        newStage.show();
-
-                        // 4. Cerrar la antigua ventana
-                        oldStage.close();
-                        stage.close();
-                    } catch (IOException e) {
-                        System.out.println(e);
-                    }
-                }
-            } else {
-                warning_player1.setText("Usuario y/o contraseña no coinciden");
             }
-        } else {
-            if (player1.equals(player2)) {
-                warning_player1.setText(player1.getNickName() + " ya ha iniciado sesión.");
-            } else {
-                controller.initData(cn4, player1, player2);
-                controller.initMusic(mediaPlayer, music_check.isSelected());
-                stage.close();
-            }
+        } catch (Exception e) {
+            warning_player1.setText("Usuario y/o contraseña no coinciden");
         }
+
     }
 
     @FXML

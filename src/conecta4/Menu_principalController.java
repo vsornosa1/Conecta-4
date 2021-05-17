@@ -180,14 +180,14 @@ public class Menu_principalController implements Initializable {
     // Login/1 Jugador -> Menu principal
     public void initData(Connect4 con4, Player p1) {
         cn4 = con4;
-        player1 = p1;
+        player1 = p1;player2=null;
         perf = true;
         aplauso.setText("Bienvenido/a " + player1.getNickName());
         avatar_player1.setImage(player1.getAvatar());
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
         invitado = cn4.getPlayer("invitado");
-
+        avatar_player2.setImage(null);
         if (player1.equals(invitado)) {
             initPerfil(true);
 
@@ -231,6 +231,13 @@ public class Menu_principalController implements Initializable {
         avatar111.setImage(player1.getAvatar());
         initPerfil(true);
         
+        ArrayList<Player> jugadores = cn4.getConnect4Ranking();
+        observablePlayers = FXCollections.observableList(cn4.getConnect4Ranking());
+        name.setCellValueFactory(new PropertyValueFactory<Player, String>("nickName"));
+        punt.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
+        observablePlayers.remove(cn4.getPlayer("invitado"));
+        table.setItems(observablePlayers);
+        
         hist = cn4.getRoundsPerDay();
         TreeMap<LocalDate, List<Round>> roundsPerDay = cn4.getRoundsPerDay();
         roundsPerDay.forEach((LocalDate date, List<Round> rounds) -> {
@@ -246,7 +253,7 @@ public class Menu_principalController implements Initializable {
         loserCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLoser().getNickName()));
     }
 
-    private void initPerfil(boolean p) {
+    public void initPerfil(boolean p) {
 
         if (player1 == invitado) {
             ed_bot.setDisable(true);
@@ -255,6 +262,9 @@ public class Menu_principalController implements Initializable {
             contraseña_perfil.setText("¡Inicia sesión para ver tu perfil!");
             mail_perfil.setText("");
             cumpleaños_perfil.setText("");
+            lineaJ2_perfil.setOpacity(0);
+            cambiarAvatar2_perfil.setOpacity(0);
+            cambiarJ2_perfil.setOpacity(0);
             change_bot.setOpacity(1);
         } else if (player2 == null) {
             change_bot.setOpacity(1);
@@ -264,9 +274,15 @@ public class Menu_principalController implements Initializable {
             contraseña_perfil.setText("Contraseña: " + player1.getPassword());
             mail_perfil.setText("Correo electrónico: " + player1.getEmail());
             cumpleaños_perfil.setText("Fecha de Nacimiento: " + player1.getBirthdate());
+            lineaJ2_perfil.setOpacity(0);
+            cambiarAvatar2_perfil.setOpacity(0);
+            cambiarJ2_perfil.setOpacity(0);
         } else {
             ed_bot.setDisable(false);
             change_bot.setOpacity(0);
+            lineaJ2_perfil.setOpacity(1);
+            cambiarAvatar2_perfil.setOpacity(1);
+            cambiarJ2_perfil.setOpacity(1);
             if (p) {
                 avatar_perfil.setImage(player1.getAvatar());
                 user_perfil.setText("@" + player1.getNickName());
@@ -502,6 +518,8 @@ public class Menu_principalController implements Initializable {
             final Node sr = (Node) event.getSource();
             final Stage st = (Stage) sr.getScene().getWindow();
             cr.initData(cn4, player1, player2, st);
+            cr.initMusic(mediaPlayer, music_check.isSelected());
+            cr.initController(thisController);
         }
     }
 

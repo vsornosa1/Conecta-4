@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Proyects/conecta4/src/conecta4/Menu_principalController.java</file>
+            <file>file:/C:/Proyects/conecta4/src/conecta4/Cerrar_sesionController.java</file>
             <file>file:/C:/Proyects/conecta4/src/conecta4/LoginController.java</file>
-            <file>file:/C:/Proyects/conecta4/src/conecta4/menu_principal.fxml</file>
+            <file>file:/C:/Proyects/conecta4/src/conecta4/Login_amigoController.java</file>
         </group>
     </open-files>
 </project-private>

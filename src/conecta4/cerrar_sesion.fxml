@@ -47,7 +47,7 @@
                </stops>
             </LinearGradient>
          </fill></Text>
-      <ImageView fx:id="avatar_player1" fitHeight="87.0" fitWidth="91.0" layoutX="61.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="avatar_player1" fitHeight="87.0" fitWidth="91.0" layoutX="61.0" layoutY="98.0" onMouseClicked="#selec1" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -55,7 +55,7 @@
             <Image url="@../images/avatares/avatar6.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="avatar_player2" fitHeight="98.0" fitWidth="91.0" layoutX="219.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="avatar_player2" fitHeight="98.0" fitWidth="91.0" layoutX="219.0" layoutY="96.0" onMouseClicked="#selec2" pickOnBounds="true" preserveRatio="true">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
