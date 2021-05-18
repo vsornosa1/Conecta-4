@@ -3,6 +3,7 @@ package conecta4;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -10,11 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -134,8 +138,7 @@ public class Menu_principalController implements Initializable {
     private JFXRadioButton vic;
     @FXML
     private JFXRadioButton lose;
-    @FXML
-    private TextField filtro_nombre;
+
     @FXML
     private JFXButton ed_bot1;
     @FXML
@@ -155,12 +158,14 @@ public class Menu_principalController implements Initializable {
     private TableColumn<Round, String> winnerCol;
     @FXML
     private TableColumn<Round, String> loserCol;
+    @FXML
+    private JFXTextField filtro_nombre;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        date_ini.setPromptText(LocalDate.now().toString());
-        date_fin.setPromptText(LocalDate.now().toString());
-
+        date_ini.setValue(LocalDate.now());
+        date_fin.setValue(LocalDate.now());
+        filtro_nombre.setVisible(false);
     }
 
     public void initController(Menu_principalController controller) {
@@ -177,10 +182,13 @@ public class Menu_principalController implements Initializable {
 
     }
 
+    private int cont = 0;
+
     // Login/1 Jugador -> Menu principal
     public void initData(Connect4 con4, Player p1) {
         cn4 = con4;
-        player1 = p1;player2=null;
+        player1 = p1;
+        player2 = null;
         perf = true;
         aplauso.setText("Bienvenido/a " + player1.getNickName());
         avatar_player1.setImage(player1.getAvatar());
@@ -204,17 +212,11 @@ public class Menu_principalController implements Initializable {
         table.setItems(observablePlayers);
 
         hist = cn4.getRoundsPerDay();
-        TreeMap<LocalDate, List<Round>> roundsPerDay = cn4.getRoundsPerDay();
-        roundsPerDay.forEach((LocalDate date, List<Round> rounds) -> {
-            observableRounds = FXCollections.observableList(rounds);
-             historial.setItems(observableRounds);
-//            for(int i=0;i<rounds.size();i++)
-//            observableRounds.add(rounds.get(i));
-        });
+
         fechaCol.setCellValueFactory(new PropertyValueFactory<Round, String>("timeStamp"));
         winnerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWinner().getNickName()));
         loserCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLoser().getNickName()));
-        observableRounds.remove(cn4.getRoundsPlayer(cn4.getPlayer("invitado")));
+//        observableRounds.remove(cn4.getRoundsPlayer(cn4.getPlayer("invitado")));
         historial.setItems(observableRounds);
     }
 
@@ -230,25 +232,19 @@ public class Menu_principalController implements Initializable {
         avatar11.setImage(player1.getAvatar());
         avatar111.setImage(player1.getAvatar());
         initPerfil(true);
-        
+
         ArrayList<Player> jugadores = cn4.getConnect4Ranking();
         observablePlayers = FXCollections.observableList(cn4.getConnect4Ranking());
         name.setCellValueFactory(new PropertyValueFactory<Player, String>("nickName"));
         punt.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
         observablePlayers.remove(cn4.getPlayer("invitado"));
         table.setItems(observablePlayers);
-        
+
         hist = cn4.getRoundsPerDay();
-        TreeMap<LocalDate, List<Round>> roundsPerDay = cn4.getRoundsPerDay();
-        roundsPerDay.forEach((LocalDate date, List<Round> rounds) -> {
-            observableRounds = FXCollections.observableList(rounds);
-             historial.setItems(observableRounds);
-//            for(int i=0;i<rounds.size();i++)
-//            observableRounds.add(rounds.get(i));
-        });
-        fechaCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTimeStamp().getDayOfMonth() + "/" +
-                cellData.getValue().getTimeStamp().getMonth() + "/" + cellData.getValue().getTimeStamp().getYear() + " - " + 
-                cellData.getValue().getTimeStamp().getHour() + ":" + cellData.getValue().getTimeStamp().getMinute()));
+
+        fechaCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTimeStamp().getDayOfMonth() + "/"
+                + cellData.getValue().getTimeStamp().getMonth() + "/" + cellData.getValue().getTimeStamp().getYear() + " - "
+                + cellData.getValue().getTimeStamp().getHour() + ":" + cellData.getValue().getTimeStamp().getMinute()));
         winnerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWinner().getNickName()));
         loserCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLoser().getNickName()));
     }
@@ -555,6 +551,7 @@ public class Menu_principalController implements Initializable {
         avanzado.setVisible(true);
         basicas.setVisible(false);
         filtro_nombre.setVisible(false);
+        filtro_nombre.setText(null);
     }
 
     @FXML
@@ -580,9 +577,55 @@ public class Menu_principalController implements Initializable {
 
     @FXML
     private void aplicar_filtro(MouseEvent event) {
-//        if(avanzado.isVisible()){
-//                for()
-//        }
-    }
 
+        hist = cn4.getRoundsPerDay();
+        int x = 1;
+        for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+            List<Round> lista = hist.get(ld);
+            if (lista != null) {
+                if (!lista.isEmpty()) {
+                    cont = lista.size();
+                    if (x == 1) {
+                        observableRounds = FXCollections.observableList(new ArrayList<Round>());
+                    }
+                    x++;
+                    try {
+                        for (int i = 0; i < cont; i++) {
+                            if (lista.get(i) != null) {
+                                if (!filtro_nombre.getText().isEmpty()) {
+                                    if (ambas.isSelected()) {
+                                        
+                                        if (lista.get(i).getWinner().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())
+                                                || lista.get(i).getLoser().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                            observableRounds.add(lista.get(i));
+                                        } else {
+                                        }
+                                    }
+                                    if (vic.isSelected()) {
+                                        if (lista.get(i).getWinner().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                            observableRounds.add(lista.get(i));
+                                        } else {
+                                        }
+                                    }
+                                    if (lose.isSelected()) {
+                                        if (lista.get(i).getLoser().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                            observableRounds.add(lista.get(i));
+                                        } else {
+                                        }
+                                    }
+                                } else {
+                                    observableRounds.add(lista.get(i));
+                                }
+                            }
+                        }
+                    } catch (Exception e) {filtro_nombre.setPromptText("NickName erroneo");
+                    }
+                }
+            }
+            ld = ld.plusDays((long) 1.0);
+        }
+
+        historial.setItems(observableRounds);
+
+    }
 }

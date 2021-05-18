@@ -4,13 +4,14 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -170,8 +171,14 @@
                               <Font name="Trebuchet MS" size="13.0" />
                            </font>
                         </JFXToggleButton>
-                        <JFXDatePicker fx:id="date_ini" layoutX="600.0" layoutY="50.0" />
-                        <JFXDatePicker fx:id="date_fin" layoutX="599.0" layoutY="95.0" />
+                        <JFXDatePicker fx:id="date_ini" defaultColor="#fca311" layoutX="600.0" layoutY="50.0">
+                           <effect>
+                              <ColorAdjust brightness="0.85" contrast="0.2" />
+                           </effect></JFXDatePicker>
+                        <JFXDatePicker fx:id="date_fin" defaultColor="#fca311" layoutX="599.0" layoutY="95.0">
+                           <effect>
+                              <ColorAdjust brightness="0.85" contrast="0.2" />
+                           </effect></JFXDatePicker>
                         <TableView fx:id="historial" layoutX="49.0" layoutY="48.0" prefHeight="258.0" prefWidth="490.0">
                           <columns>
                             <TableColumn fx:id="fechaCol" prefWidth="131.416748046875" text="Fecha" />
@@ -187,7 +194,6 @@
                         <Text fx:id="text_v" fill="WHITE" layoutX="663.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Victoria" visible="false" />
                         <Text fx:id="text_d" fill="WHITE" layoutX="720.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Derrota" visible="false" />
                         <Text fx:id="text_a" fill="WHITE" layoutX="607.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ambas" visible="false" />
-                        <TextField fx:id="filtro_nombre" layoutX="598.0" layoutY="213.0" prefHeight="25.0" prefWidth="166.0" promptText="Introduzca el NickName " visible="false" />
                         <Hyperlink fx:id="basicas" layoutX="593.0" layoutY="287.0" onMouseClicked="#basicas" text="Opciones de filtro básicas" textFill="#fca311" visible="false">
                            <font>
                               <Font name="Trebuchet MS" size="13.0" />
@@ -213,6 +219,14 @@
                               <Font name="Georgia" size="11.0" />
                            </font>
                         </JFXButton>
+                        <JFXTextField fx:id="filtro_nombre" focusColor="#fca311" labelFloat="true" layoutX="600.0" layoutY="205.0" prefHeight="30.0" prefWidth="162.0" promptText="Introduce el NickName" unFocusColor="#e5e5e5" visible="false">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <effect>
+                              <ColorAdjust brightness="0.85" contrast="0.2" />
+                           </effect>
+                        </JFXTextField>
                      </children></AnchorPane>
                     </content>
                 </Tab>

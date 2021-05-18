@@ -402,7 +402,7 @@ public class Partida_dobleController implements Initializable {
                     player1.plusPoints(cn4.getPointsRound());
 
                 }
-                cn4.regiterRound(LocalDate.now().atTime(LocalTime.MIN), player1, player2);
+                cn4.regiterRound(LocalDate.now().atTime(LocalTime.now()), player1, player2);
 
                 volver_menu.setOpacity(1);
                 volver_menu.setDisable(false);
@@ -526,7 +526,7 @@ public class Partida_dobleController implements Initializable {
                         player2.plusPoints(cn4.getPointsRound());
 
                     }
-                    cn4.regiterRound(LocalDate.now().atTime(LocalTime.MIN), player2, player1);
+                    cn4.regiterRound(LocalDate.now().atTime(LocalTime.now()), player2, player1);
                 }
                 volver_menu.setOpacity(1);
                 volver_menu.setDisable(false);

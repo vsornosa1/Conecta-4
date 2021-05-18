@@ -85,11 +85,11 @@ public class RendirseController {
         if (turno_player1) {
             if (modo_2jugadores) {
                 player2.plusPoints(cn4.getPointsRound());
-                cn4.regiterRound(LocalDate.now().atTime(LocalTime.MIN), player2, player1);
+                cn4.regiterRound(LocalDate.now().atTime(LocalTime.now()), player2, player1);
             }
         } else {
             player1.plusPoints(cn4.getPointsRound());
-            cn4.regiterRound(LocalDate.now().atTime(LocalTime.MIN), player1, player2);
+            cn4.regiterRound(LocalDate.now().atTime(LocalTime.now()), player1, player2);
         }
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
