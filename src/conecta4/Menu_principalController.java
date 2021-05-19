@@ -33,6 +33,14 @@ import javafx.stage.Modality;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
@@ -161,11 +169,31 @@ public class Menu_principalController implements Initializable {
     @FXML
     private JFXTextField filtro_nombre;
 
+    private int cont = 0;
+    @FXML
+    private JFXButton graf_bot;
+    @FXML
+    private LineChart<String, Number> graf_line;
+
+    @FXML
+    private PieChart graf_pie;
+
+    private CategoryAxis xAxe = new CategoryAxis();
+
+    private NumberAxis yAxe = new NumberAxis();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         date_ini.setValue(LocalDate.now());
         date_fin.setValue(LocalDate.now());
         filtro_nombre.setVisible(false);
+        graf_line.setLegendVisible(false);
+        graf_line.setAnimated(false);
+        graf_line.setCreateSymbols(false);
+        xAxe.setLabel("fecha");
+        yAxe.setLabel("partidas");
+        graf_line.visibleProperty().addListener(selListener);
+        graf_pie.visibleProperty().addListener(selListener);
     }
 
     public void initController(Menu_principalController controller) {
@@ -181,8 +209,6 @@ public class Menu_principalController implements Initializable {
         music_check3.selectedProperty().bindBidirectional(music_check.selectedProperty());
 
     }
-
-    private int cont = 0;
 
     // Login/1 Jugador -> Menu principal
     public void initData(Connect4 con4, Player p1) {
@@ -212,12 +238,37 @@ public class Menu_principalController implements Initializable {
         table.setItems(observablePlayers);
 
         hist = cn4.getRoundsPerDay();
-
-        fechaCol.setCellValueFactory(new PropertyValueFactory<Round, String>("timeStamp"));
+        fechaCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTimeStamp().getDayOfMonth() + "/"
+                + cellData.getValue().getTimeStamp().getMonth() + "/" + cellData.getValue().getTimeStamp().getYear() + " - "
+                + cellData.getValue().getTimeStamp().getHour() + ":" + cellData.getValue().getTimeStamp().getMinute()));
         winnerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWinner().getNickName()));
         loserCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLoser().getNickName()));
-//        observableRounds.remove(cn4.getRoundsPlayer(cn4.getPlayer("invitado")));
         historial.setItems(observableRounds);
+
+        hist = cn4.getRoundsPerDay();
+        int x = 1;
+
+        List<Round> lista = hist.get(LocalDate.now());
+        if (lista != null) {
+            if (!lista.isEmpty()) {
+                cont = lista.size();
+                if (x == 1) {
+                    observableRounds = FXCollections.observableList(new ArrayList<Round>());
+                }
+                x++;
+
+                for (int i = 0; i < cont; i++) {
+                    if (lista.get(i) != null) {
+
+                        observableRounds.add(lista.get(i));
+                    }
+
+                }
+
+            }
+
+            historial.setItems(observableRounds);
+        }
     }
 
     // 2 Jugadores -> Menu principal
@@ -247,6 +298,31 @@ public class Menu_principalController implements Initializable {
                 + cellData.getValue().getTimeStamp().getHour() + ":" + cellData.getValue().getTimeStamp().getMinute()));
         winnerCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWinner().getNickName()));
         loserCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLoser().getNickName()));
+
+        hist = cn4.getRoundsPerDay();
+        int x = 1;
+
+        List<Round> lista = hist.get(LocalDate.now());
+        if (lista != null) {
+            if (!lista.isEmpty()) {
+                cont = lista.size();
+                if (x == 1) {
+                    observableRounds = FXCollections.observableList(new ArrayList<Round>());
+                }
+                x++;
+
+                for (int i = 0; i < cont; i++) {
+                    if (lista.get(i) != null) {
+
+                        observableRounds.add(lista.get(i));
+                    }
+
+                }
+
+            }
+
+            historial.setItems(observableRounds);
+        }
     }
 
     public void initPerfil(boolean p) {
@@ -354,6 +430,25 @@ public class Menu_principalController implements Initializable {
                 mediaPlayer.pause();
             } else {
                 mediaPlayer.play();
+            }
+        }
+    };
+    private ChangeListener selListener = new ChangeListener() {
+        @Override
+        public void changed(ObservableValue observable, Object oldVal, Object newVal) {
+            if (graf_pie.isVisible() || graf_line.isVisible()) {
+                ambas.setDisable(true);
+                vic.setDisable(true);
+                lose.setDisable(true);
+                ambas.setSelected(true);
+                vic.setSelected(false);
+                lose.setSelected(false);
+                graf_bot.setText("Ver tabla");
+            } else {
+                ambas.setDisable(false);
+                vic.setDisable(false);
+                lose.setDisable(false);
+                graf_bot.setText("Ver gráfica");
             }
         }
     };
@@ -531,6 +626,7 @@ public class Menu_principalController implements Initializable {
         vic.setVisible(true);
         lose.setVisible(true);
         ed_bot1.setLayoutY(260);
+        graf_bot.setLayoutY(260);
         avanzado.setVisible(false);
         basicas.setVisible(true);
         filtro_nombre.setVisible(true);
@@ -548,6 +644,7 @@ public class Menu_principalController implements Initializable {
         vic.setVisible(false);
         lose.setVisible(false);
         ed_bot1.setLayoutY(150);
+        graf_bot.setLayoutY(150);
         avanzado.setVisible(true);
         basicas.setVisible(false);
         filtro_nombre.setVisible(false);
@@ -577,55 +674,231 @@ public class Menu_principalController implements Initializable {
 
     @FXML
     private void aplicar_filtro(MouseEvent event) {
+        graf_line.getData().clear();
+        graf_pie.getData().clear();
+        if (historial.isVisible()) {
+            hist = cn4.getRoundsPerDay();
+            int x = 1;
+            for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                List<Round> lista = hist.get(ld);
+                if (lista != null) {
+                    if (!lista.isEmpty()) {
+                        cont = lista.size();
+                        if (x == 1) {
+                            observableRounds = FXCollections.observableList(new ArrayList<Round>());
+                        }
+                        x++;
+                        try {
+                            for (int i = 0; i < cont; i++) {
+                                if (lista.get(i) != null) {
+                                    if (!filtro_nombre.getText().isEmpty()) {
+                                        if (ambas.isSelected()) {
 
-        hist = cn4.getRoundsPerDay();
-        int x = 1;
-        for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
-            List<Round> lista = hist.get(ld);
-            if (lista != null) {
-                if (!lista.isEmpty()) {
-                    cont = lista.size();
-                    if (x == 1) {
-                        observableRounds = FXCollections.observableList(new ArrayList<Round>());
-                    }
-                    x++;
-                    try {
-                        for (int i = 0; i < cont; i++) {
-                            if (lista.get(i) != null) {
-                                if (!filtro_nombre.getText().isEmpty()) {
-                                    if (ambas.isSelected()) {
-                                        
-                                        if (lista.get(i).getWinner().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())
-                                                || lista.get(i).getLoser().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
-                                            observableRounds.add(lista.get(i));
-                                        } else {
+                                            if (lista.get(i).getWinner().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())
+                                                    || lista.get(i).getLoser().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                                observableRounds.add(lista.get(i));
+                                            } else {
+                                            }
                                         }
-                                    }
-                                    if (vic.isSelected()) {
-                                        if (lista.get(i).getWinner().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
-                                            observableRounds.add(lista.get(i));
-                                        } else {
+                                        if (vic.isSelected()) {
+                                            if (lista.get(i).getWinner().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                                observableRounds.add(lista.get(i));
+                                            } else {
+                                            }
                                         }
-                                    }
-                                    if (lose.isSelected()) {
-                                        if (lista.get(i).getLoser().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
-                                            observableRounds.add(lista.get(i));
-                                        } else {
+                                        if (lose.isSelected()) {
+                                            if (lista.get(i).getLoser().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                                observableRounds.add(lista.get(i));
+                                            } else {
+                                            }
                                         }
+                                    } else {
+                                        observableRounds.add(lista.get(i));
                                     }
-                                } else {
-                                    observableRounds.add(lista.get(i));
                                 }
                             }
+                        } catch (Exception e) {
+                            filtro_nombre.setPromptText("NickName erroneo");
                         }
-                    } catch (Exception e) {filtro_nombre.setPromptText("NickName erroneo");
                     }
                 }
+                ld = ld.plusDays((long) 1.0);
             }
-            ld = ld.plusDays((long) 1.0);
+
+            historial.setItems(observableRounds);
+        } else {
+            if (filtro_nombre.getText().isEmpty()) {
+
+                XYChart.Series serie = new XYChart.Series();
+
+                int x = 1;
+                lineChartData = FXCollections.observableArrayList();
+                for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                    if (filtro_nombre.getText().isEmpty()) {
+                        graf_line.setVisible(true);
+                        List<Round> lista = hist.get(ld);
+
+                        if (lista != null) {
+                            if (!lista.isEmpty()) {
+                                cont = lista.size();
+
+                                lineChartData.add(new XYChart.Data(ld.toString(), cont));
+
+                            }
+                        } else {
+                            System.out.println(ld.toString() + " " + cont);
+                            lineChartData.add(new XYChart.Data(ld.toString(), 0));
+                        }
+                        ld = ld.plusDays((long) 1.0);
+                    }
+                    serie = new Series(lineChartData);
+                    graf_line.getData().addAll(serie);
+                }
+            } else {
+                graf_pie.setVisible(true);
+                TreeMap<LocalDate, DayRank> map = cn4.getDayRanksPlayer(cn4.getPlayer(filtro_nombre.getText()));
+                int w = 0;
+                int l = 0;
+                pieChartData = FXCollections.observableArrayList();
+                for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                    if (map.containsKey(ld)) {
+                        DayRank dr = map.get(ld);
+                        w += dr.getWinnedGames();
+                        l += dr.getLostGames();
+                    }
+                    ld = ld.plusDays((long) 1.0);
+                }
+                if (w == 0 && l == 0) {
+                    pieChartData.add(new PieChart.Data("No hay partidas", 1));
+                } else {
+                    pieChartData.add(new PieChart.Data("Victorias", w));
+                    pieChartData.add(new PieChart.Data("Derrotas", l));
+                    
+                }graf_pie.setData(pieChartData);
+            }
         }
-
-        historial.setItems(observableRounds);
-
     }
+
+    private ObservableList<Data<String, Number>> lineChartData;
+    private ObservableList<PieChart.Data> pieChartData;
+
+    @FXML
+    private void ver_graf(MouseEvent event) {
+
+        graf_line.getData().clear();
+        graf_pie.getData().clear();
+
+        hist = cn4.getRoundsPerDay();
+//        lineChartData.clear();
+//        pieChartData.clear();
+        if (!historial.isVisible()) {
+            graf_line.setVisible(false);
+            graf_pie.setVisible(false);
+            historial.setVisible(true);
+            hist = cn4.getRoundsPerDay();
+            int x = 1;
+            for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                List<Round> lista = hist.get(ld);
+                if (lista != null) {
+                    if (!lista.isEmpty()) {
+                        cont = lista.size();
+                        if (x == 1) {
+                            observableRounds = FXCollections.observableList(new ArrayList<Round>());
+                        }
+                        x++;
+                        try {
+                            for (int i = 0; i < cont; i++) {
+                                if (lista.get(i) != null) {
+                                    if (!filtro_nombre.getText().isEmpty()) {
+                                        if (ambas.isSelected()) {
+
+                                            if (lista.get(i).getWinner().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())
+                                                    || lista.get(i).getLoser().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                                observableRounds.add(lista.get(i));
+                                            } else {
+                                            }
+                                        }
+                                        if (vic.isSelected()) {
+                                            if (lista.get(i).getWinner().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                                observableRounds.add(lista.get(i));
+                                            } else {
+                                            }
+                                        }
+                                        if (lose.isSelected()) {
+                                            if (lista.get(i).getLoser().getNickName().equals(cn4.getPlayer(filtro_nombre.getText()).getNickName())) {
+                                                observableRounds.add(lista.get(i));
+                                            } else {
+                                            }
+                                        }
+                                    } else {
+                                        observableRounds.add(lista.get(i));
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            filtro_nombre.setPromptText("NickName erroneo");
+                        }
+                    }
+                }
+                ld = ld.plusDays((long) 1.0);
+            }
+
+            historial.setItems(observableRounds);
+        } else {
+            if (filtro_nombre.getText().isEmpty()) {
+                historial.setVisible(false);
+                graf_line.setVisible(true);
+                graf_pie.setVisible(false);
+                XYChart.Series serie = new XYChart.Series();
+
+                int x = 1;
+                lineChartData = FXCollections.observableArrayList();
+                for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                    if (filtro_nombre.getText().isEmpty()) {
+                        graf_line.setVisible(true);
+                        List<Round> lista = hist.get(ld);
+
+                        if (lista != null) {
+                            if (!lista.isEmpty()) {
+                                cont = lista.size();
+
+                                lineChartData.add(new XYChart.Data(ld.toString(), cont));
+
+                            }
+                        } else {
+                            System.out.println(ld.toString() + " " + cont);
+                            lineChartData.add(new XYChart.Data(ld.toString(), 0));
+                        }
+                        ld = ld.plusDays((long) 1.0);
+                    }
+                    serie = new Series(lineChartData);
+                    graf_line.getData().addAll(serie);
+                }
+            } else {
+                historial.setVisible(false);
+                graf_line.setVisible(false);
+                graf_pie.setVisible(true);
+                TreeMap<LocalDate, DayRank> map = cn4.getDayRanksPlayer(cn4.getPlayer(filtro_nombre.getText()));
+                int w = 0;
+                int l = 0;
+                pieChartData = FXCollections.observableArrayList();
+                for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                    if (map.containsKey(ld)) {
+                        DayRank dr = map.get(ld);
+                        w += dr.getWinnedGames();
+                        l += dr.getLostGames();
+                    }
+                    ld = ld.plusDays((long) 1.0);
+                }
+                if (w == 0 && l == 0) {
+                    pieChartData.add(new PieChart.Data("No hay partidas", 1));
+                } else {
+                    pieChartData.add(new PieChart.Data("Victorias", w));
+                    pieChartData.add(new PieChart.Data("Derrotas", l));
+                    
+                }graf_pie.setData(pieChartData);
+            }
+        }
+    }
+
 }

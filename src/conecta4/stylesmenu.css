@@ -16,3 +16,13 @@
 table {
     -fx-text-fill: #e5e5e5;
 }
+
+.chart-series-line {    
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+ 
+.default-color0.chart-series-line { -fx-stroke: #fca311; }
+
+ 
+.default-color0.chart-line-symbol { -fx-background-color: #fca311, #fca311; }
