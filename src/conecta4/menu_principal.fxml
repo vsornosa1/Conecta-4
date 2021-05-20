@@ -205,9 +205,9 @@
                               <Font name="Trebuchet MS" size="13.0" />
                            </font>
                         </Hyperlink>
-                        <JFXRadioButton fx:id="ambas" layoutX="615.0" layoutY="165.0" onMouseClicked="#ambas" selected="true" text=" " visible="false" />
-                        <JFXRadioButton fx:id="vic" layoutX="675.0" layoutY="165.0" onMouseClicked="#vic" style="-jfx-selected-color: #0094ff;" text=" " textFill="#0094ff" visible="false" />
-                        <JFXRadioButton fx:id="lose" layoutX="734.0" layoutY="165.0" onMouseClicked="#lose" style="-jfx-selected-color: #FF1312;" text=" " visible="false" />
+                        <JFXRadioButton fx:id="ambas" layoutX="615.0" layoutY="165.0" onMouseClicked="#ambas" selected="true" style="-jfx-selected-color: #e0dc65;" text=" " textFill="#e0dc65" visible="false" />
+                        <JFXRadioButton fx:id="vic" layoutX="675.0" layoutY="165.0" onMouseClicked="#vic" text=" " textFill="#41c93d" visible="false" />
+                        <JFXRadioButton fx:id="lose" layoutX="734.0" layoutY="165.0" onMouseClicked="#lose" style="-jfx-selected-color: #cd1e1e;" text=" " textFill="#cd1e1e" visible="false" />
                         <JFXButton fx:id="ed_bot1" buttonType="RAISED" layoutX="600.0" layoutY="150.0" onMouseClicked="#aplicar_filtro" prefHeight="24.0" prefWidth="87.0" style="-fx-background-color: #e5e5e5;" text="Aplicar filtro" textFill="#14213d">
                            <cursor>
                               <Cursor fx:constant="HAND" />
