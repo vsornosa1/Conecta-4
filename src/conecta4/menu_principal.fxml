@@ -7,10 +7,12 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
@@ -185,7 +187,7 @@
                            </effect></JFXDatePicker>
                         <TableView fx:id="historial" layoutX="49.0" layoutY="48.0" prefHeight="258.0" prefWidth="490.0">
                           <columns>
-                            <TableColumn fx:id="fechaCol" prefWidth="131.416748046875" text="Fecha" />
+                            <TableColumn fx:id="fechaCol" prefWidth="131.416748046875" sortType="DESCENDING" text="Fecha" />
                             <TableColumn fx:id="winnerCol" prefWidth="181.418212890625" text="Ganador" />
                               <TableColumn fx:id="loserCol" prefWidth="181.000732421875" text="Perdedor" />
                           </columns>
@@ -195,17 +197,17 @@
                               <Font name="Trebuchet MS" size="13.0" />
                            </font>
                         </Hyperlink>
-                        <Text fx:id="text_v" fill="WHITE" layoutX="663.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Victoria" visible="false" />
-                        <Text fx:id="text_d" fill="WHITE" layoutX="720.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Derrota" visible="false" />
-                        <Text fx:id="text_a" fill="WHITE" layoutX="607.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ambas" visible="false" />
+                        <Text fx:id="text_v" fill="WHITE" layoutX="663.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Victoria" visible="false" />
+                        <Text fx:id="text_d" fill="WHITE" layoutX="720.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Derrota" visible="false" />
+                        <Text fx:id="text_a" fill="WHITE" layoutX="607.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ambas" visible="false" />
                         <Hyperlink fx:id="basicas" layoutX="593.0" layoutY="287.0" onMouseClicked="#basicas" text="Opciones de filtro básicas" textFill="#fca311" visible="false">
                            <font>
                               <Font name="Trebuchet MS" size="13.0" />
                            </font>
                         </Hyperlink>
-                        <JFXRadioButton fx:id="ambas" layoutX="615.0" layoutY="169.0" onMouseClicked="#ambas" selected="true" text=" " visible="false" />
-                        <JFXRadioButton fx:id="vic" layoutX="675.0" layoutY="170.0" onMouseClicked="#vic" style="-jfx-selected-color: #0094ff;" text=" " textFill="#0094ff" visible="false" />
-                        <JFXRadioButton fx:id="lose" layoutX="734.0" layoutY="169.0" onMouseClicked="#lose" style="-jfx-selected-color: #FF1312;" text=" " visible="false" />
+                        <JFXRadioButton fx:id="ambas" layoutX="615.0" layoutY="165.0" onMouseClicked="#ambas" selected="true" text=" " visible="false" />
+                        <JFXRadioButton fx:id="vic" layoutX="675.0" layoutY="165.0" onMouseClicked="#vic" style="-jfx-selected-color: #0094ff;" text=" " textFill="#0094ff" visible="false" />
+                        <JFXRadioButton fx:id="lose" layoutX="734.0" layoutY="165.0" onMouseClicked="#lose" style="-jfx-selected-color: #FF1312;" text=" " visible="false" />
                         <JFXButton fx:id="ed_bot1" buttonType="RAISED" layoutX="600.0" layoutY="150.0" onMouseClicked="#aplicar_filtro" prefHeight="24.0" prefWidth="87.0" style="-fx-background-color: #e5e5e5;" text="Aplicar filtro" textFill="#14213d">
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -256,7 +258,57 @@
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </LineChart>
-                        <PieChart fx:id="graf_pie" layoutX="155.0" layoutY="37.0" prefHeight="280.0" prefWidth="309.0" visible="false" />
+                        <PieChart fx:id="graf_pie" layoutX="115.0" layoutY="36.0" prefHeight="270.0" prefWidth="364.0" />
+                        <BarChart fx:id="graf_bar" layoutX="5.0" layoutY="34.0" prefHeight="297.0" prefWidth="594.0" visible="false">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <StackedBarChart fx:id="graf_sbar" layoutX="2.0" layoutY="34.0" prefHeight="297.0" prefWidth="596.0" visible="false">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </StackedBarChart>
+                        <JFXButton fx:id="cont_bot" buttonType="RAISED" layoutX="691.0" layoutY="163.0" onMouseClicked="#contrinc" prefHeight="24.0" prefWidth="87.0" style="-fx-background-color: #e5e5e5;" text="Contrincantes" textFill="#14213d" visible="false">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <ripplerFill>
+                              <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                 <stops>
+                                    <Stop color="#799bf8" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#b4b8cd" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </ripplerFill>
+                           <font>
+                              <Font name="Georgia" size="11.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="rad_bot" buttonType="RAISED" layoutX="600.0" layoutY="162.0" onMouseClicked="#radial" prefHeight="24.0" prefWidth="87.0" style="-fx-background-color: #e5e5e5;" text="Grafica radial" textFill="#14213d" visible="false">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <ripplerFill>
+                              <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                 <stops>
+                                    <Stop color="#799bf8" />
+                                    <Stop color="#ffcc99" offset="0.007518796992481203" />
+                                    <Stop color="#b4b8cd" offset="1.0" />
+                                 </stops>
+                              </RadialGradient>
+                           </ripplerFill>
+                           <font>
+                              <Font name="Georgia" size="11.0" />
+                           </font>
+                        </JFXButton>
                      </children></AnchorPane>
                     </content>
                 </Tab>
