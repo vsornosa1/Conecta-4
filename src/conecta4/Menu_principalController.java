@@ -19,11 +19,14 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,6 +55,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -77,7 +81,6 @@ public class Menu_principalController implements Initializable {
     File f_avatar3 = new File("src/avatars/avatar3.png");
     File f_avatar4 = new File("src/avatars/avatar4.png");
     File f_avatardef = new File("src/avatars/default.png");
-    private ImageView avatar;
 
     @FXML
     private ImageView avatar11, avatar111;
@@ -127,6 +130,8 @@ public class Menu_principalController implements Initializable {
     private TableColumn<Player, String> name;
     @FXML
     private TableColumn<Player, Integer> punt;
+    @FXML
+    private TableColumn<Player, Image> avatar;
 
     private ObservableList<Player> observablePlayers;
     @FXML
@@ -192,6 +197,12 @@ public class Menu_principalController implements Initializable {
     private JFXButton cont_bot;
     @FXML
     private JFXButton rad_bot;
+    @FXML
+    private JFXTextField rank_nombre;
+    @FXML
+    private JFXButton buscar;
+    @FXML
+    private JFXButton def;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -252,8 +263,51 @@ public class Menu_principalController implements Initializable {
         observablePlayers = FXCollections.observableList(cn4.getConnect4Ranking());
         name.setCellValueFactory(new PropertyValueFactory<Player, String>("nickName"));
         punt.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
+        avatar.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Image>(cellData.getValue().getAvatar()));
+        avatar.setCellFactory(c -> new TableCell<Player, Image>() {
+            private ImageView view = new ImageView();
+
+            @Override
+            protected void updateItem(Image item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setGraphic(null);
+                } else {
+                    //Image image= new Image(Menu_principalController.class.getResourceAsStream(item),40, 40, true, true);
+
+                    view.setImage(item);
+                    view.setFitHeight(40);
+                    view.setFitWidth(40);
+                    setGraphic(view);
+                }
+            }
+        });
+        
         observablePlayers.remove(cn4.getPlayer("invitado"));
         table.setItems(observablePlayers);
+        
+        FilteredList<Player> filteredData = new FilteredList<>(observablePlayers, p -> true);
+        rank_nombre.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(person -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (person.getNickName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                }
+                return false; // Does not match.
+            });
+        });
+        SortedList<Player> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+        observablePlayers.remove(cn4.getPlayer("invitado"));
+        table.setItems(sortedData);
 
         hist = cn4.getRoundsPerDay();
         fechaCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTimeStamp().getDayOfMonth() + "/"
@@ -308,7 +362,49 @@ public class Menu_principalController implements Initializable {
         punt.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
         observablePlayers.remove(cn4.getPlayer("invitado"));
         table.setItems(observablePlayers);
+        avatar.setCellValueFactory(cellData
+                -> new SimpleObjectProperty<Image>(cellData.getValue().getAvatar()));
+        avatar.setCellFactory(c -> new TableCell<Player, Image>() {
+            private ImageView view = new ImageView();
 
+            @Override
+            protected void updateItem(Image item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setGraphic(null);
+                } else {
+                    //Image image= new Image(Menu_principalController.class.getResourceAsStream(item),40, 40, true, true);
+
+                    view.setImage(item);
+                    view.setFitHeight(40);
+                    view.setFitWidth(40);
+                    setGraphic(view);
+                }
+            }
+        });
+        
+        FilteredList<Player> filteredData = new FilteredList<>(observablePlayers, p -> true);
+        rank_nombre.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(person -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (person.getNickName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+                }
+                return false; // Does not match.
+            });
+        });
+        SortedList<Player> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+        observablePlayers.remove(cn4.getPlayer("invitado"));
+        table.setItems(sortedData);
+        
         hist = cn4.getRoundsPerDay();
 
         fechaCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTimeStamp().getDayOfMonth() + "/"
@@ -1422,6 +1518,16 @@ public class Menu_principalController implements Initializable {
             graf_sbar.getData().addAll(s1, s2);
             rad_bot.setText("Grafica radial");
         }
+    }
+    
+    @FXML
+    private void buscar(MouseEvent event) {
+        observablePlayers = FXCollections.observableList(cn4.getConnect4Ranking());
+        
+    }
+
+    @FXML
+    private void nobuscar(MouseEvent event) {
     }
 
 }

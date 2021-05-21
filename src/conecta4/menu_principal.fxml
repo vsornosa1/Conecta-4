@@ -154,10 +154,11 @@
                     <content>
                         <AnchorPane fx:id="music" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="table" layoutX="47.0" layoutY="25.0" prefHeight="278.0" prefWidth="705.0">
+                        <TableView fx:id="table" layoutX="47.0" layoutY="73.0" prefHeight="242.0" prefWidth="705.0">
                           <columns>
-                            <TableColumn fx:id="name" prefWidth="461.39251708984375" text="Nickname" />
-                            <TableColumn fx:id="punt" prefWidth="245.0611572265625" text="Puntuación" />
+                              <TableColumn fx:id="avatar" prefWidth="142.45513916015625" text="Avatar" />
+                            <TableColumn fx:id="name" prefWidth="339.41656494140625" text="Nickname" />
+                            <TableColumn fx:id="punt" prefWidth="222.0023193359375" text="Puntuación" />
                           </columns>
                         </TableView>
                         <JFXToggleButton fx:id="music_check2" layoutX="682.0" layoutY="309.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
@@ -165,6 +166,14 @@
                               <Font name="Trebuchet MS" size="13.0" />
                            </font>
                         </JFXToggleButton>
+                        <JFXTextField fx:id="rank_nombre" focusColor="#fca311" labelFloat="true" layoutX="48.0" layoutY="24.0" prefHeight="30.0" prefWidth="702.0" promptText="Introduce el NickName" unFocusColor="#e5e5e5">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <effect>
+                              <ColorAdjust brightness="0.85" contrast="0.2" />
+                           </effect>
+                        </JFXTextField>
                      </children></AnchorPane>
                     </content>
                 </Tab>
