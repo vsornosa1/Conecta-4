@@ -1,13 +1,17 @@
 package conecta4;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -25,7 +29,7 @@ import model.*;
 /**
  * @author Alex & Sento
  */
-public class Login_amigoController {
+public class Login_amigoController implements Initializable {
 
     @FXML
     private TextField text_user;
@@ -46,6 +50,23 @@ public class Login_amigoController {
     @FXML
     private JFXButton inv_bot;
 
+    private boolean partida;
+    @FXML
+    private JFXTextField text_vpass;
+    @FXML
+    private JFXButton vb;
+    @FXML
+    private ImageView v;
+    @FXML
+    private ImageView nv;
+
+    private int from;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        text_vpass.textProperty().bindBidirectional(text_pass.textProperty());
+    }
+
     public void initData(Connect4 con4, Player mainPlayer, Stage st) {
         cn4 = con4;
         player1 = mainPlayer;
@@ -53,6 +74,8 @@ public class Login_amigoController {
         invitado = cn4.getPlayer("invitado");
         invitado2 = cn4.getPlayer("invitado2");
         perfil = false;
+        this.partida = true;
+        from = 1;
     }
 
     public void initData(Connect4 con4, Player mainPlayer, Menu_principalController controller) {
@@ -63,6 +86,8 @@ public class Login_amigoController {
         invitado2 = cn4.getPlayer("invitado2");
         perfil = true;
         inv_bot.setDisable(true);
+        this.partida = false;
+        from = 2;
     }
 
     private MediaPlayer mediaPlayer;
@@ -164,6 +189,7 @@ public class Login_amigoController {
 
     @FXML
     private void atras(MouseEvent event) throws IOException {
+        controller.initMusic(mediaPlayer, music_check.isSelected());
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
@@ -189,5 +215,46 @@ public class Login_amigoController {
         final Stage stage = (Stage) source.getScene().getWindow();
         oldStage.close();
         stage.close();
+    }
+
+    @FXML
+    private void reg(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("registro.fxml"));
+        Parent newRoot = loader.load();
+
+        RegistroController registro = loader.getController();
+        registro.initController(registro);
+        if (from == 1) {
+            registro.initData(cn4, player1, oldStage, from);
+        }
+        if (from == 2) {
+            registro.initData(cn4, player1, controller, from);
+        }
+        registro.initMusic(mediaPlayer, music_check.isSelected());
+        Scene scene = new Scene(newRoot);
+        Stage newStage = new Stage();
+
+        newStage.setScene(scene);
+        newStage.setResizable(false);
+        newStage.show();
+
+        final Node source = (Node) event.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void show(MouseEvent event) {
+        if (text_pass.isVisible()) {
+            text_pass.setVisible(false);
+            text_vpass.setVisible(true);
+            v.setVisible(false);
+            nv.setVisible(true);
+        } else {
+            text_pass.setVisible(true);
+            text_vpass.setVisible(false);
+            v.setVisible(true);
+            nv.setVisible(false);
+        }
     }
 }

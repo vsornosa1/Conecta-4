@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -368,17 +369,17 @@
                               </LinearGradient>
                            </stroke>
                         </Line>
-                        <Text fx:id="contraseña_perfil" fill="#e5e5e5" layoutX="26.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña: Aa_123456789" wrappingWidth="481.279296875">
+                        <Text fx:id="contraseña_perfil" fill="#e5e5e5" layoutX="28.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña: " wrappingWidth="407.291015625">
                            <font>
                               <Font name="Trebuchet MS Italic" size="22.0" />
                            </font>
                         </Text>
-                        <Text fx:id="mail_perfil" fill="#e5e5e5" layoutX="26.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico: ejemplo@domain.es" wrappingWidth="600.301025390625">
+                        <Text fx:id="mail_perfil" fill="#e5e5e5" layoutX="28.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico: " wrappingWidth="475.236083984375">
                            <font>
                               <Font name="Trebuchet MS Italic" size="22.0" />
                            </font>
                         </Text>
-                        <Text fx:id="cumpleaños_perfil" fill="#e5e5e5" layoutX="28.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de Nacimiento: 12/12/2012" wrappingWidth="364.275146484375">
+                        <Text fx:id="cumpleaños_perfil" fill="#e5e5e5" layoutX="28.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de Nacimiento: " wrappingWidth="474.1923828125">
                            <font>
                               <Font name="Trebuchet MS Italic" size="22.0" />
                            </font>
@@ -405,6 +406,33 @@
                               <Font name="Trebuchet MS" size="13.0" />
                            </font>
                         </JFXToggleButton>
+                        <JFXPasswordField fx:id="text_pass" editable="false" layoutX="168.0" layoutY="142.0" prefHeight="25.0" prefWidth="273.0">
+                           <effect>
+                              <ColorAdjust brightness="0.85" contrast="0.2" />
+                           </effect>
+                           <font>
+                              <Font name="Trebuchet MS" size="19.0" />
+                           </font>
+                        </JFXPasswordField>
+                        <JFXButton fx:id="vb" buttonType="RAISED" layoutX="460.0" layoutY="145.0" onMouseClicked="#show" prefHeight="30.0" prefWidth="33.0" style="-fx-background-color: #e5e5e5;" text=" " />
+                        <ImageView fx:id="v" fitHeight="24.0" fitWidth="24.0" layoutX="465.0" layoutY="148.0" onMouseClicked="#show" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/visible.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="nv" fitHeight="24.0" fitWidth="24.0" layoutX="465.0" layoutY="148.0" onMouseClicked="#show" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../images/novisible.png" />
+                           </image>
+                        </ImageView>
+                        <JFXTextField fx:id="text_vpass" editable="false" layoutX="168.0" layoutY="142.0" prefHeight="25.0" prefWidth="272.0" visible="false">
+                           <effect>
+                              <ColorAdjust brightness="0.85" contrast="0.2" />
+                           </effect>
+                           <font>
+                              <Font name="Trebuchet MS" size="19.0" />
+                           </font>
+                        </JFXTextField>
                      </children></AnchorPane>
                     </content>
                 </Tab>

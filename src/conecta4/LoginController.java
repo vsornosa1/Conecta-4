@@ -2,6 +2,7 @@ package conecta4;
 
 import DBAccess.Connect4DAOException;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
 import java.io.IOException;
@@ -69,6 +70,16 @@ public class LoginController implements Initializable {
 
     File f_avatarDef = new File("src/images/avatares/avatar10.png");
     private final Image avatarDef = new Image(f_avatarDef.toURI().toString());
+    @FXML
+    private JFXButton vb;
+    @FXML
+    private ImageView v;
+    @FXML
+    private ImageView nv;
+    @FXML
+    private JFXTextField text_vpass;
+    
+    private int from;
 
     /**
      * Initializes the controller class.
@@ -78,6 +89,8 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        text_vpass.textProperty().bindBidirectional(text_pass.textProperty());
+        from=0;
         try {
             cn4 = Connect4.getSingletonConnect4();
             invitado = cn4.getPlayer("invitado");
@@ -97,6 +110,7 @@ public class LoginController implements Initializable {
         menu = m;
         oldStage = st;
         this.cn4 = cn4;
+        from=3;
     }
 
     public void initMusic(MediaPlayer mp, boolean b) {
@@ -196,7 +210,7 @@ public class LoginController implements Initializable {
 
         RegistroController registro = loader.getController();
         registro.initController(registro);
-        registro.initData(cn4);
+        registro.initData(cn4,menu,from);
         registro.initMusic(mediaPlayer, music.isSelected());
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
@@ -208,5 +222,20 @@ public class LoginController implements Initializable {
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void show(MouseEvent event) {
+        if (text_pass.isVisible()) {
+            text_pass.setVisible(false);
+            text_vpass.setVisible(true);
+            v.setVisible(false);
+            nv.setVisible(true);
+        } else {
+            text_pass.setVisible(true);
+            text_vpass.setVisible(false);
+            v.setVisible(true);
+            nv.setVisible(false);
+        }
     }
 }

@@ -60,7 +60,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="text_pass" focusColor="#fca311" labelFloat="true" layoutX="67.0" layoutY="295.0" prefHeight="28.0" prefWidth="223.0" promptText="Contraseña" unFocusColor="#e5e5e5">
+      <JFXPasswordField fx:id="text_pass" focusColor="#fca311" labelFloat="true" layoutX="67.0" layoutY="295.0" prefHeight="30.0" prefWidth="180.0" promptText="Contraseña" unFocusColor="#e5e5e5">
          <effect>
             <ColorAdjust brightness="0.85" contrast="0.2" />
          </effect>
@@ -116,9 +116,28 @@
             <Font name="Trebuchet MS" size="13.0" />
          </font>
       </Text>
-      <Text fx:id="error_name" fill="#fa5b11" layoutX="66.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formato de nombre de usuario incorrecto" visible="false" wrappingWidth="275.99999489620586" />
+      <Text fx:id="error_name" fill="#fa5b11" layoutX="66.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="El nombre debe contener entre 6 y 15 caracteres, mayusculas y minusculas o los caracteres '-' '_'" visible="false" wrappingWidth="275.99999489620586" />
       <Text fx:id="error_mail" fill="#fa5b11" layoutX="67.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formato de correo electrónico incorrecto" visible="false" wrappingWidth="222.99999489620586" />
       <Text fx:id="error_pass" fill="#fa5b11" layoutX="66.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formato de contraseña incorrecto" visible="false" wrappingWidth="222.99999489620586" />
       <Text fx:id="error_fecha" fill="#fa5b11" layoutX="66.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" wrappingWidth="222.99999489620586" />
+      <JFXButton fx:id="vb" buttonType="RAISED" layoutX="262.0" layoutY="295.0" onMouseClicked="#show" prefHeight="30.0" prefWidth="33.0" style="-fx-background-color: #e5e5e5;" text=" " />
+      <ImageView fx:id="v" fitHeight="24.0" fitWidth="24.0" layoutX="266.0" layoutY="297.0" onMouseClicked="#show" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/visible.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="nv" fitHeight="24.0" fitWidth="24.0" layoutX="266.0" layoutY="297.0" onMouseClicked="#show" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/novisible.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="text_vpass" focusColor="#fca311" labelFloat="true" layoutX="67.0" layoutY="295.0" prefHeight="30.0" prefWidth="186.0" promptText="Contraseña" unFocusColor="#e5e5e5" visible="false">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+      </JFXTextField>
    </children>
 </AnchorPane>

@@ -2,6 +2,7 @@ package conecta4;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -200,9 +201,15 @@ public class Menu_principalController implements Initializable {
     @FXML
     private JFXTextField rank_nombre;
     @FXML
-    private JFXButton buscar;
+    private JFXPasswordField text_pass;
     @FXML
-    private JFXButton def;
+    private JFXTextField text_vpass;
+    @FXML
+    private ImageView v;
+    @FXML
+    private ImageView nv;
+    @FXML
+    private JFXButton vb;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -283,25 +290,24 @@ public class Menu_principalController implements Initializable {
                 }
             }
         });
-        
+
         observablePlayers.remove(cn4.getPlayer("invitado"));
         table.setItems(observablePlayers);
-        
+        rank_nombre.setText(null);
         FilteredList<Player> filteredData = new FilteredList<>(observablePlayers, p -> true);
         rank_nombre.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(person -> {
-                // If filter text is empty, display all persons.
+            filteredData.setPredicate(players -> {
+
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
 
-                // Compare first name and last name of every person with filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (person.getNickName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
+                if (players.getNickName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
                 }
-                return false; // Does not match.
+                return false;
             });
         });
         SortedList<Player> sortedData = new SortedList<>(filteredData);
@@ -373,7 +379,6 @@ public class Menu_principalController implements Initializable {
                 if (item == null || empty) {
                     setGraphic(null);
                 } else {
-                    //Image image= new Image(Menu_principalController.class.getResourceAsStream(item),40, 40, true, true);
 
                     view.setImage(item);
                     view.setFitHeight(40);
@@ -382,29 +387,28 @@ public class Menu_principalController implements Initializable {
                 }
             }
         });
-        
+        rank_nombre.setText(null);
         FilteredList<Player> filteredData = new FilteredList<>(observablePlayers, p -> true);
         rank_nombre.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(person -> {
-                // If filter text is empty, display all persons.
+            filteredData.setPredicate(players -> {
+
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
 
-                // Compare first name and last name of every person with filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (person.getNickName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
+                if (players.getNickName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
                 }
-                return false; // Does not match.
+                return false;
             });
         });
         SortedList<Player> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
         observablePlayers.remove(cn4.getPlayer("invitado"));
         table.setItems(sortedData);
-        
+
         hist = cn4.getRoundsPerDay();
 
         fechaCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTimeStamp().getDayOfMonth() + "/"
@@ -452,41 +456,64 @@ public class Menu_principalController implements Initializable {
             cambiarAvatar2_perfil.setOpacity(0);
             cambiarJ2_perfil.setOpacity(0);
             change_bot.setOpacity(1);
+            text_pass.setVisible(false);
+            text_vpass.setVisible(false);
+            vb.setVisible(false);
+            v.setVisible(false);
+            nv.setVisible(false);
+            
         } else if (player2 == null) {
             change_bot.setOpacity(1);
             ed_bot.setDisable(false);
             avatar_perfil.setImage(player1.getAvatar());
             user_perfil.setText("@" + player1.getNickName());
-            contraseña_perfil.setText("Contraseña: " + player1.getPassword());
+            contraseña_perfil.setText("Contraseña: " );
             mail_perfil.setText("Correo electrónico: " + player1.getEmail());
             cumpleaños_perfil.setText("Fecha de Nacimiento: " + player1.getBirthdate());
             lineaJ2_perfil.setOpacity(0);
             cambiarAvatar2_perfil.setOpacity(0);
             cambiarJ2_perfil.setOpacity(0);
+            text_pass.setVisible(true);
+            text_vpass.setVisible(false);
+            text_pass.setText(player1.getPassword());
+            text_vpass.setText(player1.getPassword());
+            vb.setVisible(true);
+            v.setVisible(true);
+            nv.setVisible(false);
         } else {
             ed_bot.setDisable(false);
             change_bot.setOpacity(0);
             lineaJ2_perfil.setOpacity(1);
             cambiarAvatar2_perfil.setOpacity(1);
             cambiarJ2_perfil.setOpacity(1);
+            text_pass.setVisible(true);
+            text_vpass.setVisible(false);
+            vb.setVisible(true);
+            v.setVisible(true);
+            nv.setVisible(false);
+
             if (p) {
                 avatar_perfil.setImage(player1.getAvatar());
                 user_perfil.setText("@" + player1.getNickName());
-                contraseña_perfil.setText("Contraseña: " + player1.getPassword());
+                contraseña_perfil.setText("Contraseña: " );
                 mail_perfil.setText("Correo electrónico: " + player1.getEmail());
                 cumpleaños_perfil.setText("Fecha de Nacimiento: " + player1.getBirthdate());
                 lineaJ2_perfil.setOpacity(1);
                 cambiarAvatar2_perfil.setImage(player2.getAvatar());
                 cambiarJ2_perfil.setText("Ver perfil de " + player2.getNickName());
+                text_pass.setText(player1.getPassword());
+                text_vpass.setText(player1.getPassword());
             } else {
                 avatar_perfil.setImage(player2.getAvatar());
                 user_perfil.setText("@" + player2.getNickName());
-                contraseña_perfil.setText("Contraseña: " + player2.getPassword());
+                contraseña_perfil.setText("Contraseña: " );
                 mail_perfil.setText("Correo electrónico: " + player2.getEmail());
                 cumpleaños_perfil.setText("Fecha de Nacimiento: " + player2.getBirthdate());
                 lineaJ2_perfil.setOpacity(1);
                 cambiarAvatar2_perfil.setImage(player1.getAvatar());
                 cambiarJ2_perfil.setText("Ver perfil de " + player1.getNickName());
+                text_pass.setText(player2.getPassword());
+                text_vpass.setText(player2.getPassword());
             }
 
         }
@@ -1519,15 +1546,25 @@ public class Menu_principalController implements Initializable {
             rad_bot.setText("Grafica radial");
         }
     }
-    
-    @FXML
+
     private void buscar(MouseEvent event) {
         observablePlayers = FXCollections.observableList(cn4.getConnect4Ranking());
-        
+
     }
 
     @FXML
-    private void nobuscar(MouseEvent event) {
+    private void show(MouseEvent event) {
+        if (text_pass.isVisible()) {
+            text_pass.setVisible(false);
+            text_vpass.setVisible(true);
+            v.setVisible(false);
+            nv.setVisible(true);
+        } else {
+            text_pass.setVisible(true);
+            text_vpass.setVisible(false);
+            v.setVisible(true);
+            nv.setVisible(false);
+        }
     }
 
 }
