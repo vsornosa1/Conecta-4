@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -48,6 +49,7 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
@@ -461,13 +463,13 @@ public class Menu_principalController implements Initializable {
             vb.setVisible(false);
             v.setVisible(false);
             nv.setVisible(false);
-            
+
         } else if (player2 == null) {
             change_bot.setOpacity(1);
             ed_bot.setDisable(false);
             avatar_perfil.setImage(player1.getAvatar());
             user_perfil.setText("@" + player1.getNickName());
-            contraseña_perfil.setText("Contraseña: " );
+            contraseña_perfil.setText("Contraseña: ");
             mail_perfil.setText("Correo electrónico: " + player1.getEmail());
             cumpleaños_perfil.setText("Fecha de Nacimiento: " + player1.getBirthdate());
             lineaJ2_perfil.setOpacity(0);
@@ -495,7 +497,7 @@ public class Menu_principalController implements Initializable {
             if (p) {
                 avatar_perfil.setImage(player1.getAvatar());
                 user_perfil.setText("@" + player1.getNickName());
-                contraseña_perfil.setText("Contraseña: " );
+                contraseña_perfil.setText("Contraseña: ");
                 mail_perfil.setText("Correo electrónico: " + player1.getEmail());
                 cumpleaños_perfil.setText("Fecha de Nacimiento: " + player1.getBirthdate());
                 lineaJ2_perfil.setOpacity(1);
@@ -506,7 +508,7 @@ public class Menu_principalController implements Initializable {
             } else {
                 avatar_perfil.setImage(player2.getAvatar());
                 user_perfil.setText("@" + player2.getNickName());
-                contraseña_perfil.setText("Contraseña: " );
+                contraseña_perfil.setText("Contraseña: ");
                 mail_perfil.setText("Correo electrónico: " + player2.getEmail());
                 cumpleaños_perfil.setText("Fecha de Nacimiento: " + player2.getBirthdate());
                 lineaJ2_perfil.setOpacity(1);
@@ -578,9 +580,9 @@ public class Menu_principalController implements Initializable {
         @Override
         public void changed(ObservableValue observable, Object oldVal, Object newVal) {
             if (graf_pie.isVisible() || graf_line.isVisible() || graf_sbar.isVisible() || graf_bar.isVisible()) {
-                ambas.setDisable(true);
-                vic.setDisable(true);
-                lose.setDisable(true);
+                ambas.setVisible(false);
+                vic.setVisible(false);
+                lose.setVisible(false);
                 ambas.setSelected(true);
                 vic.setSelected(false);
                 lose.setSelected(false);
@@ -797,9 +799,30 @@ public class Menu_principalController implements Initializable {
         }
     }
 
+    private void dis() {
+        if (historial.isVisible()) {
+            ambas.disableProperty().bind(Bindings.isEmpty(filtro_nombre.textProperty()));
+            vic.disableProperty().bind(Bindings.isEmpty(filtro_nombre.textProperty()));
+            lose.disableProperty().bind(Bindings.isEmpty(filtro_nombre.textProperty()));
+            vic.disableProperty().bind(Bindings.isEmpty(filtro_nombre.textProperty()));
+            lose.disableProperty().bind(Bindings.isEmpty(filtro_nombre.textProperty()));
+            rad_bot.disableProperty().unbind();
+            cont_bot.disableProperty().unbind();
+        } else {
+            rad_bot.disableProperty().bind(Bindings.isEmpty(filtro_nombre.textProperty()));
+            cont_bot.disableProperty().bind(Bindings.isEmpty(filtro_nombre.textProperty()));
+            ambas.disableProperty().unbind();
+            vic.disableProperty().unbind();
+            lose.disableProperty().unbind();
+        }
+
+    }
+
     @FXML
     private void avanzado(MouseEvent event) {
+        dis();
         if (historial.isVisible()) {
+
             ambas.setSelected(true);
             vic.setSelected(false);
             lose.setSelected(false);
@@ -817,6 +840,7 @@ public class Menu_principalController implements Initializable {
         basicas.setVisible(true);
         filtro_nombre.setVisible(true);
         if (!historial.isVisible()) {
+
             cont_bot.setVisible(true);
             rad_bot.setVisible(true);
         }
@@ -825,7 +849,11 @@ public class Menu_principalController implements Initializable {
 
     @FXML
     private void basicas(MouseEvent event) {
-
+        ambas.disableProperty().unbind();
+        vic.disableProperty().unbind();
+        lose.disableProperty().unbind();
+        rad_bot.disableProperty().unbind();
+        cont_bot.disableProperty().unbind();
         ambas.setSelected(true);
         vic.setSelected(false);
         lose.setSelected(false);
@@ -1097,6 +1125,7 @@ public class Menu_principalController implements Initializable {
 
     @FXML
     private void ver_graf(MouseEvent event) {
+
         filtro_nombre.setPromptText("Introduce el NickName");
         graf_line.getData().clear();
         graf_pie.getData().clear();
@@ -1370,89 +1399,99 @@ public class Menu_principalController implements Initializable {
             }
 
         }
+        dis();
     }
 
     @FXML
     private void contrinc(MouseEvent event) {
-        graf_line.getData().clear();
-        graf_pie.getData().clear();
-        graf_bar.getData().clear();
-        graf_sbar.getData().clear();
+        if (cn4.exitsNickName(filtro_nombre.getText())) {
+            graf_line.getData().clear();
+            graf_pie.getData().clear();
+            graf_bar.getData().clear();
+            graf_sbar.getData().clear();
 
-        vic.setVisible(false);
-        lose.setVisible(false);
-        ambas.setVisible(false);
-        text_a.setVisible(false);
-        text_d.setVisible(false);
-        text_v.setVisible(false);
-
-        TreeMap<LocalDate, DayRank> map = cn4.getDayRanksPlayer(cn4.getPlayer(filtro_nombre.getText()));
-        if (!graf_bar.isVisible()) {
-            historial.setVisible(false);
-            graf_line.setVisible(false);
-            graf_bar.setVisible(true);
-            graf_sbar.setVisible(false);
-            graf_pie.setVisible(false);
-            ambas.setVisible(false);
             vic.setVisible(false);
             lose.setVisible(false);
-            barChartData3 = FXCollections.observableArrayList();
-            int n = 0;
-            for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
-                if (map.containsKey(ld)) {
-                    DayRank dr = map.get(ld);
-                    n = dr.getOponents();
-                    barChartData3.add(new XYChart.Data(ld.toString(), n));
-                }
-                ld = ld.plusDays((long) 1.0);
-            }
-            Series s = new Series(barChartData3);
-            s.setName("Nº de contrincantes diferentes");
-
-            graf_bar.getData().addAll(s);
-            rad_bot.setText("Grafica radial");
-            cont_bot.setText("Ver WinRate");
-        } else {
-            historial.setVisible(false);
-            graf_line.setVisible(false);
-            graf_bar.setVisible(false);
-            graf_sbar.setVisible(true);
-            graf_pie.setVisible(false);
             ambas.setVisible(false);
-            vic.setVisible(false);
-            lose.setVisible(false);
+            text_a.setVisible(false);
+            text_d.setVisible(false);
+            text_v.setVisible(false);
 
-            int w = 0;
-            int l = 0;
-            Series s1 = new Series();
-
-            Series s2 = new Series();
-
-            barChartData1 = FXCollections.observableArrayList();
-            barChartData2 = FXCollections.observableArrayList();
-            for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
-                if (map.containsKey(ld)) {
-                    DayRank dr = map.get(ld);
-                    w += dr.getWinnedGames();
-                    l += dr.getLostGames();
-                    barChartData1.add(new XYChart.Data(ld.toString(), w));
-                    barChartData2.add(new XYChart.Data(ld.toString(), l));
+            TreeMap<LocalDate, DayRank> map = cn4.getDayRanksPlayer(cn4.getPlayer(filtro_nombre.getText()));
+            if (!graf_bar.isVisible()) {
+                historial.setVisible(false);
+                graf_line.setVisible(false);
+                graf_bar.setVisible(true);
+                graf_sbar.setVisible(false);
+                graf_pie.setVisible(false);
+                ambas.setVisible(false);
+                vic.setVisible(false);
+                lose.setVisible(false);
+                barChartData3 = FXCollections.observableArrayList();
+                int n = 0;
+                for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                    if (map.containsKey(ld)) {
+                        DayRank dr = map.get(ld);
+                        n = dr.getOponents();
+                        barChartData3.add(new XYChart.Data(ld.toString(), n));
+                    }
+                    ld = ld.plusDays((long) 1.0);
                 }
-                ld = ld.plusDays((long) 1.0);
-            }
-            if (cn4.getPlayer(filtro_nombre.getText()) == null) {
-                filtro_nombre.setPromptText("NickName erroneo");
-            }
+                Series s = new Series(barChartData3);
+                s.setName("Nº de contrincantes diferentes");
+
+                graf_bar.getData().addAll(s);
+                rad_bot.setText("Grafica radial");
+                cont_bot.setText("Ver WinRate");
+            } else {
+                historial.setVisible(false);
+                graf_line.setVisible(false);
+                graf_bar.setVisible(false);
+                graf_sbar.setVisible(true);
+                graf_pie.setVisible(false);
+                ambas.setVisible(false);
+                vic.setVisible(false);
+                lose.setVisible(false);
+
+                int w = 0;
+                int l = 0;
+                Series s1 = new Series();
+
+                Series s2 = new Series();
+
+                barChartData1 = FXCollections.observableArrayList();
+                barChartData2 = FXCollections.observableArrayList();
+                for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                    if (map.containsKey(ld)) {
+                        DayRank dr = map.get(ld);
+                        w += dr.getWinnedGames();
+                        l += dr.getLostGames();
+                        barChartData1.add(new XYChart.Data(ld.toString(), w));
+                        barChartData2.add(new XYChart.Data(ld.toString(), l));
+                    }
+                    ld = ld.plusDays((long) 1.0);
+                }
+                if (cn4.getPlayer(filtro_nombre.getText()) == null) {
+                    filtro_nombre.setPromptText("NickName erroneo");
+                }
 //                if (w == 0 && l == 0) {
 //                    pieChartData.add(new PieChart.Data("No hay partidas", 1));
 //                } else {
-            s1 = new Series(barChartData1);
-            s1.setName("Victorias");
-            s2 = new Series(barChartData2);
-            s2.setName("Derrotas");
-            graf_sbar.getData().addAll(s1, s2);
-            rad_bot.setText("Grafica radial");
-            cont_bot.setText("Contrincantes");
+                s1 = new Series(barChartData1);
+                s1.setName("Victorias");
+                s2 = new Series(barChartData2);
+                s2.setName("Derrotas");
+                graf_sbar.getData().addAll(s1, s2);
+                rad_bot.setText("Grafica radial");
+                cont_bot.setText("Contrincantes");
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Historial");
+            alert.setHeaderText("NickName");
+            alert.setContentText("No hay ningún jugador asociado a ese NickName");
+
+            alert.showAndWait();
         }
 
     }
@@ -1460,91 +1499,101 @@ public class Menu_principalController implements Initializable {
     @FXML
     private void radial(MouseEvent event
     ) {
-        graf_line.getData().clear();
-        graf_pie.getData().clear();
-        graf_bar.getData().clear();
-        graf_sbar.getData().clear();
+        if (cn4.exitsNickName(filtro_nombre.getText())) {
+            graf_line.getData().clear();
+            graf_pie.getData().clear();
+            graf_bar.getData().clear();
+            graf_sbar.getData().clear();
 
-        vic.setVisible(false);
-        lose.setVisible(false);
-        ambas.setVisible(false);
-        text_a.setVisible(false);
-        text_d.setVisible(false);
-        text_v.setVisible(false);
-        cont_bot.setVisible(true);
-
-        if (!graf_pie.isVisible()) {
-            historial.setVisible(false);
-            graf_line.setVisible(false);
-            graf_bar.setVisible(false);
-            graf_sbar.setVisible(false);
-            graf_pie.setVisible(true);
-            graf_bar.setVisible(false);
-            TreeMap<LocalDate, DayRank> map = cn4.getDayRanksPlayer(cn4.getPlayer(filtro_nombre.getText()));
-            int w = 0;
-            int l = 0;
-            pieChartData = FXCollections.observableArrayList();
-            for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
-                if (map.containsKey(ld)) {
-                    DayRank dr = map.get(ld);
-                    w += dr.getWinnedGames();
-                    l += dr.getLostGames();
-                }
-                ld = ld.plusDays((long) 1.0);
-            }
-            if (cn4.getPlayer(filtro_nombre.getText()) == null) {
-                filtro_nombre.setPromptText("NickName erroneo");
-            }
-            if (w == 0 && l == 0) {
-                pieChartData.add(new PieChart.Data("No hay partidas", 1));
-            } else {
-                pieChartData.add(new PieChart.Data("Victorias", w));
-                pieChartData.add(new PieChart.Data("Derrotas", l));
-
-            }
-            graf_pie.setData(pieChartData);
-            rad_bot.setText("Ver diagrama");
-        } else {
-            historial.setVisible(false);
-            graf_line.setVisible(false);
-            graf_bar.setVisible(false);
-            graf_sbar.setVisible(true);
-            graf_pie.setVisible(false);
-            ambas.setVisible(false);
             vic.setVisible(false);
             lose.setVisible(false);
-            TreeMap<LocalDate, DayRank> map = cn4.getDayRanksPlayer(cn4.getPlayer(filtro_nombre.getText()));
-            int w = 0;
-            int l = 0;
-            Series s1 = new Series();
+            ambas.setVisible(false);
+            text_a.setVisible(false);
+            text_d.setVisible(false);
+            text_v.setVisible(false);
+            cont_bot.setVisible(true);
 
-            Series s2 = new Series();
-
-            barChartData1 = FXCollections.observableArrayList();
-            barChartData2 = FXCollections.observableArrayList();
-            for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
-                if (map.containsKey(ld)) {
-                    DayRank dr = map.get(ld);
-                    w += dr.getWinnedGames();
-                    l += dr.getLostGames();
-                    barChartData1.add(new XYChart.Data(ld.toString(), w));
-                    barChartData2.add(new XYChart.Data(ld.toString(), l));
+            if (!graf_pie.isVisible()) {
+                historial.setVisible(false);
+                graf_line.setVisible(false);
+                graf_bar.setVisible(false);
+                graf_sbar.setVisible(false);
+                graf_pie.setVisible(true);
+                graf_bar.setVisible(false);
+                TreeMap<LocalDate, DayRank> map = cn4.getDayRanksPlayer(cn4.getPlayer(filtro_nombre.getText()));
+                int w = 0;
+                int l = 0;
+                pieChartData = FXCollections.observableArrayList();
+                for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                    if (map.containsKey(ld)) {
+                        DayRank dr = map.get(ld);
+                        w += dr.getWinnedGames();
+                        l += dr.getLostGames();
+                    }
+                    ld = ld.plusDays((long) 1.0);
                 }
-                ld = ld.plusDays((long) 1.0);
-            }
-            if (cn4.getPlayer(filtro_nombre.getText()) == null) {
-                filtro_nombre.setPromptText("NickName erroneo");
-            }
+                if (cn4.getPlayer(filtro_nombre.getText()) == null) {
+                    filtro_nombre.setPromptText("NickName erroneo");
+                }
+                if (w == 0 && l == 0) {
+                    pieChartData.add(new PieChart.Data("No hay partidas", 1));
+                } else {
+                    pieChartData.add(new PieChart.Data("Victorias", w));
+                    pieChartData.add(new PieChart.Data("Derrotas", l));
+
+                }
+                graf_pie.setData(pieChartData);
+                rad_bot.setText("Ver diagrama");
+            } else {
+                historial.setVisible(false);
+                graf_line.setVisible(false);
+                graf_bar.setVisible(false);
+                graf_sbar.setVisible(true);
+                graf_pie.setVisible(false);
+                ambas.setVisible(false);
+                vic.setVisible(false);
+                lose.setVisible(false);
+                TreeMap<LocalDate, DayRank> map = cn4.getDayRanksPlayer(cn4.getPlayer(filtro_nombre.getText()));
+                int w = 0;
+                int l = 0;
+                Series s1 = new Series();
+
+                Series s2 = new Series();
+
+                barChartData1 = FXCollections.observableArrayList();
+                barChartData2 = FXCollections.observableArrayList();
+                for (LocalDate ld = (LocalDate) date_ini.getValue(); ld.compareTo(date_fin.getValue()) <= 0;) {
+                    if (map.containsKey(ld)) {
+                        DayRank dr = map.get(ld);
+                        w += dr.getWinnedGames();
+                        l += dr.getLostGames();
+                        barChartData1.add(new XYChart.Data(ld.toString(), w));
+                        barChartData2.add(new XYChart.Data(ld.toString(), l));
+                    }
+                    ld = ld.plusDays((long) 1.0);
+                }
+                if (cn4.getPlayer(filtro_nombre.getText()) == null) {
+                    filtro_nombre.setPromptText("NickName erroneo");
+                }
 //                if (w == 0 && l == 0) {
 //                    pieChartData.add(new PieChart.Data("No hay partidas", 1));
 //                } else {
-            s1 = new Series(barChartData1);
-            s1.setName("Victorias");
-            s2 = new Series(barChartData2);
-            s2.setName("Derrotas");
-            graf_sbar.getData().addAll(s1, s2);
-            rad_bot.setText("Grafica radial");
+                s1 = new Series(barChartData1);
+                s1.setName("Victorias");
+                s2 = new Series(barChartData2);
+                s2.setName("Derrotas");
+                graf_sbar.getData().addAll(s1, s2);
+                rad_bot.setText("Grafica radial");
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Historial");
+            alert.setHeaderText("NickName");
+            alert.setContentText("No hay ningún jugador asociado a ese NickName");
+
+            alert.showAndWait();
         }
+
     }
 
     private void buscar(MouseEvent event) {
@@ -1565,6 +1614,18 @@ public class Menu_principalController implements Initializable {
             v.setVisible(true);
             nv.setVisible(false);
         }
+    }
+
+    @FXML
+    private void help(MouseEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Ayuda");
+        alert.setHeaderText("Como usar las opciones avanzadas del historial");
+        alert.setContentText("Para poder filtrar por victoria o derrota en la tabla, hay que introducir el NickName del jugador que deseas buscar.\n"
+                + "Si no introduces un nombre y accedes a los gráficos, se mostrará una gráfica de las partidas jugadas en el periodo de tiempo indicado.\n"
+                + "Si introduces un nombre podrás ver su WinRate y la cantidad de oponentes diferentes que ha tenido ese jugador en el periodo de tiempo marcado.");
+
+        alert.showAndWait();
     }
 
 }

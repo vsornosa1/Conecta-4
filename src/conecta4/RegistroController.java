@@ -181,50 +181,45 @@ public class RegistroController implements Initializable {
             alert.showAndWait();
             text_user.setText(null);
         } else {
-            error_name.setVisible(false);
-        }
-
-        if (!Player.checkPassword(text_pass.getText())) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Error al registrarse");
-            alert.setHeaderText("Error en la contraseña");
-            alert.setContentText(
-                    "La contraseña debe contener: \n -entre 8 y 20 caracteres\n -al menos una letra mayuscula\n -al menos una letra minúscula\n -al menos un dígito\n -un carácter especial del conjunto:\n"
-                    + "!@#$%&*()-+=\n y no debe contener espacios en blanco");
-
-            alert.showAndWait();
-            text_pass.setText(null);
-        } else {
-            error_pass.setVisible(false);
-        }
-
-        if (!Player.checkEmail(text_mail.getText())) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Error al registrarse");
-            alert.setHeaderText("Error en el correo electrónico");
-            alert.setContentText("El correo electrónico no se corresponde con ningun correo existente");
-
-            alert.showAndWait();
-            text_mail.setText(null);
-        } else {
-            error_mail.setVisible(false);
-        }
-
-        if (fecha_nacimiento.getValue() == null) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Error al registrarse");
-            alert.setHeaderText("Error en la fecha de nacimiento");
-            alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4\0174");
-
-            alert.showAndWait();
-        } else {
-            if (fecha_nacimiento.getValue().getYear() > 2009) {
+            if (!Player.checkEmail(text_mail.getText())) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Error al registrarse");
-                alert.setHeaderText("Error en la fecha de nacimiento");
-                alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
+                alert.setHeaderText("Error en el correo electrónico");
+                alert.setContentText("El correo electrónico no se corresponde con ningun correo existente");
 
                 alert.showAndWait();
+                text_mail.setText(null);
+
+            } else {
+                if (!Player.checkPassword(text_pass.getText())) {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Error al registrarse");
+                    alert.setHeaderText("Error en la contraseña");
+                    alert.setContentText(
+                            "La contraseña debe contener: \n -entre 8 y 20 caracteres\n -al menos una letra mayuscula\n -al menos una letra minúscula\n -al menos un dígito\n -un carácter especial del conjunto:\n"
+                            + "!@#$%&*()-+=\n y no debe contener espacios en blanco");
+
+                    alert.showAndWait();
+                    text_pass.setText(null);
+                } else {
+                    if (fecha_nacimiento.getValue() == null) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Error al registrarse");
+                        alert.setHeaderText("Error en la fecha de nacimiento");
+                        alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
+
+                        alert.showAndWait();
+                    } else {
+                        if (fecha_nacimiento.getValue().getYear() > 2009) {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("Error al registrarse");
+                            alert.setHeaderText("Error en la fecha de nacimiento");
+                            alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
+
+                            alert.showAndWait();
+                        }
+                    }
+                }
             }
         }
 
@@ -232,12 +227,12 @@ public class RegistroController implements Initializable {
             if (Player.checkNickName(text_user.getText())
                     && Player.checkPassword(text_pass.getText())
                     && Player.checkEmail(text_mail.getText())
-                    && fecha_nacimiento != null) {
+                    && fecha_nacimiento != null && fecha_nacimiento.getValue().getYear() > 2009) {
 
                 if (avatarImg != null) {
                     cn4.registerPlayer(text_user.getText(), text_mail.getText(), text_pass.getText(), avatarImg, fecha_nacimiento.getValue(), 0);
                 } else {
-                    cn4.registerPlayer(text_user.getText(), text_mail.getText(), text_pass.getText(), fecha_nacimiento.getValue(), 0);
+                    cn4.registerPlayer(text_user.getText(), text_mail.getText(), text_pass.getText(), avatard, fecha_nacimiento.getValue(), 0);
                 }
 
                 newPlayer = cn4.getPlayer(text_user.getText());

@@ -319,6 +319,11 @@
                               <Font name="Georgia" size="11.0" />
                            </font>
                         </JFXButton>
+                        <Hyperlink layoutX="733.0" layoutY="14.0" onMouseClicked="#help" text="¿Ayuda?" textFill="#fca311">
+                           <font>
+                              <Font name="Trebuchet MS Italic" size="13.0" />
+                           </font>
+                        </Hyperlink>
                      </children></AnchorPane>
                     </content>
                 </Tab>
