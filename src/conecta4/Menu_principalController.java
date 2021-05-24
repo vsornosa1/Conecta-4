@@ -364,8 +364,8 @@ public class Menu_principalController implements Initializable {
 
         ArrayList<Player> jugadores = cn4.getConnect4Ranking();
         observablePlayers = FXCollections.observableList(cn4.getConnect4Ranking());
-        name.setCellValueFactory(new PropertyValueFactory<Player, String>("nickName"));
-        punt.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
+        name.setCellValueFactory(new PropertyValueFactory("nickName"));
+        punt.setCellValueFactory(new PropertyValueFactory("points"));
         observablePlayers.remove(cn4.getPlayer("invitado"));
         table.setItems(observablePlayers);
         avatar.setCellValueFactory(cellData
@@ -425,7 +425,7 @@ public class Menu_principalController implements Initializable {
             if (!lista.isEmpty()) {
                 cont = lista.size();
                 if (x == 1) {
-                    observableRounds = FXCollections.observableList(new ArrayList<Round>());
+                    observableRounds = FXCollections.observableList(new ArrayList());
                 }
                 x++;
 
