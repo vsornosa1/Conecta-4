@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,12 +9,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="576.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Seleccionar_avatarController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="576.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Seleccionar_avatarController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="576.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <fill>
@@ -143,5 +145,23 @@
             </ImageView>
          </children>
       </GridPane>
+      <JFXButton fx:id="boton_log" buttonType="RAISED" layoutX="45.0" layoutY="355.0" onMouseClicked="#file" prefHeight="26.0" prefWidth="274.0" style="-fx-background-color: #e5e5e5;" text="Selecciona tu propio avatar" textFill="#14213d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <ripplerFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop color="#799bf8" />
+                  <Stop color="#ffcc99" offset="0.007518796992481203" />
+                  <Stop color="#b4b8cd" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </ripplerFill>
+         <font>
+            <Font name="Trebuchet MS" size="13.0" />
+         </font>
+      </JFXButton>
+      <ImageView fx:id="tupc" fitHeight="78.0" fitWidth="78.0" layoutX="354.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

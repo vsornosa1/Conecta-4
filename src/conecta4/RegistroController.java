@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -28,6 +29,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -104,11 +106,12 @@ public class RegistroController implements Initializable {
         this.thisController = thisController;
     }
 
-    public void initData(Connect4 con4, Player pl1, Stage st, int fr) {
+    public void initData(Connect4 con4, Player pl1, Stage st, Menu_principalController thisController, int fr) {
         cn4 = con4;
         this.pl1 = pl1;
         from = fr;
         this.st = st;
+        this.thisController = thisController;
     }
 
     public void initData(Connect4 con4, Player pl1, Menu_principalController thisController, int fr) {
@@ -149,7 +152,7 @@ public class RegistroController implements Initializable {
 
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
-        selec_avatar.initStage(newStage);
+
         selec_avatar.initController(registro);
         newStage.setScene(scene);
         newStage.setResizable(false);
@@ -158,7 +161,7 @@ public class RegistroController implements Initializable {
 
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
-        selec_avatar.initStage(stage);
+        selec_avatar.initStage(newStage, stage);
     }
 
     File f_avatard = new File("src/images/avatares/avatar10.png");
@@ -210,7 +213,7 @@ public class RegistroController implements Initializable {
 
                         alert.showAndWait();
                     } else {
-                        if (fecha_nacimiento.getValue().getYear() > 2009) {
+                        if (LocalDate.now().minusYears(12).getYear() < fecha_nacimiento.getValue().getYear()) {
                             Alert alert = new Alert(AlertType.WARNING);
                             alert.setTitle("Error al registrarse");
                             alert.setHeaderText("Error en la fecha de nacimiento");
@@ -227,8 +230,7 @@ public class RegistroController implements Initializable {
             if (Player.checkNickName(text_user.getText())
                     && Player.checkPassword(text_pass.getText())
                     && Player.checkEmail(text_mail.getText())
-                    && fecha_nacimiento != null && fecha_nacimiento.getValue().getYear() > 2009) {
-
+                    && fecha_nacimiento != null && LocalDate.now().minusYears(12).getYear() >= fecha_nacimiento.getValue().getYear()) {
                 if (avatarImg != null) {
                     cn4.registerPlayer(text_user.getText(), text_mail.getText(), text_pass.getText(), avatarImg, fecha_nacimiento.getValue(), 0);
                 } else {
@@ -325,7 +327,7 @@ public class RegistroController implements Initializable {
             newStage.setResizable(false);
             newStage.show();
 
-            loginAmigo.initData(cn4, pl1, st);
+            loginAmigo.initData(cn4, pl1, st, thisController);
             loginAmigo.initMusic(mediaPlayer, music_check.isSelected());
         }
         if (from == 2) {

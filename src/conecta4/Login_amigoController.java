@@ -67,10 +67,11 @@ public class Login_amigoController implements Initializable {
         text_vpass.textProperty().bindBidirectional(text_pass.textProperty());
     }
 
-    public void initData(Connect4 con4, Player mainPlayer, Stage st) {
+    public void initData(Connect4 con4, Player mainPlayer, Stage st, Menu_principalController controller) {
         cn4 = con4;
         player1 = mainPlayer;
         oldStage = st;
+        this.controller = controller;
         invitado = cn4.getPlayer("invitado");
         invitado2 = cn4.getPlayer("invitado2");
         perfil = false;
@@ -225,7 +226,7 @@ public class Login_amigoController implements Initializable {
         RegistroController registro = loader.getController();
         registro.initController(registro);
         if (from == 1) {
-            registro.initData(cn4, player1, oldStage, from);
+            registro.initData(cn4, player1, oldStage,controller, from);
         }
         if (from == 2) {
             registro.initData(cn4, player1, controller, from);

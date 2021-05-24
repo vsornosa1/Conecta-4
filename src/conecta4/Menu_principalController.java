@@ -283,8 +283,6 @@ public class Menu_principalController implements Initializable {
                 if (item == null || empty) {
                     setGraphic(null);
                 } else {
-                    //Image image= new Image(Menu_principalController.class.getResourceAsStream(item),40, 40, true, true);
-
                     view.setImage(item);
                     view.setFitHeight(40);
                     view.setFitWidth(40);
@@ -703,10 +701,10 @@ public class Menu_principalController implements Initializable {
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
+                loginAmigo.initData(cn4, player1, st,thisController);
+                loginAmigo.initMusic(mediaPlayer, music_check.isSelected());
                 newStage.show();
 
-                loginAmigo.initData(cn4, player1, st);
-                loginAmigo.initMusic(mediaPlayer, music_check.isSelected());
             } catch (IOException e) {
                 System.out.println(e);
             }
@@ -976,7 +974,6 @@ public class Menu_principalController implements Initializable {
 
                                 }
                             } else {
-                                System.out.println(ld.toString() + " " + cont);
                                 lineChartData.add(new XYChart.Data(ld.toString(), 0));
                             }
                             ld = ld.plusDays((long) 1.0);
@@ -1008,7 +1005,6 @@ public class Menu_principalController implements Initializable {
 
                             }
                         } else {
-                            System.out.println(ld.toString() + " " + cont);
                             lineChartData.add(new XYChart.Data(ld.toString(), 0));
                         }
                         ld = ld.plusDays((long) 1.0);
@@ -1258,7 +1254,6 @@ public class Menu_principalController implements Initializable {
 
                             }
                         } else {
-                            System.out.println(ld.toString() + " " + cont);
                             lineChartData.add(new Data(ld.toString(), 0));
                         }
                         ld = ld.plusDays((long) 1.0);
@@ -1293,7 +1288,6 @@ public class Menu_principalController implements Initializable {
 
                                 }
                             } else {
-                                System.out.println(ld.toString() + " " + cont);
                                 lineChartData.add(new Data(ld.toString(), 0));
                             }
                             ld = ld.plusDays((long) 1.0);
@@ -1365,7 +1359,6 @@ public class Menu_principalController implements Initializable {
 
                                 }
                             } else {
-                                System.out.println(ld.toString() + " " + cont);
                                 lineChartData.add(new Data(ld.toString(), 0));
                             }
                             ld = ld.plusDays((long) 1.0);
@@ -1387,7 +1380,6 @@ public class Menu_principalController implements Initializable {
 
                             }
                         } else {
-                            System.out.println(ld.toString() + " " + cont);
                             lineChartData.add(new Data(ld.toString(), 0));
                         }
                         ld = ld.plusDays((long) 1.0);
