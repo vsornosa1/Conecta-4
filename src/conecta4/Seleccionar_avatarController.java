@@ -1,24 +1,18 @@
 package conecta4;
 
 import com.jfoenix.controls.JFXButton;
-import java.awt.event.ActionEvent;
-import java.awt.image.RenderedImage;
-import java.beans.EventHandler;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
 
 /**
  * @author Alex & Sento
@@ -54,8 +48,9 @@ public class Seleccionar_avatarController {
     private Image avatarImg;
 
     private Stage stg;
-private Stage oldStage;
+    private Stage oldStage;
     private RegistroController registro;
+    private Editar_perfilController editar;
     @FXML
     private JFXButton boton_log;
     @FXML
@@ -63,6 +58,9 @@ private Stage oldStage;
 
     public void initController(RegistroController registro) {
         this.registro = registro;
+    }
+    public void initController(Editar_perfilController editar) {
+        this.editar = editar;
     }
 
     @FXML
@@ -72,9 +70,9 @@ private Stage oldStage;
         stage.close();
     }
 
-    void initStage(Stage s,Stage os) {
+    void initStage(Stage s, Stage os) {
         stg = s;
-        oldStage=os;
+        oldStage = os;
     }
 
     @FXML
@@ -259,40 +257,36 @@ private Stage oldStage;
 
     private void cerrarVentana(MouseEvent event) throws IOException {
         avatarImg = new Image(avatarFile.toURI().toString());
-        registro.initAvatar(avatarImg);
+        //if(registro != null) registro.initAvatar(avatarImg);
+        editar.initAvatar(avatarImg);
 
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 
-    private void cerrarVentana(Image image) throws IOException {
-        avatarImg = image;
-        registro.initAvatar(avatarImg);
+    private void cerrarVentana(Image miAvatar) throws IOException {
+        avatarImg = miAvatar;
+        if(registro != null) registro.initAvatar(avatarImg);
+        if(editar != null) editar.initAvatar(avatarImg);
 
         stg.close();
     }
 
-    private File src = new File("src/images/avatares/avatar_personalizado.png");
+    private final File src = new File("src/images/avatares/avatar_personalizado.png");
 
     @FXML
     private void file(MouseEvent event) throws IOException {
-
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG", "*.png"));
             File pngImage = fileChooser.showOpenDialog(new Stage());
-            Image av = new Image(pngImage.toURI().toString());
+            Image miAvatar = new Image(pngImage.toURI().toString());
             try {
-                Files.copy(pngImage.toPath(), src.toPath(),
-                        StandardCopyOption.REPLACE_EXISTING);
-                cerrarVentana(av);
+                Files.copy(pngImage.toPath(), src.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                cerrarVentana(miAvatar);
 
-            } catch (IOException ex) {
-                // handle exception...
-            }
-        } catch (Exception e) {
-        }
-
+            } catch (IOException ex) {}
+        } catch (Exception e) {}
     }
 }

@@ -559,11 +559,6 @@ public class Menu_principalController implements Initializable {
         }
     }
 
-    @FXML
-    private void editar_perfil(MouseEvent event) {
-        //que aparezca el nuevo controller tipo register para actualizar los datos
-    }
-
     private ChangeListener changeListener = new ChangeListener() {
         @Override
         public void changed(ObservableValue observable, Object oldVal, Object newVal) {
@@ -1619,5 +1614,26 @@ public class Menu_principalController implements Initializable {
 
         alert.showAndWait();
     }
+    
+    
+    @FXML
+    private void editar_perfil(MouseEvent event) throws IOException { 
+        final Node source = (Node) event.getSource(); 
+        final Stage st = (Stage) source.getScene().getWindow(); 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("editar_perfil.fxml")); 
+        Parent newRoot = loader.load(); 
+ 
+        Editar_perfilController editar = loader.getController(); 
+        editar.initData(cn4, st, player1, thisController); 
+        editar.initMusic(mediaPlayer, music_check.isSelected()); 
+        Scene scene = new Scene(newRoot); 
+        Stage newStage = new Stage(); 
+ 
+        newStage.setScene(scene); 
+        newStage.initModality(Modality.APPLICATION_MODAL); 
+        newStage.setResizable(false); 
+        newStage.show(); 
+    } 
+
 
 }
