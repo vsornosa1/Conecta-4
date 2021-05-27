@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="335.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Login_amigoController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="335.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Login_amigoController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="110.0" layoutX="-4.0" layoutY="-12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-rotate: -1.5;" width="343.0">
          <fill>
@@ -60,7 +60,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXButton buttonType="RAISED" layoutX="181.0" layoutY="338.0" onMouseClicked="#log" prefHeight="39.0" prefWidth="99.0" style="-fx-background-color: #e5e5e5;" text="Log in" textFill="#14213d">
+      <JFXButton fx:id="logb" buttonType="RAISED" layoutX="181.0" layoutY="338.0" onMouseClicked="#log" prefHeight="39.0" prefWidth="99.0" style="-fx-background-color: #e5e5e5;" text="Log in" textFill="#14213d">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

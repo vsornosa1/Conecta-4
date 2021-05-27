@@ -34,29 +34,41 @@ public class Popup1Controller implements Initializable {
     private Text pass;
     @FXML
     private Pane nuevoCodigo;
-    
+
     private Connect4 cn4;
     private Player player1;
 
-
     private Stage stage;
-    
-    private boolean completado=false;
+
+    private boolean completado = false;
+    @FXML
+    private Pane pane;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        code.setText(Integer.toString(((int)(Math.random()*Math.pow(10,6)))));
-    }    
-    
-    public void initData(Connect4 cn4, Player player1, Stage stage){
+        code.setText(Integer.toString(((int) (Math.random() * Math.pow(10, 6)))));
+    }
+
+    public void initData(Connect4 cn4, Player player1, Stage stage) {
         this.cn4 = cn4;
         this.player1 = player1;
         this.stage = stage;
+    }
+    private boolean tema;
+
+    public void initTema(boolean b) {
+        tema = b;
+        if (!b) {
+            pane.setStyle(" -fx-background-color: #14213c;");
+        } else {
+            pane.setStyle("-fx-background-color: #EBBCE1;");
+        }
     }
 
     @FXML
@@ -67,8 +79,8 @@ public class Popup1Controller implements Initializable {
             this.stage.close();
             stage.close();
         }
-        
-        if(enter.getText().equals(code.getText())) {
+
+        if (enter.getText().equals(code.getText())) {
             pass_warning.setText("");
             pass.setText("Contraseña: " + player1.getPassword());
             completado = true; // set editable ok prueba
@@ -82,19 +94,19 @@ public class Popup1Controller implements Initializable {
     private void atras(MouseEvent event) {
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
-        if(!completado){
+        if (!completado) {
             stage.close();
         } else {
             this.stage.close();
             stage.close();
         }
     }
-    
+
     @FXML
     public void nuevoCodigo(MouseEvent event) {
-        if(!completado) {
-            code.setText(Integer.toString(((int)(Math.random() * Math.pow(10,6)))));
+        if (!completado) {
+            code.setText(Integer.toString(((int) (Math.random() * Math.pow(10, 6)))));
         }
     }
-    
+
 }

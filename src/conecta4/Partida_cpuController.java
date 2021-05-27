@@ -128,6 +128,8 @@ public class Partida_cpuController implements Initializable {
     private ImageView imagen_rendirse;
     private Paint paint_turno;
     private Paint paint_no;
+    @FXML
+    private JFXToggleButton tema_check;
 
     /**
      * Inicializa los parámetros del controlador
@@ -159,6 +161,27 @@ public class Partida_cpuController implements Initializable {
         music_check.setSelected(b);
         music_check.selectedProperty().addListener(changeListener);
     }
+
+    private boolean tema;
+
+    public void initTema(boolean b) {
+        tema = b;
+//        tema_check.selectedProperty().addListener(temaListener);
+        tema_check.setSelected(b);
+
+    }
+//    private ChangeListener temaListener = new ChangeListener() {
+//        @Override
+//        public void changed(ObservableValue observable, Object oldVal, Object newVal) {
+//            if (!tema_check.isSelected()) {
+//                pane.setStyle(" -fx-background-color: #14213c;");
+//                pane2.setStyle(" -fx-background-color: #14213c;");
+//            } else {
+//                pane.setStyle("-fx-background-color: #EBBCE1;");
+//                pane2.setStyle("-fx-background-color: #EBBCE1;");
+//            }
+//        }
+//    };
 
     private ChangeListener changeListener = new ChangeListener() {
         @Override
@@ -691,6 +714,7 @@ public class Partida_cpuController implements Initializable {
                 menu.initController(menu);
                 menu.initData(cn4, player);
                 menu.initMusic(mediaPlayer, music_check.isSelected());
+                menu.initTema(tema_check.isSelected());
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
@@ -711,6 +735,7 @@ public class Partida_cpuController implements Initializable {
 
                 menu.initData(cn4, player, player2);
                 menu.initMusic(mediaPlayer, music_check.isSelected());
+                menu.initTema(tema_check.isSelected());
                 menu.initController(menu);
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
@@ -740,6 +765,7 @@ public class Partida_cpuController implements Initializable {
             Stage stage = (Stage) source.getScene().getWindow();
             rendicion.initData(cn4, player, stage);
             rendicion.initMusic(mediaPlayer, music_check.isSelected());
+            rendicion.initTema(tema_check.isSelected());
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.setScene(scene);
             newStage.setResizable(false);
@@ -758,6 +784,7 @@ public class Partida_cpuController implements Initializable {
                 Stage stage = (Stage) source.getScene().getWindow();
                 rendicion.initData(cn4, player, player2, stage);
                 rendicion.initMusic(mediaPlayer, music_check.isSelected());
+                rendicion.initTema(tema_check.isSelected());
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);
                 newStage.setScene(scene);

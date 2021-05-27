@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -50,6 +51,8 @@ public class Cerrar_sesionController implements Initializable, ActionListener {
     private Player player1, player2;
     private Stage oldStage;
     private Menu_principalController thisController;
+    @FXML
+    private AnchorPane pane;
 
     /**
      * Initializes the controller class.
@@ -64,6 +67,16 @@ public class Cerrar_sesionController implements Initializable, ActionListener {
         cerrar.setText("Selecciona al menos un jugador");
         check1.selectedProperty().addListener(changeListener);
         check2.selectedProperty().addListener(changeListener);
+    }
+    private boolean tema;
+
+    public void initTema(boolean b) {
+        tema = b;
+        if (!b) {
+            pane.setStyle(" -fx-background-color: #14213c;");
+        } else {
+            pane.setStyle("-fx-background-color: #EBBCE1;");
+        }
     }
 
     public void initController(Menu_principalController controller) {
@@ -125,7 +138,7 @@ public class Cerrar_sesionController implements Initializable, ActionListener {
 
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
-                lg.initMusic(mediaPlayer, b);
+                lg.initMusic(mediaPlayer, b);lg.initTema(tema);
                 newStage.setScene(scene);
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.setResizable(false);

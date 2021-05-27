@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,6 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -85,11 +87,28 @@ public class RegistroController implements Initializable {
     private int from;
     private Stage st;
     private Menu_principalController thisController;
+    @FXML
+    private JFXButton regb;
+    @FXML
+    private AnchorPane pane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         text_vpass.textProperty().bindBidirectional(text_pass.textProperty());
+        regb.disableProperty().bind(Bindings.isEmpty(text_user.textProperty()).or(Bindings.isEmpty(text_pass.textProperty())).or(Bindings.isEmpty(text_mail.textProperty())).or(Bindings.isNull(fecha_nacimiento.valueProperty())));
+
     }
+    private boolean tema;
+
+    public void initTema(boolean b) {
+        tema = b;
+        if (!b) {
+                pane.setStyle(" -fx-background-color: #14213c;");
+            } else {
+                pane.setStyle("-fx-background-color: #EBBCE1;");
+            }
+    }
+    
 
     public void initController(RegistroController registro) {
         this.registro = registro;
@@ -152,7 +171,7 @@ public class RegistroController implements Initializable {
 
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
-
+        selec_avatar.initTema(tema);
         selec_avatar.initController(registro);
         newStage.setScene(scene);
         newStage.setResizable(false);
@@ -239,7 +258,6 @@ public class RegistroController implements Initializable {
 
                 newPlayer = cn4.getPlayer(text_user.getText());
                 if (newPlayer == null) {
-                    System.out.println("asfasdffdsa");
                 }
                 final Node source = (Node) event.getSource();
                 final Stage stage = (Stage) source.getScene().getWindow();
@@ -305,6 +323,7 @@ public class RegistroController implements Initializable {
             Parent newRoot = loader.load();
             LoginController lg = loader.getController();
             lg.initMusic(mediaPlayer, music_check.isSelected());
+            lg.initTema(tema);
             Scene scene = new Scene(newRoot);
             Stage newStage = new Stage();
 

@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -61,10 +63,26 @@ public class Login_amigoController implements Initializable {
     private ImageView nv;
 
     private int from;
+    @FXML
+    private JFXButton logb;
+    @FXML
+    private AnchorPane pane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         text_vpass.textProperty().bindBidirectional(text_pass.textProperty());
+        logb.disableProperty().bind(Bindings.isEmpty(text_user.textProperty()).or(Bindings.isEmpty(text_pass.textProperty())));
+
+    }
+    private boolean tema;
+
+    public void initTema(boolean b) {
+        tema = b;
+        if (!b) {
+            pane.setStyle(" -fx-background-color: #14213c;");
+        } else {
+            pane.setStyle("-fx-background-color: #EBBCE1;");
+        }
     }
 
     public void initData(Connect4 con4, Player mainPlayer, Stage st, Menu_principalController controller) {
@@ -191,6 +209,7 @@ public class Login_amigoController implements Initializable {
     @FXML
     private void atras(MouseEvent event) throws IOException {
         controller.initMusic(mediaPlayer, music_check.isSelected());
+        controller.initTema(tema);
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
@@ -226,7 +245,7 @@ public class Login_amigoController implements Initializable {
         RegistroController registro = loader.getController();
         registro.initController(registro);
         if (from == 1) {
-            registro.initData(cn4, player1, oldStage,controller, from);
+            registro.initData(cn4, player1, oldStage, controller, from);
         }
         if (from == 2) {
             registro.initData(cn4, player1, controller, from);

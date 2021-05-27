@@ -320,6 +320,11 @@
                   </LinearGradient>
                </fill>
             </Text>
+            <JFXToggleButton fx:id="tema_check" layoutY="791.0" nodeOrientation="LEFT_TO_RIGHT" text="Tema" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0">
+               <font>
+                  <Font name="Trebuchet MS" size="17.0" />
+               </font>
+            </JFXToggleButton>
          </children>
          <opaqueInsets>
             <Insets left="50.0" right="50.0" />

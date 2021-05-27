@@ -26,10 +26,12 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent newRoot = loader.load();
+//        newRoot.getStylesheets().add("modo_dia.css");
         Scene scene = new Scene(newRoot);
+        
+
         stage.setScene(scene);
-        
-        
+                
         
         stage.setResizable(false);
         LoginController lg=loader.getController();

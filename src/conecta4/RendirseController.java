@@ -23,10 +23,10 @@ import model.Player;
  * @author Alex & Sento
  */
 public class RendirseController {
-
+    
     @FXML
     private ImageView flecha;
-
+    
     private Connect4 cn4;
     private Player player1, player2, invitado;
     private Stage stage;
@@ -38,9 +38,8 @@ public class RendirseController {
     private Text invalid_mail1;
     @FXML
     private Text invalid_mail11;
-
-    private boolean existsPlayer2;
     
+    private boolean existsPlayer2;
 
     // 1Jugador -> Rendirse
     public void initData(Connect4 con4, Player p1, Stage st) {
@@ -53,9 +52,15 @@ public class RendirseController {
     }
     private boolean b;
     private MediaPlayer mediaPlayer;
-    public void initMusic(MediaPlayer mp,boolean b) {
+    
+    public void initMusic(MediaPlayer mp, boolean b) {
         mediaPlayer = mp;
-        this.b=b;
+        this.b = b;
+    }
+    private boolean tema;
+    
+    public void initTema(boolean b) {
+        tema = b;
     }
 
     // 1Jugador con J2 en la sombra -> Rendirse
@@ -79,7 +84,7 @@ public class RendirseController {
         modo_2jugadores = true;
         existsPlayer2 = true;
     }
-
+    
     @FXML
     private void volver_menu(MouseEvent event) throws IOException, Connect4DAOException {
         if (turno_player1) {
@@ -95,21 +100,19 @@ public class RendirseController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
         Parent newRoot = loader.load();
         Menu_principalController menu = loader.getController();
-
+        
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
         
         if (modo_2jugadores) {
-            if(player1.equals(invitado)) {
+            if (player1.equals(invitado)) {
                 menu.initData(cn4, player2);
-            }
-            else if (player2.equals(invitado)) {
+            } else if (player2.equals(invitado)) {
                 menu.initData(cn4, player1);
-            }
-            else {
+            } else {
                 menu.initData(cn4, player1, player2);
             }
-
+            
         } else {
             if (existsPlayer2) {
                 menu.initData(cn4, player1, player2);
@@ -117,7 +120,8 @@ public class RendirseController {
                 menu.initData(cn4, player1);
             }
         }
-        menu.initMusic(mediaPlayer,b);
+        menu.initMusic(mediaPlayer, b);
+        menu.initTema(tema);
         menu.initController(menu);
         newStage.setScene(scene);
         newStage.initModality(Modality.APPLICATION_MODAL);
@@ -128,12 +132,12 @@ public class RendirseController {
         this.stage.close();
         st.close();
     }
-
+    
     @FXML
     private void atras(MouseEvent event) {
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
-
+    
 }

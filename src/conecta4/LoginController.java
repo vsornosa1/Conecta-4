@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -78,8 +80,14 @@ public class LoginController implements Initializable {
     private ImageView nv;
     @FXML
     private JFXTextField text_vpass;
-    
+
     private int from;
+    @FXML
+    private JFXToggleButton tema_check;
+    @FXML
+    private AnchorPane pane;
+
+    private boolean tema;
 
     /**
      * Initializes the controller class.
@@ -90,7 +98,9 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         text_vpass.textProperty().bindBidirectional(text_pass.textProperty());
-        from=0;
+        boton_log.disableProperty().bind(Bindings.isEmpty(text_user.textProperty()).or(Bindings.isEmpty(text_pass.textProperty())));
+        tema_check.selectedProperty().addListener(temaListener);
+        from = 0;
         try {
             cn4 = Connect4.getSingletonConnect4();
             invitado = cn4.getPlayer("invitado");
@@ -110,13 +120,20 @@ public class LoginController implements Initializable {
         menu = m;
         oldStage = st;
         this.cn4 = cn4;
-        from=3;
+        from = 3;
     }
 
     public void initMusic(MediaPlayer mp, boolean b) {
         mediaPlayer = mp;
         music.setSelected(b);
         music.selectedProperty().addListener(changeListener);
+    }
+
+    public void initTema(boolean b) {
+        tema = b;
+        tema_check.selectedProperty().addListener(temaListener);
+        tema_check.setSelected(b);
+
     }
 
     private ChangeListener changeListener = new ChangeListener() {
@@ -126,6 +143,17 @@ public class LoginController implements Initializable {
                 mediaPlayer.pause();
             } else {
                 mediaPlayer.play();
+            }
+        }
+    };
+
+    private ChangeListener temaListener = new ChangeListener() {
+        @Override
+        public void changed(ObservableValue observable, Object oldVal, Object newVal) {
+            if (!tema_check.isSelected()) {
+                pane.setStyle(" -fx-background-color: #14213c;");
+            } else {
+                pane.setStyle("-fx-background-color: #EBBCE1;");
             }
         }
     };
@@ -152,7 +180,7 @@ public class LoginController implements Initializable {
 
             newStage.setScene(scene);
             rc.initData(cn4);
-
+            rc.initTema(tema_check.isSelected());
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.setResizable(false);
             newStage.show();
@@ -174,6 +202,7 @@ public class LoginController implements Initializable {
         if (log_guest) {
             menu.initData(cn4, pl);
             menu.initMusic(mediaPlayer, music.isSelected());
+            menu.initTema(tema_check.isSelected());
             stage.close();
         } else {
             try {
@@ -186,7 +215,7 @@ public class LoginController implements Initializable {
                 menu_p.initController(menu_p);
                 menu_p.initData(cn4, pl);
                 menu_p.initMusic(mediaPlayer, music.isSelected());
-
+                menu_p.initTema(tema_check.isSelected());
                 Scene scene = new Scene(newRoot);
                 Stage newStage = new Stage();
                 newStage.setScene(scene);
@@ -210,8 +239,9 @@ public class LoginController implements Initializable {
 
         RegistroController registro = loader.getController();
         registro.initController(registro);
-        registro.initData(cn4,menu,from);
+        registro.initData(cn4, menu, from);
         registro.initMusic(mediaPlayer, music.isSelected());
+        registro.initTema(tema_check.isSelected());
         Scene scene = new Scene(newRoot);
         Stage newStage = new Stage();
 

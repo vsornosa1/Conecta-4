@@ -7,6 +7,7 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -30,7 +31,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="798.0" style="-fx-background-color: #14213d;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Menu_principalController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="798.0" style="-fx-background-color: #14213d;" styleClass="primary-dark-color" stylesheets="@modo_dia.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.Menu_principalController">
     <children>
         <ImageView fitHeight="106.0" fitWidth="798.0" pickOnBounds="true">
             <image>
@@ -66,11 +67,11 @@
          </font>
             
         </Text>
-        <JFXTabPane layoutX="-3.0" layoutY="113.0" prefHeight="420.0" prefWidth="807.0" rotate="-0.5" styleClass="menu-tabs" stylesheets="@stylesmenu.css" tabClosingPolicy="UNAVAILABLE">
+        <JFXTabPane fx:id="tabpane" layoutX="-3.0" layoutY="113.0" prefHeight="420.0" prefWidth="807.0" rotate="-0.5" styleClass="menu-tabs" stylesheets="@stylesmenu.css" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" styleClass="modos" text="Modos de juego">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="807.0" style="-fx-background-color: #14213d;">
+                        <AnchorPane fx:id="pane1" minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="807.0" style="-fx-background-color: #14213d;">
                             <children>
                                 <JFXButton buttonType="RAISED" layoutX="89.0" layoutY="146.0" onMouseClicked="#partida_solo" prefHeight="137.0" prefWidth="207.0" style="-fx-background-color: #e5e5e5;" text=" " textFill="#14213d">
                                     <cursor>
@@ -147,13 +148,18 @@
                               </LinearGradient>
                            </stroke>
                         </Line>
+                        <JFXToggleButton fx:id="tema_check" layoutX="11.0" layoutY="314.0" nodeOrientation="LEFT_TO_RIGHT" text="Tema" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </JFXToggleButton>
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" text="Puntuaciones">
                     <content>
-                        <AnchorPane fx:id="music" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane fx:id="pane2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TableView fx:id="table" layoutX="47.0" layoutY="73.0" prefHeight="242.0" prefWidth="705.0">
                           <columns>
@@ -161,6 +167,9 @@
                             <TableColumn fx:id="name" prefWidth="339.41656494140625" text="Nickname" />
                             <TableColumn fx:id="punt" prefWidth="222.0023193359375" text="Puntuación" />
                           </columns>
+                           <rotationAxis>
+                              <Point3D />
+                           </rotationAxis>
                         </TableView>
                         <JFXToggleButton fx:id="music_check2" layoutX="682.0" layoutY="309.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
                            <font>
@@ -175,12 +184,17 @@
                               <ColorAdjust brightness="0.85" contrast="0.2" />
                            </effect>
                         </JFXTextField>
+                        <JFXToggleButton fx:id="tema_check1" layoutX="4.0" layoutY="303.0" nodeOrientation="LEFT_TO_RIGHT" text="Tema" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </JFXToggleButton>
                      </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab style="-fx-pref-width: 200; -fx-pref-height: 50; -fx-background-color: #380444;" text="Historial de partidas">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane fx:id="pane3" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <JFXToggleButton fx:id="music_check3" layoutX="682.0" layoutY="312.0" nodeOrientation="RIGHT_TO_LEFT" text="Música" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
                            <font>
@@ -324,12 +338,17 @@
                               <Font name="Trebuchet MS Italic" size="13.0" />
                            </font>
                         </Hyperlink>
+                        <JFXToggleButton fx:id="tema_check2" layoutX="-1.0" layoutY="306.0" nodeOrientation="LEFT_TO_RIGHT" text="Tema" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </JFXToggleButton>
                      </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab style="-fx-pref-width: 190; -fx-pref-height: 50; -fx-background-color: #380444;" text="Perfil">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane fx:id="pane4" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Text fx:id="user_perfil" fill="#e5e5e5" layoutX="125.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\@Player1" wrappingWidth="406.48291015625">
                            <font>
@@ -438,6 +457,11 @@
                               <Font name="Trebuchet MS" size="19.0" />
                            </font>
                         </JFXTextField>
+                        <JFXToggleButton fx:id="tema_check3" layoutX="-1.0" layoutY="306.0" nodeOrientation="LEFT_TO_RIGHT" text="Tema" textFill="#e5e5e5" toggleColor="#3d5fa5" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
+                           <font>
+                              <Font name="Trebuchet MS" size="13.0" />
+                           </font>
+                        </JFXToggleButton>
                      </children></AnchorPane>
                     </content>
                 </Tab>

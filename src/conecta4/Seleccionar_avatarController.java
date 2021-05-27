@@ -3,13 +3,17 @@ package conecta4;
 import com.jfoenix.controls.JFXButton;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -17,7 +21,7 @@ import javafx.stage.Stage;
 /**
  * @author Alex & Sento
  */
-public class Seleccionar_avatarController {
+public class Seleccionar_avatarController implements Initializable {
 
     @FXML
     private ImageView flecha;
@@ -55,12 +59,35 @@ public class Seleccionar_avatarController {
     private JFXButton boton_log;
     @FXML
     private ImageView tupc;
+    private boolean edit;
+    @FXML
+    private AnchorPane pane;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        edit = false;
+    }
+    private boolean tema;
+
+    public void initTema(boolean b) {
+        tema = b;
+        if (!b) {
+            pane.setStyle(" -fx-background-color: #14213c;");
+        } else {
+            pane.setStyle("-fx-background-color: #EBBCE1;");
+        }
+    }
 
     public void initController(RegistroController registro) {
         this.registro = registro;
     }
+
     public void initController(Editar_perfilController editar) {
         this.editar = editar;
+    }
+
+    public void setEdit() {
+        edit = true;
     }
 
     @FXML
@@ -258,7 +285,11 @@ public class Seleccionar_avatarController {
     private void cerrarVentana(MouseEvent event) throws IOException {
         avatarImg = new Image(avatarFile.toURI().toString());
         //if(registro != null) registro.initAvatar(avatarImg);
-        editar.initAvatar(avatarImg);
+        if (edit) {
+            editar.initAvatar(avatarImg);
+        } else {
+            registro.initAvatar(avatarImg);
+        }
 
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -267,8 +298,12 @@ public class Seleccionar_avatarController {
 
     private void cerrarVentana(Image miAvatar) throws IOException {
         avatarImg = miAvatar;
-        if(registro != null) registro.initAvatar(avatarImg);
-        if(editar != null) editar.initAvatar(avatarImg);
+        if (registro != null) {
+            registro.initAvatar(avatarImg);
+        }
+        if (editar != null) {
+            editar.initAvatar(avatarImg);
+        }
 
         stg.close();
     }
@@ -286,7 +321,9 @@ public class Seleccionar_avatarController {
                 Files.copy(pngImage.toPath(), src.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 cerrarVentana(miAvatar);
 
-            } catch (IOException ex) {}
-        } catch (Exception e) {}
+            } catch (IOException ex) {
+            }
+        } catch (Exception e) {
+        }
     }
 }
