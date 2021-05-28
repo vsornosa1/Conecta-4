@@ -29,6 +29,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -103,12 +105,11 @@ public class RegistroController implements Initializable {
     public void initTema(boolean b) {
         tema = b;
         if (!b) {
-                pane.setStyle(" -fx-background-color: #14213c;");
-            } else {
-                pane.setStyle("-fx-background-color: #EBBCE1;");
-            }
+            pane.setStyle(" -fx-background-color: #14213c;");
+        } else {
+            pane.setStyle("-fx-background-color: #EBBCE1;");
+        }
     }
-    
 
     public void initController(RegistroController registro) {
         this.registro = registro;
@@ -398,6 +399,138 @@ public class RegistroController implements Initializable {
             text_vpass.setVisible(false);
             v.setVisible(true);
             nv.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void comprobarRegistrok(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            if (!cn4.exitsNickName(text_user.getText())) {
+                msj_alerta.setText("");
+            } else {
+                msj_alerta.setText("¡Usuario ya existente!");
+            }
+
+            if (!Player.checkNickName(text_user.getText())) {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("Error al registrarse");
+                alert.setHeaderText("Error en el nombre de usuario");
+                alert.setContentText("El nombre debe contener entre 6 y 15 caracteres, mayusculas y minusculas o los caracteres '-' '_'");
+
+                alert.showAndWait();
+                text_user.setText(null);
+            } else {
+                if (!Player.checkEmail(text_mail.getText())) {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Error al registrarse");
+                    alert.setHeaderText("Error en el correo electrónico");
+                    alert.setContentText("El correo electrónico no se corresponde con ningun correo existente");
+
+                    alert.showAndWait();
+                    text_mail.setText(null);
+
+                } else {
+                    if (!Player.checkPassword(text_pass.getText())) {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Error al registrarse");
+                        alert.setHeaderText("Error en la contraseña");
+                        alert.setContentText(
+                                "La contraseña debe contener: \n -entre 8 y 20 caracteres\n -al menos una letra mayuscula\n -al menos una letra minúscula\n -al menos un dígito\n -un carácter especial del conjunto:\n"
+                                + "!@#$%&*()-+=\n y no debe contener espacios en blanco");
+
+                        alert.showAndWait();
+                        text_pass.setText(null);
+                    } else {
+                        if (fecha_nacimiento.getValue() == null) {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setTitle("Error al registrarse");
+                            alert.setHeaderText("Error en la fecha de nacimiento");
+                            alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
+
+                            alert.showAndWait();
+                        } else {
+                            if (LocalDate.now().minusYears(12).getYear() < fecha_nacimiento.getValue().getYear()) {
+                                Alert alert = new Alert(AlertType.WARNING);
+                                alert.setTitle("Error al registrarse");
+                                alert.setHeaderText("Error en la fecha de nacimiento");
+                                alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
+
+                                alert.showAndWait();
+                            }
+                        }
+                    }
+                }
+            }
+
+            try {
+                if (Player.checkNickName(text_user.getText())
+                        && Player.checkPassword(text_pass.getText())
+                        && Player.checkEmail(text_mail.getText())
+                        && fecha_nacimiento != null && LocalDate.now().minusYears(12).getYear() >= fecha_nacimiento.getValue().getYear()) {
+                    if (avatarImg != null) {
+                        cn4.registerPlayer(text_user.getText(), text_mail.getText(), text_pass.getText(), avatarImg, fecha_nacimiento.getValue(), 0);
+                    } else {
+                        cn4.registerPlayer(text_user.getText(), text_mail.getText(), text_pass.getText(), avatard, fecha_nacimiento.getValue(), 0);
+                    }
+
+                    newPlayer = cn4.getPlayer(text_user.getText());
+                    if (newPlayer == null) {
+                    }
+                    final Node source = (Node) event.getSource();
+                    final Stage stage = (Stage) source.getScene().getWindow();
+                    if (from == 1) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("partida_doble.fxml"));
+                        Parent newRoot = loader.load();
+
+                        Partida_dobleController menu = loader.getController();
+                        menu.initData(cn4, pl1, newPlayer);
+                        menu.initMusic(mediaPlayer, music_check.isSelected());
+                        Scene scene = new Scene(newRoot);
+                        Stage newStage = new Stage();
+                        newStage.setMinWidth(875);
+                        newStage.setMinHeight(865);
+                        newStage.setScene(scene);
+
+                        newStage.show();
+                        st.close();
+                        stage.close();
+                    }
+                    if (from == 0) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
+                        Parent newRoot = loader.load();
+                        Menu_principalController menu_p = loader.getController();
+
+                        System.out.println(newPlayer);
+                        menu_p.initData(cn4, newPlayer);
+                        menu_p.initMusic(mediaPlayer, music_check.isSelected());
+                        menu_p.initController(menu_p);
+                        Scene scene = new Scene(newRoot);
+                        Stage newStage = new Stage();
+                        newStage.setScene(scene);
+                        newStage.setResizable(false);
+
+                        newStage.show();
+
+                        stage.close();
+                    }
+                    if (from == 2) {
+                        thisController.initData(cn4, pl1, newPlayer);
+                        thisController.initMusic(mediaPlayer, music_check.isSelected());
+                        thisController.initPerfil(true);
+                        stage.close();
+                    }
+                    if (from == 3) {
+                        thisController.initData(cn4, newPlayer);
+                        thisController.initMusic(mediaPlayer, music_check.isSelected());
+                        thisController.initPerfil(true);
+                        stage.close();
+                    }
+
+                }
+            } catch (Connect4DAOException connect4DAOException) {
+            } catch (IOException iOException) {
+            } catch (NullPointerException npe) {
+            }
         }
     }
 

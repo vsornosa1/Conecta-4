@@ -22,6 +22,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
@@ -105,12 +107,12 @@ public class Editar_perfilController implements Initializable {
         player1 = p1;
         menu = controladorMenu;
         nombreP1.setText(player1.getNickName());
-        suAvatar.setImage(player1.getAvatar());
+        initAvatar(p1.getAvatar());
         this.editar = editar;
         text_mail.setText(p1.getEmail());
         fecha_nacimiento.setValue(p1.getBirthdate());
         text_pass.setText(p1.getPassword());
-        sec = false;
+        sec = true;
     }
 
     public void initData(Connect4 con4, Stage st, Player p1, Player pl2, Menu_principalController controladorMenu, Editar_perfilController editar, boolean sec) {
@@ -121,13 +123,13 @@ public class Editar_perfilController implements Initializable {
         menu = controladorMenu;
         if (sec) {
             nombreP1.setText(player1.getNickName());
-            suAvatar.setImage(player1.getAvatar());
+            initAvatar(p1.getAvatar());
             text_mail.setText(p1.getEmail());
             fecha_nacimiento.setValue(p1.getBirthdate());
             text_pass.setText(p1.getPassword());
         } else {
             nombreP1.setText(player2.getNickName());
-            suAvatar.setImage(player2.getAvatar());
+            initAvatar(pl2.getAvatar());
             text_mail.setText(player2.getEmail());
             fecha_nacimiento.setValue(player2.getBirthdate());
             text_pass.setText(player2.getPassword());
@@ -188,38 +190,30 @@ public class Editar_perfilController implements Initializable {
         if (Player.checkPassword(text_pass.getText())
                 && Player.checkEmail(text_mail.getText())
                 && fecha_nacimiento != null) {
-            if (avatarImg != null) {
-                try {
-                    if (sec) {
-                        player1.setPassword(text_pass.getText());
-                        player1.setEmail(text_mail.getText());
-                        player1.setBirthdate(fecha_nacimiento.getValue());
-                        player1.setAvatar(avatarImg);
-                    } else {
-                        player2.setPassword(text_pass.getText());
-                        player2.setEmail(text_mail.getText());
-                        player2.setBirthdate(fecha_nacimiento.getValue());
-                        player2.setAvatar(avatarImg);
-                    }
 
-                } catch (Connect4DAOException ex) {
-                }
-            } else {
-                try {
+            try {
+                if (sec) {
                     player1.setPassword(text_pass.getText());
                     player1.setEmail(text_mail.getText());
                     player1.setBirthdate(fecha_nacimiento.getValue());
-
-                } catch (Connect4DAOException ex) {
+                    player1.setAvatar(avatarImg);
+                } else {
+                    player2.setPassword(text_pass.getText());
+                    player2.setEmail(text_mail.getText());
+                    player2.setBirthdate(fecha_nacimiento.getValue());
+                    player2.setAvatar(avatarImg);
                 }
+
+            } catch (Connect4DAOException ex) {
             }
+
             if (player2 == null) {
                 menu.initData(cn4, player1);
             } else {
                 menu.initData(cn4, player1, player2);
             }
             menu.initMusic(mediaPlayer, music_check.isSelected());
-            menu.initPerfil(true);
+            menu.initPerfil(sec);
 
             final Node source = (Node) event.getSource();
             final Stage stage = (Stage) source.getScene().getWindow();
@@ -269,6 +263,67 @@ public class Editar_perfilController implements Initializable {
             text_vpass.setVisible(false);
             v.setVisible(true);
             nv.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void comprobarRegistrok(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            if (!Player.checkPassword(text_pass.getText())) {
+                error_pass.setVisible(true);
+            } else {
+                error_pass.setVisible(false);
+            }
+
+            if (!Player.checkEmail(text_mail.getText())) {
+                error_mail.setVisible(true);
+            } else {
+                error_mail.setVisible(false);
+            }
+
+            if (fecha_nacimiento.getValue() == null) {
+                error_fecha.setText("Campo obligatorio");
+                error_fecha.setVisible(true);
+            } else {
+                error_fecha.setVisible(true);
+            }
+
+            if (fecha_nacimiento.getValue().getYear() > 2009) {
+                error_fecha.setText("Debes ser mayor de 12 años");
+                error_fecha.setVisible(true);
+            }
+            if (Player.checkPassword(text_pass.getText())
+                    && Player.checkEmail(text_mail.getText())
+                    && fecha_nacimiento != null) {
+
+                try {
+                    if (sec) {
+                        player1.setPassword(text_pass.getText());
+                        player1.setEmail(text_mail.getText());
+                        player1.setBirthdate(fecha_nacimiento.getValue());
+                        player1.setAvatar(avatarImg);
+                    } else {
+                        player2.setPassword(text_pass.getText());
+                        player2.setEmail(text_mail.getText());
+                        player2.setBirthdate(fecha_nacimiento.getValue());
+                        player2.setAvatar(avatarImg);
+                    }
+
+                } catch (Connect4DAOException ex) {
+                }
+
+                if (player2 == null) {
+                    menu.initData(cn4, player1);
+                } else {
+                    menu.initData(cn4, player1, player2);
+                }
+                menu.initMusic(mediaPlayer, music_check.isSelected());
+                menu.initPerfil(sec);
+
+                final Node source = (Node) event.getSource();
+                final Stage stage = (Stage) source.getScene().getWindow();
+                stage.close();
+            }
         }
     }
 

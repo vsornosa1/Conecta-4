@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -28,7 +29,7 @@ public class Main extends Application {
         Parent newRoot = loader.load();
 //        newRoot.getStylesheets().add("modo_dia.css");
         Scene scene = new Scene(newRoot);
-        
+
 
         stage.setScene(scene);
                 

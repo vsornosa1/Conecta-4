@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="341.0" styleClass="primary-dark-color" stylesheets="@modo_dia.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.LoginController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#logk" prefHeight="621.0" prefWidth="341.0" styleClass="primary-dark-color" stylesheets="@modo_dia.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="conecta4.LoginController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="111.0" layoutX="-4.0" layoutY="-13.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-rotate: -1.5;" width="350.0">
          <fill>
@@ -39,14 +39,6 @@
          </cursor>
       </Text>
       <Hyperlink fx:id="link_recu" layoutX="107.0" layoutY="264.0" onMouseClicked="#recu" prefHeight="25.0" prefWidth="127.0" text="Olvidé mi contraseña" textFill="#fca311" />
-      <JFXPasswordField fx:id="text_pass" focusColor="#fca311" labelFloat="true" layoutX="57.0" layoutY="195.0" prefHeight="30.0" prefWidth="186.0" promptText="Contraseña" unFocusColor="#e5e5e5">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <effect>
-            <ColorAdjust brightness="0.85" contrast="0.2" />
-         </effect>
-      </JFXPasswordField>
       <JFXTextField fx:id="text_user" focusColor="#fca311" labelFloat="true" layoutX="57.0" layoutY="135.0" prefHeight="28.0" prefWidth="223.0" promptText="ID Usuario" stylesheets="@modo_dia.css" unFocusColor="#e5e5e5">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -55,7 +47,23 @@
             <ColorAdjust brightness="0.85" contrast="0.2" />
          </effect>
       </JFXTextField>
-      <JFXButton fx:id="boton_log" buttonType="RAISED" layoutX="181.0" layoutY="313.0" onMouseClicked="#log" prefHeight="39.0" prefWidth="99.0" style="-fx-background-color: #e5e5e5;" text="Log in" textFill="#14213d">
+      <JFXPasswordField fx:id="text_pass" focusColor="#fca311" labelFloat="true" layoutX="57.0" layoutY="195.0" prefHeight="30.0" prefWidth="186.0" promptText="Contraseña" unFocusColor="#e5e5e5">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+      </JFXPasswordField>
+      <JFXTextField fx:id="text_vpass" focusColor="#fca311" labelFloat="true" layoutX="57.0" layoutY="195.0" prefHeight="30.0" prefWidth="186.0" promptText="Contraseña" unFocusColor="#e5e5e5" visible="false">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <effect>
+            <ColorAdjust brightness="0.85" contrast="0.2" />
+         </effect>
+      </JFXTextField>
+      <JFXButton fx:id="boton_log" buttonType="RAISED" layoutX="181.0" layoutY="313.0" onKeyPressed="#logk" onMouseClicked="#log" prefHeight="39.0" prefWidth="99.0" style="-fx-background-color: #e5e5e5;" text="Log in" textFill="#14213d">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -128,14 +136,6 @@
             <Image url="@../images/novisible.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="text_vpass" focusColor="#fca311" labelFloat="true" layoutX="57.0" layoutY="195.0" prefHeight="30.0" prefWidth="186.0" promptText="Contraseña" unFocusColor="#e5e5e5" visible="false">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <effect>
-            <ColorAdjust brightness="0.85" contrast="0.2" />
-         </effect>
-      </JFXTextField>
       <JFXToggleButton fx:id="tema_check" layoutX="1.0" layoutY="568.0" nodeOrientation="LEFT_TO_RIGHT" text="Tema" textFill="#e5e5e5" toggleColor="#3d5fa4" toggleLineColor="#a8d0f5" unToggleColor="#fca311" unToggleLineColor="#d7d4d4">
          <font>
             <Font name="Trebuchet MS" size="14.0" />

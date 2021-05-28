@@ -78,7 +78,8 @@ public class RecuperarController {
                     Stage newStage = new Stage();
                     Node source = (Node) event.getSource();
                     Stage stage = (Stage) source.getScene().getWindow();
-                    p1.initData(cn4, player1, stage);p1.initTema(tema);
+                    p1.initData(cn4, player1, stage);
+                    p1.initTema(tema);
                     newStage.setScene(scene);
                     newStage.setResizable(false);
                     newStage.initModality(Modality.APPLICATION_MODAL);

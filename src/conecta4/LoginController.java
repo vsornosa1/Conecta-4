@@ -24,6 +24,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
@@ -160,9 +163,11 @@ public class LoginController implements Initializable {
 
     @FXML
     private void log(MouseEvent event) throws Exception {
+        final Node source = (Node) event.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
         player1 = cn4.loginPlayer(text_user.getText(), text_pass.getText());
         if (player1 != null && !player1.equals(invitado)) {
-            menu_load(event, player1);
+            menu_load(stage, player1);
         } else {
             error.setVisible(true);
         }
@@ -193,12 +198,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private void invitado(MouseEvent event) {
-        menu_load(event, invitado);
-    }
-
-    private void menu_load(MouseEvent event, Player pl) {
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
+        menu_load(stage, invitado);
+    }
+
+    private void menu_load(Stage stage, Player pl) {
         if (log_guest) {
             menu.initData(cn4, pl);
             menu.initMusic(mediaPlayer, music.isSelected());
@@ -266,6 +271,20 @@ public class LoginController implements Initializable {
             text_vpass.setVisible(false);
             v.setVisible(true);
             nv.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void logk(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            final Node source = (Node) event.getSource();
+            final Stage stage = (Stage) source.getScene().getWindow();
+            player1 = cn4.loginPlayer(text_user.getText(), text_pass.getText());
+            if (player1 != null && !player1.equals(invitado)) {
+                menu_load(stage, player1);
+            } else {
+                error.setVisible(true);
+            }
         }
     }
 }
