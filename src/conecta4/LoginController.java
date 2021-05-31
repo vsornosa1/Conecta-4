@@ -7,24 +7,23 @@ import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -106,14 +105,14 @@ public class LoginController implements Initializable {
         from = 0;
         try {
             cn4 = Connect4.getSingletonConnect4();
+            cn4.removeAllData();
+            cn4.createDemoData(20, 5, 30);
+            cn4.registerPlayer("invitado", "invitado@domain.es", "invitado", avatarDef, LocalDate.MIN, 999);
             invitado = cn4.getPlayer("invitado");
-//            cn4.removeAllData();
-//            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789",avatar3,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("PepeGaming", "email2@domain.es", "Aa-123456789",avatar1,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789",avatar5,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("a", "a", "a", avatar6,LocalDate.now().minusYears(18), 0);
-//            cn4.registerPlayer("invitado", "invitado@domain.es", "invitado", avatarDef, LocalDate.MIN, 0);
-
+            cn4.registerPlayer("PlayfulPaco", "email1@domain.es", "Aa-123456789", avatar3, LocalDate.now().minusYears(18), 1050);
+            cn4.registerPlayer("JoseGaming", "email3@domain.es", "Aa-123456789", avatar5, LocalDate.now().minusYears(18), 5500);
+            cn4.registerPlayer("a", "a", "a", avatar6, LocalDate.now().minusYears(18), 4995);
+            
         } catch (Connect4DAOException e) {
         }
     }
@@ -155,8 +154,26 @@ public class LoginController implements Initializable {
         public void changed(ObservableValue observable, Object oldVal, Object newVal) {
             if (!tema_check.isSelected()) {
                 pane.setStyle(" -fx-background-color: #14213c;");
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setContrast(0.2);
+                colorAdjust.setHue(0);
+                colorAdjust.setBrightness(0.85);
+                colorAdjust.setSaturation(0);
+                text_pass.setEffect(colorAdjust);
+                text_user.setEffect(colorAdjust);
+                text_vpass.setEffect(colorAdjust);
+                link_recu.setEffect(colorAdjust);
             } else {
                 pane.setStyle("-fx-background-color: #EBBCE1;");
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setContrast(1);
+                colorAdjust.setHue(1);
+                colorAdjust.setBrightness(-0.85);
+                colorAdjust.setSaturation(1);
+                text_pass.setEffect(colorAdjust);
+                text_user.setEffect(colorAdjust);
+                text_vpass.setEffect(colorAdjust);
+                link_recu.setEffect(colorAdjust);
             }
         }
     };
@@ -211,11 +228,9 @@ public class LoginController implements Initializable {
             stage.close();
         } else {
             try {
-                // 1. Loader
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
                 Parent newRoot = loader.load();
 
-                // 2. Controller, scene & stage
                 Menu_principalController menu_p = loader.getController();
                 menu_p.initController(menu_p);
                 menu_p.initData(cn4, pl);
@@ -225,11 +240,8 @@ public class LoginController implements Initializable {
                 Stage newStage = new Stage();
                 newStage.setScene(scene);
                 newStage.setResizable(false);
-
-                // 3. Mostrar nueva ventana
                 newStage.show();
 
-                // 4. Cierre de la ventana
                 stage.close();
             } catch (IOException e) {
                 System.out.println(e);

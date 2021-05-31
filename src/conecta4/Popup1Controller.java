@@ -5,15 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
-
 import javafx.stage.Stage;
 import javafx.scene.Node;
-
 import javafx.scene.text.Text;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
-
 import model.Player;
 import model.Connect4;
 

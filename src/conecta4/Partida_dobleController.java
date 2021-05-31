@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.File;
 import java.io.IOException;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

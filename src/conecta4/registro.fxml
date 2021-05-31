@@ -109,7 +109,7 @@
             <Font name="Trebuchet MS" size="13.0" />
          </font>
       </JFXButton>
-      <Hyperlink layoutX="66.0" layoutY="443.0" onMouseClicked="#seleccionarAvatar" prefHeight="25.0" prefWidth="168.0" text="Seleccionar avatar (opcional)" textFill="#fca311" />
+      <Hyperlink fx:id="sel" layoutX="66.0" layoutY="443.0" onMouseClicked="#seleccionarAvatar" prefHeight="25.0" prefWidth="168.0" text="Seleccionar avatar (opcional)" textFill="#fca311" />
       <ImageView fx:id="flecha" fitHeight="35.0" fitWidth="31.0" layoutX="24.0" layoutY="16.0" onMouseClicked="#atras" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/60577.png" />

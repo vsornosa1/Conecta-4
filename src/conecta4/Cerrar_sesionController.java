@@ -151,62 +151,23 @@ public class Cerrar_sesionController implements Initializable, ActionListener {
                 System.out.println(e);
             }
         } else if (check1.isSelected() && !check2.isSelected()) {
-//            try {
-//                // 1. Loader
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
-//                Parent newRoot = loader.load();
-//                
-//                // 2. Controller, scene & stage
-//                Menu_principalController menu_p = loader.getController();
-//                menu_p.initData(cn4, player2);
-//                menu_p.initMusic(mediaPlayer, b);
-//                menu_p.initController(menu_p);
-//                Scene scene = new Scene(newRoot);
-//                Stage newStage = new Stage();
-//                newStage.setScene(scene);
-//                newStage.setResizable(false);
-//                // 3. Mostrar nueva ventana
-//                newStage.show();
-//                
-//                // 4. Cierre de la ventana
+
             thisController.initData(cn4, player2);
             thisController.initPerfil(true);
             final Node source = (Node) event.getSource();
             final Stage stage = (Stage) source.getScene().getWindow();
-//                oldStage.close();
             stage.close();
 
-//            } catch (IOException e) {
-//                System.out.println(e);
-//            }
+
         } else if (!check1.isSelected() && check2.isSelected()) {
-//        try {
-//                // 1. Loader
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_principal.fxml"));
-//                Parent newRoot = loader.load();
-//                
-//                // 2. Controller, scene & stage
-//                Menu_principalController menu_p = loader.getController();
-//                menu_p.initData(cn4, player1);
-//                menu_p.initMusic(mediaPlayer, b);
-//                menu_p.initController(menu_p);
-//                Scene scene = new Scene(newRoot);
-//                Stage newStage = new Stage();
-//                newStage.setScene(scene);
-//                newStage.setResizable(false);
-//                // 3. Mostrar nueva ventana
-//                newStage.show();
+
             thisController.initData(cn4, player1);
             thisController.initPerfil(true);
-            // 4. Cierre de la ventana
+
             final Node source = (Node) event.getSource();
             final Stage stage = (Stage) source.getScene().getWindow();
-//                oldStage.close();
             stage.close();
-//
-//            } catch (IOException e) {
-//                System.out.println(e);
-//            }
+
         }
     }
 

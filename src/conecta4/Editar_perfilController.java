@@ -8,9 +8,8 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +19,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -28,7 +30,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Connect4;
 import model.Player;
@@ -85,6 +86,8 @@ public class Editar_perfilController implements Initializable {
     private JFXButton modb;
     @FXML
     private AnchorPane pane;
+    @FXML
+    private Hyperlink sel;
 
     public void initialize(URL url, ResourceBundle rb) {
         text_vpass.textProperty().bindBidirectional(text_pass.textProperty());
@@ -96,8 +99,32 @@ public class Editar_perfilController implements Initializable {
         tema = b;
         if (!b) {
             pane.setStyle(" -fx-background-color: #14213c;");
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setContrast(0.2);
+            colorAdjust.setHue(0);
+            colorAdjust.setBrightness(0.85);
+            colorAdjust.setSaturation(0);
+            text_mail.setEffect(colorAdjust);
+            text_pass.setEffect(colorAdjust);
+            nombreP1.setEffect(colorAdjust);
+            text_vpass.setEffect(colorAdjust);
+            fecha_nacimiento.setEffect(colorAdjust);
+            sel.setEffect(colorAdjust);
+
         } else {
             pane.setStyle("-fx-background-color: #EBBCE1;");
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setContrast(1);
+            colorAdjust.setHue(1);
+            colorAdjust.setBrightness(-0.85);
+            colorAdjust.setSaturation(1);
+            text_mail.setEffect(colorAdjust);
+            text_pass.setEffect(colorAdjust);
+            nombreP1.setEffect(colorAdjust);
+            text_vpass.setEffect(colorAdjust);
+            fecha_nacimiento.setEffect(colorAdjust);
+            sel.setEffect(colorAdjust);
+
         }
     }
 
@@ -164,34 +191,50 @@ public class Editar_perfilController implements Initializable {
 
     @FXML
     private void comprobarRegistro(MouseEvent event) throws IOException {
-        if (!Player.checkPassword(text_pass.getText())) {
-            error_pass.setVisible(true);
-        } else {
-            error_pass.setVisible(false);
-        }
-
         if (!Player.checkEmail(text_mail.getText())) {
-            error_mail.setVisible(true);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error al registrarse");
+            alert.setHeaderText("Error en el correo electrónico");
+            alert.setContentText("El correo electrónico no se corresponde con ningun correo existente");
+
+            alert.showAndWait();
+            text_mail.setText(null);
+
         } else {
-            error_mail.setVisible(false);
-        }
+            if (!Player.checkPassword(text_pass.getText())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error al registrarse");
+                alert.setHeaderText("Error en la contraseña");
+                alert.setContentText(
+                        "La contraseña debe contener: \n -entre 8 y 20 caracteres\n -al menos una letra mayuscula\n -al menos una letra minúscula\n -al menos un dígito\n -un carácter especial del conjunto:\n"
+                        + "!@#$%&*()-+=\n y no debe contener espacios en blanco");
 
-        if (fecha_nacimiento.getValue() == null) {
-            error_fecha.setText("Campo obligatorio");
-            error_fecha.setVisible(true);
-        } else {
-            error_fecha.setVisible(true);
-        }
+                alert.showAndWait();
+                text_pass.setText(null);
+            } else {
+                if (fecha_nacimiento.getValue() == null) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error al registrarse");
+                    alert.setHeaderText("Error en la fecha de nacimiento");
+                    alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
 
-        if (fecha_nacimiento.getValue().getYear() > 2009) {
-            error_fecha.setText("Debes ser mayor de 12 años");
-            error_fecha.setVisible(true);
-        }
-        if (Player.checkPassword(text_pass.getText())
-                && Player.checkEmail(text_mail.getText())
-                && fecha_nacimiento != null) {
+                    alert.showAndWait();
+                } else {
+                    if (LocalDate.now().minusYears(12).getYear() < fecha_nacimiento.getValue().getYear()) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Error al registrarse");
+                        alert.setHeaderText("Error en la fecha de nacimiento");
+                        alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
 
-            try {
+                        alert.showAndWait();
+                    }
+                }
+            }
+        }
+        try {
+            if (Player.checkPassword(text_pass.getText())
+                    && Player.checkEmail(text_mail.getText())
+                    && fecha_nacimiento != null && LocalDate.now().minusYears(12).getYear() >= fecha_nacimiento.getValue().getYear()) {
                 if (sec) {
                     player1.setPassword(text_pass.getText());
                     player1.setEmail(text_mail.getText());
@@ -203,22 +246,21 @@ public class Editar_perfilController implements Initializable {
                     player2.setBirthdate(fecha_nacimiento.getValue());
                     player2.setAvatar(avatarImg);
                 }
+                if (player2 == null) {
+                    menu.initData(cn4, player1);
+                } else {
+                    menu.initData(cn4, player1, player2);
+                }
+                menu.initMusic(mediaPlayer, music_check.isSelected());
+                menu.initPerfil(sec);
 
-            } catch (Connect4DAOException ex) {
+                final Node source = (Node) event.getSource();
+                final Stage stage = (Stage) source.getScene().getWindow();
+                stage.close();
             }
-
-            if (player2 == null) {
-                menu.initData(cn4, player1);
-            } else {
-                menu.initData(cn4, player1, player2);
-            }
-            menu.initMusic(mediaPlayer, music_check.isSelected());
-            menu.initPerfil(sec);
-
-            final Node source = (Node) event.getSource();
-            final Stage stage = (Stage) source.getScene().getWindow();
-            stage.close();
+        } catch (Connect4DAOException ex) {
         }
+
     }
 
     @FXML
@@ -241,6 +283,7 @@ public class Editar_perfilController implements Initializable {
         final Node source = (Node) event.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         selec_avatar.initStage(newStage, stage);
+        selec_avatar.initTema(tema);
     }
 
     @FXML
@@ -269,34 +312,50 @@ public class Editar_perfilController implements Initializable {
     @FXML
     private void comprobarRegistrok(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            if (!Player.checkPassword(text_pass.getText())) {
-                error_pass.setVisible(true);
-            } else {
-                error_pass.setVisible(false);
-            }
-
             if (!Player.checkEmail(text_mail.getText())) {
-                error_mail.setVisible(true);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Error al registrarse");
+                alert.setHeaderText("Error en el correo electrónico");
+                alert.setContentText("El correo electrónico no se corresponde con ningun correo existente");
+
+                alert.showAndWait();
+                text_mail.setText(null);
+
             } else {
-                error_mail.setVisible(false);
-            }
+                if (!Player.checkPassword(text_pass.getText())) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error al registrarse");
+                    alert.setHeaderText("Error en la contraseña");
+                    alert.setContentText(
+                            "La contraseña debe contener: \n -entre 8 y 20 caracteres\n -al menos una letra mayuscula\n -al menos una letra minúscula\n -al menos un dígito\n -un carácter especial del conjunto:\n"
+                            + "!@#$%&*()-+=\n y no debe contener espacios en blanco");
 
-            if (fecha_nacimiento.getValue() == null) {
-                error_fecha.setText("Campo obligatorio");
-                error_fecha.setVisible(true);
-            } else {
-                error_fecha.setVisible(true);
-            }
+                    alert.showAndWait();
+                    text_pass.setText(null);
+                } else {
+                    if (fecha_nacimiento.getValue() == null) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Error al registrarse");
+                        alert.setHeaderText("Error en la fecha de nacimiento");
+                        alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
 
-            if (fecha_nacimiento.getValue().getYear() > 2009) {
-                error_fecha.setText("Debes ser mayor de 12 años");
-                error_fecha.setVisible(true);
-            }
-            if (Player.checkPassword(text_pass.getText())
-                    && Player.checkEmail(text_mail.getText())
-                    && fecha_nacimiento != null) {
+                        alert.showAndWait();
+                    } else {
+                        if (LocalDate.now().minusYears(12).getYear() < fecha_nacimiento.getValue().getYear()) {
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Error al registrarse");
+                            alert.setHeaderText("Error en la fecha de nacimiento");
+                            alert.setContentText("Debes tener más de 12 años para poder crear una cuenta de Conecta4");
 
-                try {
+                            alert.showAndWait();
+                        }
+                    }
+                }
+            }
+            try {
+                if (Player.checkPassword(text_pass.getText())
+                        && Player.checkEmail(text_mail.getText())
+                        && fecha_nacimiento != null && LocalDate.now().minusYears(12).getYear() >= fecha_nacimiento.getValue().getYear()) {
                     if (sec) {
                         player1.setPassword(text_pass.getText());
                         player1.setEmail(text_mail.getText());
@@ -308,23 +367,23 @@ public class Editar_perfilController implements Initializable {
                         player2.setBirthdate(fecha_nacimiento.getValue());
                         player2.setAvatar(avatarImg);
                     }
+                    if (player2 == null) {
+                        menu.initData(cn4, player1);
+                    } else {
+                        menu.initData(cn4, player1, player2);
+                    }
+                    menu.initMusic(mediaPlayer, music_check.isSelected());
+                    menu.initPerfil(sec);
 
-                } catch (Connect4DAOException ex) {
+                    final Node source = (Node) event.getSource();
+                    final Stage stage = (Stage) source.getScene().getWindow();
+                    stage.close();
                 }
 
-                if (player2 == null) {
-                    menu.initData(cn4, player1);
-                } else {
-                    menu.initData(cn4, player1, player2);
-                }
-                menu.initMusic(mediaPlayer, music_check.isSelected());
-                menu.initPerfil(sec);
-
-                final Node source = (Node) event.getSource();
-                final Stage stage = (Stage) source.getScene().getWindow();
-                stage.close();
+            } catch (Connect4DAOException ex) {
             }
-        }
-    }
 
+        }
+
+    }
 }

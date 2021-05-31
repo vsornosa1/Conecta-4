@@ -12,7 +12,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -27,13 +26,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -93,6 +93,8 @@ public class RegistroController implements Initializable {
     private JFXButton regb;
     @FXML
     private AnchorPane pane;
+    @FXML
+    private Hyperlink sel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -106,8 +108,31 @@ public class RegistroController implements Initializable {
         tema = b;
         if (!b) {
             pane.setStyle(" -fx-background-color: #14213c;");
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setContrast(0.2);
+            colorAdjust.setHue(0);
+            colorAdjust.setBrightness(0.85);
+            colorAdjust.setSaturation(0);
+            text_mail.setEffect(colorAdjust);
+            text_pass.setEffect(colorAdjust);
+            text_user.setEffect(colorAdjust);
+            text_vpass.setEffect(colorAdjust);
+            fecha_nacimiento.setEffect(colorAdjust);
+            sel.setEffect(colorAdjust);
         } else {
             pane.setStyle("-fx-background-color: #EBBCE1;");
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setContrast(1);
+            colorAdjust.setHue(1);
+            colorAdjust.setBrightness(-0.85);
+            colorAdjust.setSaturation(1);
+            text_mail.setEffect(colorAdjust);
+            text_pass.setEffect(colorAdjust);
+            text_user.setEffect(colorAdjust);
+            text_vpass.setEffect(colorAdjust);
+            fecha_nacimiento.setEffect(colorAdjust);
+            sel.setEffect(colorAdjust);
+
         }
     }
 
@@ -284,7 +309,6 @@ public class RegistroController implements Initializable {
                     Parent newRoot = loader.load();
                     Menu_principalController menu_p = loader.getController();
 
-                    System.out.println(newPlayer);
                     menu_p.initData(cn4, newPlayer);
                     menu_p.initMusic(mediaPlayer, music_check.isSelected());
                     menu_p.initController(menu_p);
@@ -349,6 +373,7 @@ public class RegistroController implements Initializable {
 
             loginAmigo.initData(cn4, pl1, st, thisController);
             loginAmigo.initMusic(mediaPlayer, music_check.isSelected());
+            loginAmigo.initTema(tema);
         }
         if (from == 2) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("login_amigo.fxml"));
@@ -365,6 +390,7 @@ public class RegistroController implements Initializable {
 
             loginAmigo.initData(cn4, pl1, thisController);
             loginAmigo.initMusic(mediaPlayer, music_check.isSelected());
+            loginAmigo.initTema(tema);
 
         }
         if (from == 3) {
@@ -374,6 +400,7 @@ public class RegistroController implements Initializable {
             LoginController ld = loader.getController();
             ld.initData(cn4, st, thisController);
             ld.initMusic(mediaPlayer, music_check.isSelected());
+            ld.initTema(tema);
             Scene scene = new Scene(newRoot);
             Stage newStage = new Stage();
 

@@ -40,7 +40,7 @@
          </font>
       </Text>
       <Button layoutX="57.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#reg" prefHeight="39.0" prefWidth="99.0" style="-fx-background-color: #e5e5e5;" text="Registrar" />
-      <Hyperlink layoutX="106.0" layoutY="282.0" onMouseClicked="#recu" text="Olvidé mi contraseña" textFill="#fca311">
+      <Hyperlink fx:id="olv" layoutX="106.0" layoutY="282.0" onMouseClicked="#recu" text="Olvidé mi contraseña" textFill="#fca311">
          <font>
             <Font name="Trebuchet MS" size="13.0" />
          </font></Hyperlink>

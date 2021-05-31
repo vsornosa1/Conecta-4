@@ -8,8 +8,6 @@ import java.io.IOException;
 import static java.lang.Thread.sleep;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import javafx.fxml.FXML;
 import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
@@ -26,7 +24,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -36,7 +33,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
@@ -166,22 +162,10 @@ public class Partida_cpuController implements Initializable {
 
     public void initTema(boolean b) {
         tema = b;
-//        tema_check.selectedProperty().addListener(temaListener);
         tema_check.setSelected(b);
 
     }
-//    private ChangeListener temaListener = new ChangeListener() {
-//        @Override
-//        public void changed(ObservableValue observable, Object oldVal, Object newVal) {
-//            if (!tema_check.isSelected()) {
-//                pane.setStyle(" -fx-background-color: #14213c;");
-//                pane2.setStyle(" -fx-background-color: #14213c;");
-//            } else {
-//                pane.setStyle("-fx-background-color: #EBBCE1;");
-//                pane2.setStyle("-fx-background-color: #EBBCE1;");
-//            }
-//        }
-//    };
+
 
     private ChangeListener changeListener = new ChangeListener() {
         @Override
